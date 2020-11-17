@@ -1,2 +1,3 @@
 # Wortal
 Projekt aplikacji webowej dostępnej poprzez przeglądarkę internetową, pozwalającej na organizowanie wydarzeń typu gry sparingowe, mecze lub treningi piłkarskie. 
+Głównym zadaniem aplikacji jest ułatwienie komunikacji między graczami, sprawne dobieranie zawodników do spotkania oraz wyznaczanie optymalnego miejsca i czasu gry. Z Serwisu będą mogły skorzystać amatroskie drużyny piłkarskie poszukujące oponetnów do sparingów lub meczy, ale także pojedyncze osoby wypatrujące rekreacyjncych gier treningowych. Kluczowym elementem aplikacji będzie proces tworzenia wydarzenia sportowego tak aby jego warunki były optymalne dla wszystkich uczestników. 
