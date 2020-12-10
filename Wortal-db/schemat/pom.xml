@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>lab-dream</groupId>
+    <artifactId>database</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>6.1.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>9.1-901-1.jdbc4</version>
+                    </dependency>
+                </dependencies>
+
+                <configuration>
+                    <driver>org.postgresql.Driver</driver>
+                    <user>postgres</user>
+                    <password>labdream</password>
+                    <schemas>
+                        <schema>public</schema>
+                    </schemas>
+                    <url>jdbc:postgresql://localhost:5432/lab_dream</url>
+                    <locations>
+                        <location>filesystem:</location>
+                    </locations>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -7,16 +7,14 @@ import javax.persistence.*
 @Entity
 @Table(name = "users")
 class Users(
-        @Column(name = "name")
-        var name: String,
-        @Column(name = "lastname")
-        var lastname: String,
-        @Column(name = "team")
-        var team: String,
+        @Column(name = "fullname")
+        var fullname: String,
+        @Column(name = "position")
+        var position: String,
         @Column(name = "age")
         var age: String,
-        @Column(name = "login", unique = true)
-        var login: String,
+        @Column(name = "email", unique = true)
+        var email: String,
         @Column(name = "password")
         var password: String
 ) {
@@ -26,10 +24,10 @@ class Users(
     @Column(name = "id")
     val id: Int = -1
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "lab_id")
-//    @JsonManagedReference
-//    var laboratory: Laboratory?=null
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    @JsonManagedReference
+    var team: Teams?=null
 
 //    @OneToMany(cascade = [(CascadeType.ALL)], mappedBy = "reporter")
 //    @JsonBackReference

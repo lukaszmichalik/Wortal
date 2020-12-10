@@ -43,8 +43,8 @@ class UserController {
     @PostMapping("/register")
     fun save(@RequestBody data: UserData): Boolean {
         data.password = toMD5Hash(data.password)
-        var user = Users(data.name, data.lastname, data.team, data.age, data.login, data.password)
-        if (userRepository.findByLogin(user.login) == null) {
+        var user = Users(data.fullname, data.position, data.age, data.email, data.password)
+        if (userRepository.findByEmail(user.email) == null) {
             userRepository.save(user)
             return true
         }
@@ -54,7 +54,7 @@ class UserController {
     @PostMapping("/login")
     fun login(@RequestBody data: AuthData): Boolean {
         data.password = toMD5Hash(data.password)
-        if (userRepository.findByLoginAndPassword(data.login, data.password) != null) {
+        if (userRepository.findByEmailAndPassword(data.email, data.password) != null) {
             return true
         }
         return false
@@ -82,7 +82,7 @@ class UserController {
 
     @PostMapping("/getLogin")
     fun getLogin(@RequestBody data: IdData): String {
-        return userRepository.getOne(data.id).login
+        return userRepository.getOne(data.id).email
     }
 
     @PutMapping("/editUser")
@@ -90,11 +90,10 @@ class UserController {
         var user: Users? = null
         if (userRepository.existsById(data.id)) {
             user = userRepository.getOne(data.id)
-            user.name = data.name
-            user.lastname = data.lastname
-            user.team = data.company
-            user.age = data.role
-            user.login = data.login
+            user.fullname = data.fullname
+            user.position = data.position
+            user.age = data.age
+            user.email = data.email
             user.password = toMD5Hash(data.password)
             userRepository.save(user)
             return true

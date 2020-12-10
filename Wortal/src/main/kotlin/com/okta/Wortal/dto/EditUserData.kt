@@ -4,10 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator
 
 data class EditUserData @JsonCreator constructor(
         val id: Int,
-        val name: String,
-        val lastname: String,
-        val company: String,
-        val role: String,
-        val login: String,
+        val fullname: String,
+        val position: String,
+        val age: String,
+        val email: String,
         var password:String
 )
