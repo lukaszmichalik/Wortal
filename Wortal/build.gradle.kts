@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.4.10"
 	kotlin("plugin.spring") version "1.4.10"
 	kotlin("plugin.jpa") version "1.4.10"
+	id ("org.flywaydb.flyway") version "7.3.1"
 }
 
 group = "com.okta"
@@ -37,4 +38,12 @@ tasks.withType<KotlinCompile> {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "11"
 	}
+}
+
+flyway {
+	url = "jdbc:postgresql://localhost:5432/wortal_db"
+	user = "postgres"
+	password = "postgre"
+	//schemas = ["public"]
+	workingDirectory = "C:/dev/Wortal/Wortal"
 }

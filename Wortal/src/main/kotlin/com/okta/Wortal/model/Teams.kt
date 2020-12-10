@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference
 import javax.persistence.*
 
 @Entity
-@Table(name = "device")
+@Table(name = "teams")
 class Teams(
-        @Column(name = "type")
+        @Column(name = "name")
         val name: String,
-        @Column(name = "brand")
+        @Column(name = "location")
         val location: String
 ) {
     @Id
