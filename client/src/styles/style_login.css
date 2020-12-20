@@ -1,0 +1,52 @@
+#login_app {
+    background-image: url('../assets/dark_blue_1.png');
+    background-size: cover;
+  }
+  
+  #login_div {
+    text-align: center;
+  }
+  
+  #login_app_logo {
+    margin-top: 50px;
+    width: 45%;
+    max-width: 550px;
+  }
+  
+  #login_login {
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+  
+  #login_password {
+    margin-top: 5px;
+    margin-bottom: 60px;
+  }
+
+
+
+
+
+  @media screen and (max-width: 1200px) {
+    #login_app {
+      background-image: url('../assets/mobile_tablet_dark_blue_1.png');
+    }
+  }
+
+
+
+
+
+  @media screen and (max-width: 500px) {
+
+    #login_app {
+      background-image: url('../assets/mobile_dark_blue_1.png');
+    }
+    
+    #login_app_logo {
+      margin-top: 0%;
+      width: 65%;
+      max-width: 280px;
+    }
+  
+  }
