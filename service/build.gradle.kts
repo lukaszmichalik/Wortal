@@ -45,5 +45,5 @@ flyway {
 	user = "postgres"
 	password = "postgre"
 	//schemas = ["public"]
-	workingDirectory = "C:/dev/Wortal/Wortal"
+	workingDirectory = "C:/dev/Wortal/service"
 }
