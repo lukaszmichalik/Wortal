@@ -2,7 +2,7 @@ CREATE TABLE users(
     id integer PRIMARY KEY,
     fullname text,
     position text,
-    age text,
+    dob DATE,
 	role text,
 	email text  NOT NULL unique,
     password text NOT NULL,

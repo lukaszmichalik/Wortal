@@ -33,9 +33,9 @@
           <input
             id="register_age"
             class="global_login_or_register_data_input"
-            type="number"
+            type="date"
             placeholder="Wiek"
-            v-model.number="age">
+            v-model="dob">
         </div>
         <div class="input">
           <input
@@ -75,7 +75,7 @@
     data () {
       return {
         fullname: '',
-        age: null,
+        dob: null,
         email: '',
         password: '',
       }
@@ -84,7 +84,7 @@
       onSubmit () {
         const formData = {
           fullname: this.fullname,
-          age: this.age,
+          dob: this.dob,
           email: this.email,
           password: this.password,
         }

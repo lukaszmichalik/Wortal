@@ -2,6 +2,7 @@ package com.okta.Wortal.model
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
+import java.sql.Date
 import javax.persistence.*
 
 @Entity
@@ -11,8 +12,8 @@ class Users(
         var fullname: String,
         @Column(name = "position")
         var position: String?,
-        @Column(name = "age")
-        var age: String,
+        @Column(name = "dob")
+        var dob: Date,
         @Column(name = "email", unique = true)
         var email: String,
         @Column(name = "password")

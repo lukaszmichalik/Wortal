@@ -43,7 +43,7 @@ class UserController {
     @PostMapping("/register")
     fun save(@RequestBody data: UserData): Boolean {
         data.password = toMD5Hash(data.password)
-        var user = Users(data.fullname,null, data.age, data.email, data.password)
+        var user = Users(data.fullname,null, data.dob, data.email, data.password)
         if (userRepository.findByEmail(user.email) == null) {
             userRepository.save(user)
             return true
@@ -92,7 +92,7 @@ class UserController {
             user = userRepository.getOne(data.id)
             user.fullname = data.fullname
             user.position = data.position
-            user.age = data.age
+            user.dob = data.dob
             user.email = data.email
             user.password = toMD5Hash(data.password)
             userRepository.save(user)
