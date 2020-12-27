@@ -39,11 +39,11 @@ class UserController {
     @Autowired
     lateinit var userRepository: UserRepository
 
-
+    @CrossOrigin
     @PostMapping("/register")
     fun save(@RequestBody data: UserData): Boolean {
         data.password = toMD5Hash(data.password)
-        var user = Users(data.fullname, data.position, data.age, data.email, data.password)
+        var user = Users(data.fullname,null, data.age, data.email, data.password)
         if (userRepository.findByEmail(user.email) == null) {
             userRepository.save(user)
             return true

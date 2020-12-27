@@ -10,7 +10,7 @@ class Users(
         @Column(name = "fullname")
         var fullname: String,
         @Column(name = "position")
-        var position: String,
+        var position: String?,
         @Column(name = "age")
         var age: String,
         @Column(name = "email", unique = true)

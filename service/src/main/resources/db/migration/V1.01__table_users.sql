@@ -3,6 +3,7 @@ CREATE TABLE users(
     fullname text,
     position text,
     age text,
+	role text,
 	email text  NOT NULL unique,
     password text NOT NULL,
 	team_id integer
