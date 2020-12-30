@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import java.security.MessageDigest
 
+//md5 hashing methods for password
 fun byteArrayToHexString(array: Array<Byte>): String {
     val result = StringBuilder(array.size * 2)
 
@@ -38,6 +39,8 @@ fun toMD5Hash(text: String): String {
 class UserController {
     @Autowired
     lateinit var userRepository: UserRepository
+
+    val USERS: List<Users>? = null
 
     @CrossOrigin
     @PostMapping("/register")
@@ -101,53 +104,4 @@ class UserController {
         return false
     }
 
-//    @PostMapping("/login")
-//    fun login(@RequestBody data: AuthData): Boolean {
-//        data.password = toMD5Hash(data.password)
-//        if (userRepository.findByLoginAndPassword(data.login, data.password) != null) {
-//            return true
-//        }
-//        return false
-//    }
-//
-//    @PostMapping("/deleteUser")
-//    fun deleteUser(@RequestBody data: IdData): Boolean {
-//        if (userRepository.existsById(data.id)) {
-//            userRepository.deleteById(data.id)
-//            return true
-//        }
-//        return false
-//    }
-//
-//    @GetMapping("/allUsers")
-//    @ResponseBody
-//    fun allIssues(): List<Users> {
-//        // val result: MutableList<IssueData> = ArrayList()
-//        //  issueRepository.findAll().forEach {
-//        //     result.add( IssueData(it.descr,it.notif_d,it.state,it.priority,it.accept_d,it.solve_d))
-//        // }
-//        //    return result
-//        return userRepository.findAll()
-//    }
-//
-//    @PostMapping("/getLogin")
-//    fun getLogin(@RequestBody data: IdData): String {
-//        return userRepository.getOne(data.id).login
-//    }
-//
-//    @PutMapping("/editUser")
-//    fun editUser(@RequestBody data: EditUserData): Boolean {
-//        var user: Users? = null
-//        if (userRepository.existsById(data.id)) {
-//            user = userRepository.getOne(data.id)
-//            user.name = data.name
-//            user.lastname = data.lastname
-//            user.company = data.company
-//            user.role = data.role
-//            user.login = data.login
-//            user.password = toMD5Hash(data.password)
-//            userRepository.save(user)
-//            return true
-//        }
-//        return false
-    }
+}
