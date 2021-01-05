@@ -1,9 +1,11 @@
 <template>
-  <div class="container">
-    <header class="jumbotron">
-      <h3>{{content}}</h3>
-    </header>
-  </div>
+  <v-app>
+    <div class="container">
+      <header class="jumbotron">
+        <h3>{{content}}</h3>
+      </header>
+    </div>
+  </v-app>
 </template>
 
 <script>

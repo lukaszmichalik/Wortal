@@ -1,3 +1,4 @@
+import vuetify from './plugins/vuetify'
 import Vue from 'vue';
 import App from './App.vue';
 import { router } from './router';
@@ -6,6 +7,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VeeValidate from 'vee-validate';
 import Vuex from 'vuex';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
@@ -25,7 +27,9 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Vuex);
 
+
 new Vue({
+  vuetify,
   router,
   store,
   render: h => h(App)

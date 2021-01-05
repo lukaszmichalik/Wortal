@@ -1,68 +1,81 @@
 <template>
-  <div class="col-md-12">
-    <div class="card card-container">
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
-      <form name="form" @submit.prevent="handleRegister">
+<v-app id="register_app">
+    <div id="register_div" class="global_div">
+      <div
+          id="register_caption"
+          class="global_caption">
+          Utwórz konto
+        </div>
+    <form name="form" @submit.prevent="handleRegister">
+        
         <div v-if="!successful">
-          <div class="form-group">
-            <label for="username">Username</label>
+          <div class="input">
             <input
+              id="register_lastname"
+              class="global_login_or_register_data_input"
+              placeholder="Imię i Nazwisko"
               v-model="user.username"
               v-validate="'required|min:3|max:20'"
               type="text"
-              class="form-control"
-              name="username"
-            />
-            <div
-              v-if="submitted && errors.has('username')"
-              class="alert-danger"
-            >{{errors.first('username')}}</div>
+              name="username">
           </div>
-          <div class="form-group">
-            <label for="email">Email</label>
+          <div class="input">
             <input
+              id="register_age"
+              class="global_login_or_register_data_input"
+              type="date"
+              placeholder="Wiek"
+              v-model="user.dob"
+              name="dob">
+          </div>
+          <div class="input">
+            <input
+              id="register_login"
+              class="global_login_or_register_data_input"
+              type="email"
+              placeholder="Email"
               v-model="user.email"
               v-validate="'required|email|max:50'"
-              type="email"
-              class="form-control"
-              name="email"
-            />
-            <div
-              v-if="submitted && errors.has('email')"
-              class="alert-danger"
-            >{{errors.first('email')}}</div>
+              name = "email">
           </div>
-          <div class="form-group">
-            <label for="password">Password</label>
+          <div class="input">
             <input
+              id="register_password"
+              class="global_login_or_register_data_input"
+              type="password"
+              placeholder="Hasło"
               v-model="user.password"
               v-validate="'required|min:6|max:40'"
-              type="password"
-              class="form-control"
-              name="password"
-            />
-            <div
-              v-if="submitted && errors.has('password')"
-              class="alert-danger"
-            >{{errors.first('password')}}</div>
+              name="password">
           </div>
-          <div class="form-group">
-            <button class="btn btn-primary btn-block">Sign Up</button>
+          <div
+                v-if="submitted && errors.has('password')"
+                class="alert-danger"
+              >{{errors.first('password')}}</div>
+          <div class="submit">
+            <v-btn 
+              id="register_button_register" 
+              class="global_v_btn"
+              type="submit" 
+              >
+              UTWÓRZ KONTO
+            </v-btn>
           </div>
         </div>
       </form>
-
       <div
         v-if="message"
         class="alert"
         :class="successful ? 'alert-success' : 'alert-danger'"
       >{{message}}</div>
     </div>
-  </div>
+  </v-app> 
+
+
+
+
+
+
 </template>
 
 <script>
@@ -72,7 +85,7 @@ export default {
   name: 'Register',
   data() {
     return {
-      user: new User('', '', ''),
+      user: new User('','', '', ''),
       submitted: false,
       successful: false,
       message: ''
@@ -115,7 +128,7 @@ export default {
 </script>
 
 <style scoped>
-label {
+/* label {
   display: block;
   margin-top: 10px;
 }
@@ -146,5 +159,9 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
-}
+} */
+</style>
+
+<style>
+@import "../styles/style_register.css";
 </style>
