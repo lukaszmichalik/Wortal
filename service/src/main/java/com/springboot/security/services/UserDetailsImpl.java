@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.springboot.models.EPosition;
 import com.springboot.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,6 +20,8 @@ public class UserDetailsImpl implements UserDetails {
 
 	private String username;
 
+	private EPosition position;
+
 	private String email;
 
 	@JsonIgnore
@@ -26,10 +29,11 @@ public class UserDetailsImpl implements UserDetails {
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(Long id, String username, String email, String password,
+	public UserDetailsImpl(Long id, String username, EPosition position, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
+		this.position = position;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
@@ -43,6 +47,7 @@ public class UserDetailsImpl implements UserDetails {
 		return new UserDetailsImpl(
 				user.getId(),
 				user.getUsername(),
+				user.getPosition(),
 				user.getEmail(),
 				user.getPassword(),
 				authorities);
@@ -99,5 +104,9 @@ public class UserDetailsImpl implements UserDetails {
 			return false;
 		UserDetailsImpl user = (UserDetailsImpl) o;
 		return Objects.equals(id, user.id);
+	}
+
+	public EPosition getPosition() {
+		return position;
 	}
 }

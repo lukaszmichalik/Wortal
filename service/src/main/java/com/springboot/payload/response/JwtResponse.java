@@ -1,5 +1,8 @@
 package com.springboot.payload.response;
 
+import com.springboot.models.EPosition;
+
+import java.sql.Date;
 import java.util.List;
 
 public class JwtResponse {
@@ -7,13 +10,15 @@ public class JwtResponse {
 	private String type = "Bearer";
 	private Long id;
 	private String username;
+	private EPosition position;
 	private String email;
 	private List<String> roles;
 
-	public JwtResponse(String accessToken, Long id, String username, String email, List<String> roles) {
+	public JwtResponse(String accessToken, Long id, String username, EPosition position, String email, List<String> roles) {
 		this.token = accessToken;
 		this.id = id;
 		this.username = username;
+		this.position = position;
 		this.email = email;
 		this.roles = roles;
 	}
@@ -60,5 +65,13 @@ public class JwtResponse {
 
 	public List<String> getRoles() {
 		return roles;
+	}
+
+	public EPosition getPosition() {
+		return position;
+	}
+
+	public void setPosition(EPosition position) {
+		this.position = position;
 	}
 }
