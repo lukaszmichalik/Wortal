@@ -1,81 +1,81 @@
 <template>
-<v-app id="register_app">
-    <div id="register_div" class="global_div">
-      <div
-          id="register_caption"
-          class="global_caption">
-          Utwórz konto
-        </div>
-    <form name="form" @submit.prevent="handleRegister">
-        
-        <div v-if="!successful">
-          <div class="input">
-            <input
-              id="register_lastname"
-              class="global_login_or_register_data_input"
-              placeholder="Imię i Nazwisko"
-              v-model="user.username"
-              v-validate="'required|min:3|max:20'"
-              type="text"
-              name="username">
-          </div>
-          <div class="input">
-            <input
-              id="register_age"
-              class="global_login_or_register_data_input"
-              type="date"
-              placeholder="Wiek"
-              v-model="user.dob"
-              name="dob">
-          </div>
-          <div class="input">
-            <input
-              id="register_login"
-              class="global_login_or_register_data_input"
-              type="email"
-              placeholder="Email"
-              v-model="user.email"
-              v-validate="'required|email|max:50'"
-              name = "email">
-          </div>
-          <div class="input">
-            <input
-              id="register_password"
-              class="global_login_or_register_data_input"
-              type="password"
-              placeholder="Hasło"
-              v-model="user.password"
-              v-validate="'required|min:6|max:40'"
-              name="password">
-          </div>
-          <div
-                v-if="submitted && errors.has('password')"
+  <v-app id="register_app">
+      <div id="register_div" class="global_div">
+        <div id="register_caption" class="global_caption">Utwórz konto</div>
+        <form name="form" @submit.prevent="handleRegister">
+          <div v-if="!successful">
+            <div class="input">
+              <input
+                id="register_lastname"
+                class="global_login_or_register_data_input"
+                placeholder="Imię i Nazwisko"
+                v-model="user.username"
+                v-validate="'required|min:3|max:20'"
+                type="text"
+                name="username"
+              />
+              <div
+                v-if="submitted && errors.has('username')"
                 class="alert-danger"
-              >{{errors.first('password')}}</div>
-          <div class="submit">
-            <v-btn 
-              id="register_button_register" 
-              class="global_v_btn"
-              type="submit" 
               >
-              UTWÓRZ KONTO
-            </v-btn>
+                {{ errors.first('username') }}
+              </div>
+            </div>
+            <div class="input">
+              <input
+                id="register_age"
+                class="global_login_or_register_data_input"
+                type="date"
+                placeholder="Wiek"
+                v-model="user.dob"
+                name="dob"
+              />
+            </div>
+            <div class="input">
+              <input
+                id="register_login"
+                class="global_login_or_register_data_input"
+                type="email"
+                placeholder="Email"
+                v-model="user.email"
+                v-validate="'required|email|max:50'"
+                name="email"
+              />
+            </div>
+            <div class="input">
+              <input
+                id="register_password"
+                class="global_login_or_register_data_input"
+                type="password"
+                placeholder="Hasło"
+                v-model="user.password"
+                v-validate="'required|min:6|max:40'"
+                name="password"
+              />
+            </div>
+            <div v-if="submitted && errors.has('password')" class="alert-danger">
+              {{ errors.first('password') }}
+            </div>
+            <div class="submit">
+              <v-btn
+                id="register_button_register"
+                class="global_v_btn"
+                type="submit"
+              >
+                UTWÓRZ KONTO
+              </v-btn>
+            </div>
           </div>
+        </form>
+        <div
+          v-if="message"
+          class="alert"
+          :class="successful ? 'alert-success' : 'alert-danger'"
+        >
+          {{ message }}
         </div>
-      </form>
-      <div
-        v-if="message"
-        class="alert"
-        :class="successful ? 'alert-success' : 'alert-danger'"
-      >{{message}}</div>
-    </div>
-  </v-app> 
-
-
-
-
-
-
+      </div>
+  </v-app>
 </template>
 
 <script>
@@ -85,16 +85,16 @@ export default {
   name: 'Register',
   data() {
     return {
-      user: new User('','', '', ''),
+      user: new User('', '', '', ''),
       submitted: false,
       successful: false,
-      message: ''
+      message: '',
     };
   },
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
-    }
+    },
   },
   mounted() {
     if (this.loggedIn) {
@@ -105,16 +105,18 @@ export default {
     handleRegister() {
       this.message = '';
       this.submitted = true;
-      this.$validator.validate().then(isValid => {
+      this.$validator.validate().then((isValid) => {
         if (isValid) {
           this.$store.dispatch('auth/register', this.user).then(
-            data => {
+            (data) => {
               this.message = data.message;
               this.successful = true;
             },
-            error => {
+            (error) => {
               this.message =
-                (error.response && error.response.data && error.response.data.message) ||
+                (error.response &&
+                  error.response.data &&
+                  error.response.data.message) ||
                 error.message ||
                 error.toString();
               this.successful = false;
@@ -122,46 +124,12 @@ export default {
           );
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-/* label {
-  display: block;
-  margin-top: 10px;
-}
-
-.card-container.card {
-  max-width: 350px !important;
-  padding: 40px 40px;
-}
-
-.card {
-  background-color: #f7f7f7;
-  padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-.profile-img-card {
-  width: 96px;
-  height: 96px;
-  margin: 0 auto 10px;
-  display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-} */
-</style>
-
 <style>
-@import "../styles/style_register.css";
+@import '../styles/style_register.css';
+@import '../styles/style_global.css';
 </style>
