@@ -1,14 +1,23 @@
 package com.springboot.payload.request;
 
+import com.springboot.models.EPosition;
+
 import java.sql.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.*;
 
 public class SignupRequest {
     @NotBlank
     @Size(min = 3, max = 50)
     private String username;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private EPosition position;
 
     @NotBlank
     @Size(max = 50)
@@ -61,5 +70,13 @@ public class SignupRequest {
 
     public void setDob(Date dob) {
         this.dob = dob;
+    }
+
+    public EPosition getPosition() {
+        return position;
+    }
+
+    public void setPosition(EPosition position) {
+        this.position = position;
     }
 }
