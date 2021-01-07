@@ -83,7 +83,7 @@
 					<schemas>
 						<schema>public</schema>
 					</schemas>
-					<url>jdbc:postgresql://localhost:5432/wortal_test</url>
+					<url>jdbc:postgresql://localhost:5432/wortal_db</url>
 					<locations>
 						<location>filesystem:src/main/resources/db/migration</location>
 					</locations>
