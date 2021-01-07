@@ -4,42 +4,38 @@
       <div id="register_caption" class="global_caption">Utwórz konto</div>
       <form name="form" @submit.prevent="handleRegister">
         <div v-if="!successful">
+
           <div class="input">
+
             <input
-              id="register_lastname"
+              id="register_name"
               class="global_login_or_register_data_input"
               placeholder="Imię i Nazwisko"
-              v-model="user.username"
+              v-model="user.name"
               v-validate="'required|min:3|max:20'"
               type="text"
-              name="username"
+              name="name"
             />
-            <div
-              v-if="submitted && errors.has('username')"
-              class="alert-danger"
-            >
-              {{ errors.first('username') }}
-            </div>
+            
           </div>
-          <!-- <div class="input">
-              <input
-                id="register_lastname"
-                class="global_login_or_register_data_input"
-                type="date"
-                placeholder="Wiek"
-                v-model="user.dob"
-                name="dob"
-              />
-            </div> -->
+      
           <div class="input">
-            <select  id="register_position" class="global_login_or_register_data_input"   v-model="user.position">
+
+            <select  
+              id="register_position" 
+              class="global_login_or_register_data_input"
+              v-model="user.position">
+
               <option value="Napastnik">Napastnik</option>
               <option value="Obrońca">Obrońca</option>
               <option value="Bramkarz">Bramkarz</option>
               <option value="Pomocnik">Pomocnik</option>
+
             </select>
           </div>
+
           <div class="input">
+
             <input
               id="register_age"
               class="global_login_or_register_data_input"
@@ -48,10 +44,13 @@
               v-model="user.dob"
               name="dob"
             />
+
           </div>
+
           <div class="input">
+
             <input
-              id="register_login"
+              id="register_email"
               class="global_login_or_register_data_input"
               type="email"
               placeholder="Email"
@@ -59,8 +58,33 @@
               v-validate="'required|email|max:50'"
               name="email"
             />
+
           </div>
+
           <div class="input">
+
+            <input
+              id="register_username"
+              class="global_login_or_register_data_input"
+              placeholder="Login"
+              v-model="user.username"
+              v-validate="'required|min:3|max:20'"
+              type="text"
+              name="username"
+            />
+
+            <div
+              v-if="submitted && errors.has('username')"
+              class="alert-danger">
+
+              {{ errors.first('username') }}
+
+            </div>
+
+          </div>
+
+          <div class="input">
+
             <input
               id="register_password"
               class="global_login_or_register_data_input"
@@ -70,17 +94,28 @@
               v-validate="'required|min:6|max:40'"
               name="password"
             />
+
           </div>
-          <div v-if="submitted && errors.has('password')" class="alert-danger">
+          
+          <div 
+            v-if="submitted && errors.has('password')" 
+            class="alert-danger"
+          >
+            
             {{ errors.first('password') }}
+
           </div>
+
           <div class="submit">
+
             <v-btn
               id="register_button_register"
               class="global_v_btn"
               type="submit"
             >
+
               UTWÓRZ KONTO
+
             </v-btn>
           </div>
         </div>
@@ -103,7 +138,7 @@ export default {
   name: 'Register',
   data() {
     return {
-      user: new User('', 'Napastnik', '', '',''),
+      user: new User('', 'Napastnik', '', '','',''),
       submitted: false,
       successful: false,
       message: '',

@@ -33,6 +33,12 @@ export const router = new Router({
       component: () => import('./views/Profile.vue')
     },
     {
+      path: '/editProfile',
+      name: 'editProfile',
+      // lazy-loaded
+      component: () => import('./views/EditProfile.vue')
+    },
+    {
       path: '/admin',
       name: 'admin',
       // lazy-loaded

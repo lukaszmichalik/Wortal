@@ -1,5 +1,6 @@
 package com.springboot.security.services;
 
+import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -18,23 +19,29 @@ public class UserDetailsImpl implements UserDetails {
 
 	private Long id;
 
-	private String username;
+	private String name;
 
 	private EPosition position;
 
+	private Date dob;
+
 	private String email;
+
+	private String username;
 
 	@JsonIgnore
 	private String password;
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(Long id, String username, EPosition position, String email, String password,
+	public UserDetailsImpl(Long id, String name, EPosition position, Date dob, String email, String username, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
-		this.username = username;
+		this.name = name;
 		this.position = position;
+		this.dob = dob;
 		this.email = email;
+		this.username = username;
 		this.password = password;
 		this.authorities = authorities;
 	}
@@ -46,9 +53,11 @@ public class UserDetailsImpl implements UserDetails {
 
 		return new UserDetailsImpl(
 				user.getId(),
-				user.getUsername(),
+				user.getName(),
 				user.getPosition(),
+				user.getDob(),
 				user.getEmail(),
+				user.getUsername(),
 				user.getPassword(),
 				authorities);
 	}
@@ -62,18 +71,30 @@ public class UserDetailsImpl implements UserDetails {
 		return id;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public EPosition getPosition() {
+		return position;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
+
 	public String getEmail() {
 		return email;
 	}
 
 	@Override
-	public String getPassword() {
-		return password;
+	public String getUsername() {
+		return username;
 	}
 
 	@Override
-	public String getUsername() {
-		return username;
+	public String getPassword() {
+		return password;
 	}
 
 	@Override
@@ -106,7 +127,4 @@ public class UserDetailsImpl implements UserDetails {
 		return Objects.equals(id, user.id);
 	}
 
-	public EPosition getPosition() {
-		return position;
-	}
 }

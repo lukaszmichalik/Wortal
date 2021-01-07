@@ -22,13 +22,9 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-//	@NotBlank
-//	@Size(max = 50)
-//	private String name;
-
 	@NotBlank
 	@Size(max = 50)
-	private String username;
+	private String name;
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20)
@@ -41,6 +37,10 @@ public class User {
 	@Size(max = 50)
 	@Email
 	private String email;
+
+	@NotBlank
+	@Size(max = 50)
+	private String username;
 
 	@NotBlank
 	@Size(max = 120)
@@ -63,21 +63,25 @@ public class User {
 	public User() {
 	}
 
-	public User( String username, EPosition position, Date dob, String email, String password) {
-		this.username = username;
+	public User( String name, EPosition position, Date dob, String email, String username, String password ) {
+
+		this.name = name;
 		this.position = position;
 		this.dob = dob;
 		this.email = email;
-		this.password = password;
-
-	}
-	public User(String username,  Date dob, String email, String password) {
 		this.username = username;
-		this.dob = dob;
-		this.email = email;
 		this.password = password;
 
 	}
+
+	//remember that u can make other constructors that fits your needs
+//	public User(String username,  Date dob, String email, String password) {
+//		this.username = username;
+//		this.dob = dob;
+//		this.email = email;
+//		this.password = password;
+//
+//	}
 
 	public Long getId() {
 		return id;
@@ -87,13 +91,17 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
-	}
+	public String getName() { return name; }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	public void setName(String name) { this.name = name; }
+
+	public EPosition getPosition() { return position; }
+
+	public void setPosition(EPosition position) { this.position = position; }
+
+	public Date getDob() { return dob; }
+
+	public void setDob(Date dob) { this.dob = dob; }
 
 	public String getEmail() {
 		return email;
@@ -101,6 +109,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -118,13 +134,5 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-
-	public EPosition getPosition() { return position; }
-
-	public void setPosition(EPosition position) { this.position = position; }
-
-	public Date getDob() { return dob; }
-
-	public void setDob(Date dob) { this.dob = dob; }
 
 }
