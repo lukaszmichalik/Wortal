@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand navbar-blue bg-dark">
-      <a href class="navbar-brand" @click.prevent>bezKoder</a>
+      <v-app-bar-nav-icon id="toolbar_icon"  @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <a href class="navbar-brand" @click.prevent>BallWortal</a>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link to="/home" class="nav-link">
@@ -44,6 +45,19 @@
             <font-awesome-icon icon="sign-out-alt" />LogOut
           </a>
         </li>
+        <v-navigation-drawer app v-model="drawer" temporary id="navigation_drawer">
+            
+            <v-col>
+              <v-btn id="navigation_drawer_button_your_events" to="/YourEvents" class="navigation_drawer_v_btn_blue">Twoje wydarzenia</v-btn>
+              <v-btn id="navigation_drawer_button_all_events" to="/AllEvents" class="navigation_drawer_v_btn_blue">Wszystkie wydarzenia</v-btn>
+              <v-btn id="navigation_drawer_button_create_event" to="/CreateEvent" class="navigation_drawer_v_btn_blue">Utwórz wydarzenie</v-btn>
+              <v-btn id="navigation_drawer_button_your_teams" to="/YourTeams" class="navigation_drawer_v_btn_green">Twoje drużyny</v-btn>
+              <v-btn id="navigation_drawer_button_all_teams" to="/AllTeams" class="navigation_drawer_v_btn_green">Wszystkie drużyny</v-btn>
+              <v-btn id="navigation_drawer_button_create_team" to="/CreateTeam" class="navigation_drawer_v_btn_green">Utwórz drużynę</v-btn>
+              <v-btn id="navigation_drawer_button_user_profile" to="/Profile" class="navigation_drawer_v_btn_red">Profil użytkownika</v-btn>
+              <v-btn id="navigation_drawer_button_login" to="/Logout" class="navigation_drawer_v_btn_red">Wyloguj się</v-btn>
+            </v-col>
+        </v-navigation-drawer>
       </div>
     </nav>
 
@@ -54,8 +68,14 @@
 </template>
 
 <script>
-
+import "./styles/style_sidebar.css";
 export default {
+  name: "Sidebar",
+    data() {
+        return {
+            drawer: false
+        };
+    },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
@@ -87,5 +107,9 @@ export default {
 <style type="text/css">
     .container-fluid.custom-container {
       padding: 0px;
-    }
+    };
+
+    v-btn:hover{
+      opacity: 0.5;
+    };
 </style>

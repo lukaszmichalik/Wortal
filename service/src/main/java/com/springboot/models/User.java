@@ -22,6 +22,10 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+//	@NotBlank
+//	@Size(max = 50)
+//	private String name;
+
 	@NotBlank
 	@Size(max = 50)
 	private String username;
@@ -59,7 +63,7 @@ public class User {
 	public User() {
 	}
 
-	public User(String username, EPosition position, Date dob, String email, String password) {
+	public User( String username, EPosition position, Date dob, String email, String password) {
 		this.username = username;
 		this.position = position;
 		this.dob = dob;
@@ -122,4 +126,5 @@ public class User {
 	public Date getDob() { return dob; }
 
 	public void setDob(Date dob) { this.dob = dob; }
+
 }
