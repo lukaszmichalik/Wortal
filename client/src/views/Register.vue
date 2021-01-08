@@ -21,11 +21,11 @@
       
           <div class="input">
 
-            <select  
+            <select required
               id="register_position" 
               class="global_login_or_register_data_input"
               v-model="user.position">
-
+              <option disabled value="" selected hidden>Pozycja</option>
               <option value="Napastnik">Napastnik</option>
               <option value="Obrońca">Obrońca</option>
               <option value="Bramkarz">Bramkarz</option>
@@ -138,7 +138,7 @@ export default {
   name: 'Register',
   data() {
     return {
-      user: new User('', 'Napastnik', '', '','',''),
+      user: new User('', '', '', '','',''),
       submitted: false,
       successful: false,
       message: '',
@@ -185,4 +185,12 @@ export default {
 <style>
 @import '../styles/style_register.css';
 @import '../styles/style_global.css';
+
+select:invalid { color: gray; }
+
+option {
+  color: black;
+}
+
+
 </style>
