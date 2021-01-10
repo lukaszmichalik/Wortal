@@ -39,6 +39,12 @@ export const router = new Router({
       component: () => import('./views/EditProfile.vue')
     },
     {
+      path: '/yourEvents',
+      name: 'yourEvents',
+      // lazy-loaded
+      component: () => import('./views/YourEvents.vue')
+    },
+    {
       path: '/admin',
       name: 'admin',
       // lazy-loaded
