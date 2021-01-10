@@ -46,7 +46,8 @@
           </v-row>
       </v-col>
 
-    </div>
+  </div>
+    
   </v-app>
 </template>
 
@@ -62,15 +63,6 @@ export default {
     currentUser() {
       return this.userValue;
     }
-  //   user: {
-  //     get: function() {
-  //       return this.userValue;
-  //     },
-  //     set: function(user) {
-  //       this.userValue = user;
-  //       localStorage.setItem('user', JSON.stringify(user))
-  //     }
-  //   }
    },
   mounted() {
     if (!this.currentUser) {

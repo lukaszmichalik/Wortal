@@ -61,9 +61,12 @@
       </div>
     </nav>
 
-    <div class="custom-container container-fluid">
-      <router-view />
-    </div>
+    <v-main>
+      <v-container  fluid class="custom-container container-fluid">
+        <router-view></router-view>
+      </v-container>
+    </v-main>
+
   </v-app>
 </template>
 
@@ -107,6 +110,7 @@ export default {
 <style type="text/css">
     .container-fluid.custom-container {
       padding: 0px;
+      min-width: 100%;
     };
 
     v-btn:hover{

@@ -1,7 +1,9 @@
 package com.springboot.controllers;
 
+import com.springboot.models.Event;
 import com.springboot.models.User;
 import com.springboot.payload.request.EditRequest;
+import com.springboot.payload.request.UserIdRequest;
 import com.springboot.payload.response.JwtResponse;
 import com.springboot.payload.response.UserResponse;
 import com.springboot.repository.UserRepository;
@@ -10,9 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
@@ -34,14 +39,10 @@ public class UserController {
         user.setEmail(editUser.getEmail());
         user.setUsername(editUser.getUsername());
 
-        System.out.println("this is password" + editUser.getPassword());
         if(!editUser.getPassword().equals(""))
         user.setPassword(encoder.encode(editUser.getPassword()));
 
-
         userRepository.save(user);
-
-
 
         return ResponseEntity.ok(new UserResponse(user.getId(),
                 user.getName(),
@@ -53,4 +54,14 @@ public class UserController {
 
     }
 
+    @PostMapping("getEvents")
+    public Set<Event> getEvents(@RequestBody UserIdRequest userIdRequest){
+
+        User user = userRepository.getOne(userIdRequest.getId());
+
+        userRepository.save(user);
+
+        return user.getEvents();
+
+    }
 }

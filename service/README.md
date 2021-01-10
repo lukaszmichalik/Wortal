@@ -22,7 +22,7 @@ spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.hibernate.ddl-auto= update
 
 # App Properties
-wortal.app.jwtSecret= bezKoderSecretKey
+wortal.app.jwtSecret= secretKey
 wortal.app.jwtExpirationMs= 86400000
 ```
 
