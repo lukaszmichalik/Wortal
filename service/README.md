@@ -22,8 +22,8 @@ spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.hibernate.ddl-auto= update
 
 # App Properties
-bezkoder.app.jwtSecret= bezKoderSecretKey
-bezkoder.app.jwtExpirationMs= 86400000
+wortal.app.jwtSecret= bezKoderSecretKey
+wortal.app.jwtExpirationMs= 86400000
 ```
 
 ## Run Spring Boot application

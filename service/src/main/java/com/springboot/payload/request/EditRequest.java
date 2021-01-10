@@ -2,17 +2,20 @@ package com.springboot.payload.request;
 
 import com.springboot.models.EPosition;
 
-import java.sql.Date;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.sql.Date;
 
-public class SignupRequest {
+public class EditRequest {
 
     @NotBlank
+    private Long id;
+
+
     @Size(min = 3, max = 40)
     private String name;
 
@@ -22,28 +25,42 @@ public class SignupRequest {
 
     private Date dob;
 
-    @NotBlank
+
     @Size(max = 30)
     @Email
     private String email;
 
-    @NotBlank
+
     @Size(min = 3, max = 20)
     private String username;
 
-    @NotBlank
+
     @Size(min = 6, max = 30)
     private String password;
 
-    private Set<String> role;
+    public Long getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public String getName() {
+        return name;
+    }
 
-    public EPosition getPosition() { return position; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public void setPosition(EPosition position) { this.position = position; }
+    public EPosition getPosition() {
+        return position;
+    }
+
+    public void setPosition(EPosition position) {
+        this.position = position;
+    }
 
     public Date getDob() {
         return dob;
@@ -76,18 +93,4 @@ public class SignupRequest {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public Set<String> getRole() {
-      return this.role;
-    }
-
-    public void setRole(Set<String> role) {
-      this.role = role;
-    }
-
-
-
-
-
-
 }

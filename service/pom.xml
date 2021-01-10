@@ -8,7 +8,7 @@
 		<version>2.2.11.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.bezkoder</groupId>
+	<groupId>com.springboot</groupId>
 	<artifactId>spring-boot-security-postgresql</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-boot-security-postgresql</name>

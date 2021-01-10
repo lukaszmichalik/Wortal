@@ -1,28 +1,35 @@
 <template>
   <v-app id="register_app">
     <div id="register_div" class="global_div">
-      <div id="register_caption" class="global_caption">Utwórz konto</div>
+      
       <form name="form" @submit.prevent="handleRegister">
         <div v-if="!successful">
 
+          <div id="register_caption" class="global_caption">Utwórz konto</div>
+
           <div class="input">
 
-            <input
-              id="register_name"
+            <input required
+              
               class="global_login_or_register_data_input"
               placeholder="Imię i Nazwisko"
               v-model="user.name"
-              v-validate="'required|min:3|max:20'"
+              v-validate="'required|min:3|max:40'"
               type="text"
               name="name"
             />
+
+            <div
+              v-if="submitted && errors.has('name')"
+              class="alert-danger input_error"
+            >{{errors.first('name')}}</div>
             
           </div>
       
           <div class="input">
 
             <select required
-              id="register_position" 
+              
               class="global_login_or_register_data_input"
               v-model="user.position">
               <option disabled value="" selected hidden>Pozycja</option>
@@ -36,12 +43,13 @@
 
           <div class="input">
 
-            <input
-              id="register_age"
+            <input required
+              
               class="global_login_or_register_data_input"
               type="date"
               placeholder="Wiek"
               v-model="user.dob"
+              v-validate="'required'"
               name="dob"
             />
 
@@ -49,13 +57,13 @@
 
           <div class="input">
 
-            <input
-              id="register_email"
+            <input required
+              
               class="global_login_or_register_data_input"
               type="email"
               placeholder="Email"
               v-model="user.email"
-              v-validate="'required|email|max:50'"
+              v-validate="'required|email|max:30'"
               name="email"
             />
 
@@ -63,8 +71,8 @@
 
           <div class="input">
 
-            <input
-              id="register_username"
+            <input required
+              
               class="global_login_or_register_data_input"
               placeholder="Login"
               v-model="user.username"
@@ -73,38 +81,41 @@
               name="username"
             />
 
-            <div
-              v-if="submitted && errors.has('username')"
-              class="alert-danger">
-
-              {{ errors.first('username') }}
-
+            <div class="alert-danger input_error"
+                v-if="submitted && errors.has('username')"
+                >
+  
+                {{ errors.first('username') }}
+  
             </div>
 
           </div>
 
+
           <div class="input">
 
-            <input
+            <input required
               id="register_password"
               class="global_login_or_register_data_input"
               type="password"
               placeholder="Hasło"
               v-model="user.password"
-              v-validate="'required|min:6|max:40'"
+              v-validate="'required|min:6|max:30'"
               name="password"
             />
 
-          </div>
-          
           <div 
             v-if="submitted && errors.has('password')" 
-            class="alert-danger"
+            class="alert-danger input_error"
           >
             
             {{ errors.first('password') }}
 
           </div>
+
+          </div>
+          
+          
 
           <div class="submit">
 
@@ -122,7 +133,7 @@
       </form>
       <div
         v-if="message"
-        class="alert"
+        class="alert input_error"
         :class="successful ? 'alert-success' : 'alert-danger'"
       >
         {{ message }}
@@ -138,7 +149,7 @@ export default {
   name: 'Register',
   data() {
     return {
-      user: new User('', '', '', '','',''),
+      user: new User('','', '', '', '','',''),
       submitted: false,
       successful: false,
       message: '',

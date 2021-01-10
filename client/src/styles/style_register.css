@@ -12,38 +12,23 @@
   margin-left: 0px;
 }
 
-#register_name {
+.input_register{
   margin-top: 5px;
   margin-bottom: 20px;
 }
 
-#register_username {
-  margin-top: 5px;
-  margin-bottom: 20px;
-}
-
-#register_position {
-  margin-top: 5px;
-  margin-bottom: 20px;
-}
-
-#register_age {
-  margin-top: 5px;
-  margin-bottom: 20px;
-}
-  
-#register_email {
-  margin-top: 5px;
-  margin-bottom: 20px;
-}
-  
-#register_password {
+#register_confirmPassword {
   margin-top: 5px;
   margin-bottom: 60px;
 }
 
 #register_button_register {
-  margin-bottom: 90px;
+  margin-top: 50px;
+}
+
+.input_error{
+  width: 270px;
+  margin: auto;
 }
 
 

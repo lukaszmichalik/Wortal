@@ -4,5 +4,5 @@ public enum EPosition {
     Bramkarz,
     Obrońca,
     Pomocnik,
-    Napastink
+    Napastnik
 }
