@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <nav class="navbar navbar-expand navbar-blue bg-dark">
       <v-app-bar-nav-icon v-if="currentUser" id="toolbar_icon"  @click="drawer = !drawer"></v-app-bar-nav-icon>
       <a href class="navbar-brand" @click.prevent>BallWortal</a>
@@ -64,7 +64,7 @@
     <div class="custom-container container-fluid">
       <router-view />
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script>
