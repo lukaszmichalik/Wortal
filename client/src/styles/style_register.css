@@ -14,6 +14,11 @@
   margin-top: 8%;
 }
 
+#register_name_input_required {
+  margin-top: 42px;
+  margin-bottom: -42px;
+}
+
 #register_name {
   margin-top: 50px;
   margin-bottom: 20px;

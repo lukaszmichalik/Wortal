@@ -3,9 +3,12 @@
     <div id="register_space" />
     <div id="register_div" class="global_div">
       <div id="register_caption" class="global_caption">Utwórz konto</div>
+      
       <form name="form" @submit.prevent="handleRegister">
+
         <div v-if="!successful">
           <div class="input">
+            <div id="register_name_input_required" v-if="!$v.user.name.required" class="global_input_required">to pole jest wymagane</div>
             <input
               id="register_name"
               class="global_login_or_register_data_input"
@@ -30,6 +33,7 @@
           </div>
 
           <div class="input">
+            <div v-if="!$v.user.dob.required" class="global_input_required">to pole jest wymagane</div>
             <input
               id="register_dob"
               class="global_login_or_register_data_input"
@@ -40,6 +44,8 @@
           </div>
 
           <div class="input">
+            <div v-if="!$v.user.email.required" class="global_input_required">to pole jest wymagane</div>
+            <div v-if="!$v.user.email.email" class="global_input_required">adres e-mail jest niepoprawny</div>
             <input
               id="register_email"
               class="global_login_or_register_data_input"
@@ -51,6 +57,7 @@
           </div>
 
           <div class="input">
+            <div v-if="!$v.user.username.required" class="global_input_required">to pole jest wymagane</div>
             <input
               id="register_username"
               class="global_login_or_register_data_input"
@@ -62,6 +69,8 @@
           </div>
 
           <div class="input">
+            <div v-if="!$v.user.password.required" class="global_input_required">to pole jest wymagane</div>
+            <div v-if="!$v.user.password.minLength" class="global_input_required">hasło musi zawierać minimum 6 znaków</div>
             <input
               id="register_password"
               class="global_login_or_register_data_input"
@@ -93,6 +102,11 @@
 
 <script>
 import User from '../models/user';
+import Vue from 'vue';
+import Vuelidate from 'vuelidate';
+import {required, email, minLength} from 'vuelidate/lib/validators';
+
+Vue.use(Vuelidate)
 
 export default {
   name: 'Register',
@@ -106,7 +120,6 @@ export default {
   },
   computed: {
     loggedIn() {
-      console.log('loggedIn');
       return this.$store.state.auth.status.loggedIn;
     },
   },
@@ -115,12 +128,50 @@ export default {
       this.$router.push('/UserProfile');
     }
   },
+  validations: {
+    user: {
+        name: {
+          required
+        },
+        dob: {
+          required
+        },
+        email: {
+          required,
+          email
+        },
+        username: {
+          required
+        },
+        password: {
+          required,
+          minLength: minLength(6)
+        }
+    }
+  },
   methods: {
     handleRegister() {
+    this.$v.$touch();
+    if (this.$v.$pendind || this.$v.$error) {alert('Rejestracja nie powiodła się')}
+    else {
+      this.$store
+        .dispatch('auth/register', this.user)
+        .then(res => {
+          console.log(res)
+          /*if(res.data == false) {
+            this.$router.push('/Welcome')
+          } else {
+            alert("Rejestracja nie powiodła się. Podany adres e-mail jest już w użyciu.")
+          }*/
+        })
+        //.then(this.$router.push('/Welcome'));
+    }
+    }
+    /*handleRegister() {
       this.$store
         .dispatch('auth/register', this.user)
         .then(this.$router.push('/Welcome'));
-    },
+    },*/
   },
 };
 </script>

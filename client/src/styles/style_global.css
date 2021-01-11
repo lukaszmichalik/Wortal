@@ -80,6 +80,14 @@
   border-radius: 1.5%;
 }
 
+.global_input_required {
+  color: rgb(248, 61, 61);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
 @media screen and (max-width: 500px) {
   .global_app {
     background-color: rgb(49, 110, 160) !important;
