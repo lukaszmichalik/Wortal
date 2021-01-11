@@ -1,0 +1,60 @@
+#welcome_div_background {
+    background-image: url('../assets/dark_blue_10.png');
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+}
+
+#welcome_space {
+  height: 25vh;
+}
+  
+#welcome_div {
+    text-align: center;
+    margin-top: 0px;
+}
+
+#welcome_caption {
+    margin-left: 8px;
+    margin-right: 8px;
+    color: #FFFFFF;
+    font-size: 28px;
+    margin-bottom: 50px;
+}
+
+#welcome_description {
+    margin-left: 0px;
+    color: #FFFFFF;
+    font-size: 16px;
+    margin-bottom: 80px;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+#welcome_button_login {
+    text-decoration: none;
+}
+
+
+
+
+
+@media screen and (max-width: 1200px) {
+
+#welcome_space {
+    height: 12vh;
+  }
+
+#welcome_caption {
+    font-size: 24px;
+    margin-top: 20%;
+}
+
+#welcome_description {
+    color: #FFFFFF;
+    font-size: 16px;
+    margin-bottom: 60px;
+    margin-left: 8%;
+    margin-right: 8%;
+}
+}

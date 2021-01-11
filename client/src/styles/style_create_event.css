@@ -107,3 +107,133 @@
     }
 
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*#create_event_caption {
+  margin-bottom: 70px;
+}
+
+#create_event_p {
+  margin-top: 20px;
+}
+
+#create_event_type {
+  width: 180px;
+  font-size: 30px;
+  margin-top: 5px;
+  margin-left: 1.5%;
+  margin-bottom: 90px;
+  outline-color: rgb(21, 52, 80);
+  background-color: rgb(240, 240, 240);
+  padding: 10px;
+  text-align: center;
+}
+
+#create_event_date {
+    font-size: 30px;
+    margin-top: 5px;
+    margin-left: 1.5%;
+    margin-bottom: 90px;
+    outline-color: rgb(21, 52, 80);
+    background-color: rgb(240, 240, 240);
+    padding: 10px;
+  }
+  
+  #create_event_start_time {
+    font-size: 30px;
+    margin-top: 5px;
+    margin-left: 1.5%;
+    margin-bottom: 90px;
+    outline-color: rgb(21, 52, 80);
+    background-color: rgb(240, 240, 240);
+    padding: 10px;
+  }
+  
+  #create_event_end_time {
+    font-size: 30px;
+    margin-top: 5px;
+    margin-left: 1.5%;
+    margin-bottom: 90px;
+    outline-color: rgb(21, 52, 80);
+    background-color: rgb(240, 240, 240);
+    padding: 10px;
+  }
+
+  #create_event_address {
+    margin-bottom: 90px;
+  }
+  
+  #create_event_details {
+    font-size: 20px;
+    margin-bottom: 90px;
+  }
+  
+  #create_event_participants {
+    margin-bottom: 100px;
+    margin-bottom: 90px;
+  }
+  
+  #create_event_button_create {
+    margin-bottom: 30px;
+    margin-left: -0.5%;
+  }
+
+
+
+
+
+  @media screen and (max-width: 500px){
+
+    #create_event_caption {
+      margin-bottom: 40px;
+    }
+
+    #create_event_type {
+      font-size: 23px;
+      margin-bottom: 36px;
+    }
+    
+    #create_event_date {
+      font-size: 23px;
+      margin-bottom: 36px;
+    }
+    
+    #create_event_start_time {
+      font-size: 23px;
+      margin-bottom: 36px;
+    }
+    
+    #create_event_end_time {
+      font-size: 23px;
+      margin-bottom: 36px;
+    }
+
+    #create_event_address {
+      margin-bottom: 36px;
+    }
+    
+    #create_event_details {
+      font-size: 18px;
+      margin-bottom: 36px;
+    }
+
+  }*/

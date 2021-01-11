@@ -1,4 +1,150 @@
 <template>
+<v-app>
+  <div id="app">
+    <nav v-if="currentUser" class="navbar navbar-expand navbar-dark" style="background-color:  #2196F3">
+      <v-app-bar-nav-icon id="toolbar_icon"  @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title id="toolbar_title">Wortal piłkarski</v-toolbar-title>
+      <!--<a href class="navbar-brand" @click.prevent>BallWortal</a>!-->
+      <!--<div class="navbar-nav mr-auto">!-->
+        <!--<li class="nav-item">
+          <router-link to="/home" class="nav-link">
+            <font-awesome-icon icon="home" />Home
+          </router-link>
+        </li> !-->
+        <!--<li v-if="showAdminBoard" class="nav-item">
+          <router-link to="/admin" class="nav-link">Admin Board</router-link>
+        </li>
+        <li v-if="showModeratorBoard" class="nav-item">
+          <router-link to="/mod" class="nav-link">Moderator Board</router-link>
+        </li>!-->
+        <!--<li class="nav-item">
+          <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
+        </li> !-->
+      <!--</div>!-->
+
+      <!--<div v-if="!currentUser" class="navbar-nav ml-auto">!-->
+        <!--<li class="nav-item">
+          <router-link to="/register" class="nav-link">
+            <font-awesome-icon icon="user-plus" />Sign Up
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/login" class="nav-link">
+            <font-awesome-icon icon="sign-in-alt" />Login
+          </router-link>
+        </li> !-->
+      <!--</div>!-->
+
+      <div v-if="currentUser" class="navbar-nav ml-auto">           <!-- umieszcza LOGOUT po lewej stronie toolbara !-->
+        <!--<li class="nav-item">
+          <router-link to="/profile" class="nav-link">
+            <font-awesome-icon icon="user" />
+            {{ currentUser.username }}
+          </router-link>
+        </li> !-->
+        <li class="nav-item">
+          <a class="nav-link" @click.prevent="logout">
+            <!--<font-awesome-icon icon="sign-out-alt" />!-->WYLOGUJ
+          </a>
+        </li>
+        <v-navigation-drawer app v-model="drawer" temporary id="navigation_drawer">
+            
+            <v-col>
+              <v-btn id="navigation_drawer_v_btn_blue" to="/YourEvents">Twoje wydarzenia</v-btn>
+              <v-btn id="navigation_drawer_v_btn_blue" to="/AllEvents">Wszystkie wydarzenia</v-btn>
+              <v-btn id="navigation_drawer_v_btn_blue" to="/CreateEvent">Utwórz wydarzenie</v-btn>
+              <v-btn id="navigation_drawer_v_btn_green" to="/YourTeams">Twoje drużyny</v-btn>
+              <v-btn id="navigation_drawer_v_btn_green" to="/AllTeams">Wszystkie drużyny</v-btn>
+              <v-btn id="navigation_drawer_v_btn_green" to="/CreateTeam">Utwórz drużynę</v-btn>
+              <v-btn id="navigation_drawer_v_btn_red" to="/UserProfile">Profil użytkownika</v-btn>
+              <!--<v-btn id="navigation_drawer_button_login" to="/Logout" class="navigation_drawer_v_btn_red">Wyloguj się</v-btn>!-->
+            </v-col>
+        </v-navigation-drawer>
+      </div>
+    </nav>
+
+    <div>
+      <router-view />
+    </div>
+  </div>
+  </v-app>
+</template>
+
+
+
+
+
+
+
+<script>
+
+export default {
+  name: "Sidebar",
+    data() {
+        return {
+            drawer: false
+        };
+    },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    }/*,
+    showAdminBoard() {
+      if (this.currentUser && this.currentUser.roles) {
+        return this.currentUser.roles.includes('ROLE_ADMIN');
+      }
+
+      return false;
+    },
+    showModeratorBoard() {
+      if (this.currentUser && this.currentUser.roles) {
+        return this.currentUser.roles.includes('ROLE_MODERATOR');
+      }
+
+      return false;
+    }*/
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/Login');
+    }
+  }
+};
+</script>
+
+
+
+
+
+<style>
+@import './styles/style_sidebar.css';
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<template>
   <v-app id="app">
     <nav class="navbar navbar-expand navbar-blue bg-dark">
       <v-app-bar-nav-icon v-if="currentUser" id="toolbar_icon"  @click="drawer = !drawer"></v-app-bar-nav-icon>
@@ -119,3 +265,4 @@ export default {
       opacity: 0.5;
     };
 </style>
+!-->

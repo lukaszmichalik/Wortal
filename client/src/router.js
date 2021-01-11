@@ -3,6 +3,97 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
+import Welcome from './views/Welcome.vue';
+import UserProfile from './views/UserProfile.vue';
+import EditProfile from './views/EditProfile.vue';
+
+Vue.use(Router);
+
+export const router = new Router({
+  mode: 'history',
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/Home',
+      component: Home
+    },
+    {
+      path: '/Login',
+      component: Login
+    },
+    {
+      path: '/Register',
+      component: Register
+    },
+    {
+      path: '/Welcome',
+      component: Welcome
+    },
+    {
+      path: '/UserProfile',
+      //name: 'UserProfile',
+      component: UserProfile
+      // lazy-loaded
+      //component: () => import('./views/UserProfile.vue')
+    },
+    {
+      path: '/EditProfile',
+      //name: 'editProfile',
+      component: EditProfile
+      // lazy-loaded
+      //component: () => import('./views/EditProfile.vue')
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      // lazy-loaded
+      component: () => import('./views/BoardAdmin.vue')
+    },
+    {
+      path: '/mod',
+      name: 'moderator',
+      // lazy-loaded
+      component: () => import('./views/BoardModerator.vue')
+    },
+    {
+      path: '/user',
+      name: 'user',
+      // lazy-loaded
+      component: () => import('./views/BoardUser.vue')
+    }
+  ]
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import Vue from 'vue';
+import Router from 'vue-router';
+import Home from './views/Home.vue';
+import Login from './views/Login.vue';
+import Register from './views/Register.vue';
 
 Vue.use(Router);
 
@@ -84,3 +175,4 @@ export const router = new Router({
 //     next();
 //   }
 // });
+*/

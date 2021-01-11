@@ -1,8 +1,8 @@
 package com.springboot.models;
 
 public enum EPosition {
-    Bramkarz,
-    Obrońca,
-    Pomocnik,
-    Napastnik
+    bramkarz,
+    obrońca,
+    pomocnik,
+    napastnik
 }
