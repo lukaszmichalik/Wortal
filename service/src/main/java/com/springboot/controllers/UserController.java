@@ -57,7 +57,7 @@ public class UserController {
 
 //        userRepository.save(user);
 
-        return user.getEventsUser();
+        return user.getEvents();
 
     }
 }

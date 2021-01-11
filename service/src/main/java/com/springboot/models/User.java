@@ -68,7 +68,7 @@ public class User implements Serializable {
 	@JoinTable(	name = "user_events",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "event_id"))
-	private Set<Event> eventsUser = new HashSet<>();
+	private Set<Event> events = new HashSet<>();
 
 	public User() {
 	}
@@ -145,19 +145,11 @@ public class User implements Serializable {
 		this.roles = roles;
 	}
 
-//	public Set<Event> getEvents() {
-//		return events;
-//	}
-//
-//	public void setEvents(Set<Event> events) {
-//		this.events = events;
-//	}
-
-	public Set<Event> getEventsUser() {
-		return eventsUser;
+	public Set<Event> getEvents() {
+		return events;
 	}
 
-	public void setEventsUser(Set<Event> eventsUser) {
-		this.eventsUser = eventsUser;
+	public void setEvents(Set<Event> events) {
+		this.events = events;
 	}
 }

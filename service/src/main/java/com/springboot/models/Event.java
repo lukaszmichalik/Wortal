@@ -1,9 +1,7 @@
 package com.springboot.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -28,7 +26,7 @@ public class Event implements Serializable{
     private String address;
 
 
-    @ManyToMany(mappedBy = "eventsUser")
+    @ManyToMany(mappedBy = "events")
     @JsonIgnore
     private Set<User> participants = new HashSet<>();
 //    @ManyToMany(fetch = FetchType.LAZY)
