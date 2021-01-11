@@ -1,7 +1,7 @@
 <template>
 
   <v-app class="global_app">
-           <v-card
+           <!-- <v-card
             v-for="{address, city, id} in events"
             :key="id"
             class="mx-auto ma-5"
@@ -13,7 +13,7 @@
             height="200px"
           ></v-img>
       
-          <v-card-title v-if="loaded">
+          <v-card-title v-if="loaded" >
             {{city}}
           </v-card-title>
       
@@ -25,9 +25,8 @@
             <v-btn
               color="orange lighten-2"
               text
-              @click="enterEventInfo(id)"
             >
-              Przeglądaj
+              Explore
             </v-btn>
       
             <v-spacer></v-spacer>
@@ -51,7 +50,7 @@
           </v-expand-transition>
         </v-card>
      
-  </v-app>
+  </v-app> -->
 
 </template>
 
@@ -59,42 +58,47 @@
 
 
 
-<script>
-import UserService from '../services/user.service';
+ <script>
+// import UserService from '../services/user.service';
 
-export default {
-  name: 'YourEvents',
-  data(){
-    return{
-      userValue: this.$store.state.auth.user || '',
-      events: '',
-      loaded: false,
-      show: false,
-    };
-  },
-  computed: {
-    currentUser() {
-      return this.userValue;
-    },
-  },
-  methods:{
-    enterEventInfo(id){
-      console.log(id)
-    }
-  },
-  mounted() {
-    if (!this.currentUser) {
-      this.$router.push('/login');
-    }
+// export default {
+//   name: 'YourEvents',
+//   data(){
+//     return{
+//       userValue: this.$store.state.auth.user || '',
+//       events: '',
+//       loaded: false,
+//       show: false,
+//     };
+//   },
+//   computed: {
+//     currentUser() {
+//       return this.userValue;
+//     },
 
-    UserService.getEvents(this.currentUser.id).then(
-        (data) => {
-              this.events = data;
-              this.loaded = true
-              console.log(this.events)
-            })
-  }
-};
+//     // eventsData(){
+//     //   return UserService.getEvents(this.currentUser.id).then(
+//     //     (data) => {
+//     //           this.events = data;
+//     //           console.log(this.events)
+//     //           this.loaded = true;
+//     //         })
+//     // },
+
+//   },
+//   mounted() {
+//     if (!this.currentUser) {
+//       this.$router.push('/login');
+//     }
+
+//     UserService.getEvents(this.currentUser.id).then(
+//         (data) => {
+//               this.events = data;
+//               this.loaded = true
+//               console.log(this.events)
+//             })
+//   }
+// };
 //UserService.getEvents(this.userValue.id)
 //{{events[0].city}}
 </script>

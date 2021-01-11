@@ -2,7 +2,7 @@ package com.springboot.payload.request;
 
 import javax.validation.constraints.NotBlank;
 
-public class UserIdRequest {
+public class IdRequest {
 
     @NotBlank
     private Long id;

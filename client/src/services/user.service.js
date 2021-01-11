@@ -50,7 +50,7 @@ class UserService {
   }
 
   getEvents(id){
-    return axios.post(API_URL + 'getEvents', {
+    return axios.post(API_URL + 'getUserEvents', {
       id: id
     }).then( response =>{
       return Promise.resolve(response.data)

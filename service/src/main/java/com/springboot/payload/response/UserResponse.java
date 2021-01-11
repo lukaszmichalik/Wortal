@@ -3,7 +3,6 @@ package com.springboot.payload.response;
 import com.springboot.models.EPosition;
 
 import java.sql.Date;
-import java.util.List;
 
 public class UserResponse {
     private Long id;

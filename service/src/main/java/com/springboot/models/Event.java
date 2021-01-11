@@ -1,12 +1,20 @@
 package com.springboot.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(	name = "events")
-public class Event {
+public class Event implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,10 +23,14 @@ public class Event {
     @Size(max = 50)
     private String city;
 
-    @NotBlank
+    @JsonIgnore
     @Size(max = 50)
     private String address;
 
+
+    @ManyToMany(mappedBy = "eventsUser")
+    @JsonIgnore
+    private Set<User> participants = new HashSet<>();
 //    @ManyToMany(fetch = FetchType.LAZY)
 //    @JoinTable(	name = "user_roles",
 //            joinColumns = @JoinColumn(name = "user_id"),
@@ -48,5 +60,21 @@ public class Event {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Set<User> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<User> participants) {
+        this.participants = participants;
     }
 }

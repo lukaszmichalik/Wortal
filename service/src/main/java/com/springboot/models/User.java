@@ -1,7 +1,11 @@
 package com.springboot.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +21,7 @@ import javax.validation.constraints.Size;
 			@UniqueConstraint(columnNames = "username"),
 			@UniqueConstraint(columnNames = "email") 
 		})
-public class User {
+public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -56,15 +60,17 @@ public class User {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 
-				joinColumns = @JoinColumn(name = "user_id"), 
+				joinColumns = @JoinColumn(name = "user_id"),
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
+
 	@ManyToMany(fetch = FetchType.LAZY)
+	@JsonIgnore
 	@JoinTable(	name = "user_events",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "event_id"))
-	private Set<Event> events = new HashSet<>();
+	private Set<Event> eventsUser = new HashSet<>();
 
 	public User() {
 	}
@@ -141,11 +147,19 @@ public class User {
 		this.roles = roles;
 	}
 
-	public Set<Event> getEvents() {
-		return events;
+//	public Set<Event> getEvents() {
+//		return events;
+//	}
+//
+//	public void setEvents(Set<Event> events) {
+//		this.events = events;
+//	}
+
+	public Set<Event> getEventsUser() {
+		return eventsUser;
 	}
 
-	public void setEvents(Set<Event> events) {
-		this.events = events;
+	public void setEventsUser(Set<Event> eventsUser) {
+		this.eventsUser = eventsUser;
 	}
 }
