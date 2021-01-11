@@ -6,9 +6,9 @@
 }
 
 #welcome_space {
-  height: 25vh;
+    height: 25vh;
 }
-  
+
 #welcome_div {
     text-align: center;
     margin-top: 0px;
@@ -35,26 +35,19 @@
     text-decoration: none;
 }
 
-
-
-
-
 @media screen and (max-width: 1200px) {
-
-#welcome_space {
-    height: 12vh;
-  }
-
-#welcome_caption {
-    font-size: 24px;
-    margin-top: 20%;
-}
-
-#welcome_description {
-    color: #FFFFFF;
-    font-size: 16px;
-    margin-bottom: 60px;
-    margin-left: 8%;
-    margin-right: 8%;
-}
+    #welcome_space {
+        height: 12vh;
+    }
+    #welcome_caption {
+        font-size: 24px;
+        margin-top: 20%;
+    }
+    #welcome_description {
+        color: #FFFFFF;
+        font-size: 16px;
+        margin-bottom: 60px;
+        margin-left: 8%;
+        margin-right: 8%;
+    }
 }

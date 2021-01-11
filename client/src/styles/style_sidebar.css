@@ -1,4 +1,4 @@
-#navigation_drawer{
+#navigation_drawer {
     background-color: #0e4470;
     color: #ffffff;
 }
@@ -32,63 +32,3 @@
     margin-top: 26px;
     text-decoration: none;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*#navigation_drawer{
-    background-color: #0e4470;
-    color: #ffffff;
-}
-
-#toolbar_title {
-    color: #ffffff;
-}
-
-#toolbar_icon {
-    color: #ffffff;
-}
-
-.navigation_drawer_v_btn_blue {
-    background-color: #7cc3fd !important;
-    width: 100%;
-    margin-top: 26px;
-}
-
-.navigation_drawer_v_btn_green {
-    background-color: #7BD300 !important;
-    width: 100%;
-    margin-top: 26px;
-}
-
-.navigation_drawer_v_btn_red {
-    background-color: crimson !important;
-    width: 100%;
-    margin-top: 26px;
-}
-
-.sidebar_v_btn {
-    width: 100%;
-}
-*/

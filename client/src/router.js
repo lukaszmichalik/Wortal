@@ -35,34 +35,25 @@ export const router = new Router({
     },
     {
       path: '/UserProfile',
-      //name: 'UserProfile',
       component: UserProfile
-      // lazy-loaded
-      //component: () => import('./views/UserProfile.vue')
     },
     {
       path: '/EditProfile',
-      //name: 'editProfile',
       component: EditProfile
-      // lazy-loaded
-      //component: () => import('./views/EditProfile.vue')
     },
     {
       path: '/admin',
       name: 'admin',
-      // lazy-loaded
       component: () => import('./views/BoardAdmin.vue')
     },
     {
       path: '/mod',
       name: 'moderator',
-      // lazy-loaded
       component: () => import('./views/BoardModerator.vue')
     },
     {
       path: '/user',
       name: 'user',
-      // lazy-loaded
       component: () => import('./views/BoardUser.vue')
     }
   ]

@@ -42,26 +42,19 @@
     text-decoration: none;
 }
 
-
-
-
-
 @media screen and (max-width: 1200px) {
-
-#home_app_logo {
-    width: 60%;
-}
-
-  #home_caption {
-    font-size: 24px;
-    margin-top: 5%;
-}
-
-  #home_description {
-    color: #FFFFFF;
-    font-size: 16px;
-    margin-bottom: 30px;
-    margin-left: 8%;
-    margin-right: 8%;
-}
+    #home_app_logo {
+        width: 60%;
+    }
+    #home_caption {
+        font-size: 24px;
+        margin-top: 5%;
+    }
+    #home_description {
+        color: #FFFFFF;
+        font-size: 16px;
+        margin-bottom: 30px;
+        margin-left: 8%;
+        margin-right: 8%;
+    }
 }

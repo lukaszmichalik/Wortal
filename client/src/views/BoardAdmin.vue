@@ -1,4 +1,4 @@
-<template>
+<!--<template>
   <v-app>
     <div class="container">
       <header class="jumbotron">
@@ -33,3 +33,4 @@ export default {
   }
 };
 </script>
+!-->
