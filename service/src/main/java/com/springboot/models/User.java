@@ -48,13 +48,7 @@ public class User implements Serializable {
 	@Size(max = 120)
 	private String password;
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "team_id")
-//	@JsonManagedReference
-//	private Team team;
-//
-//	@OneToOne(mappedBy = "manager")
-//	private Team managerTeam;
+
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 
@@ -69,6 +63,15 @@ public class User implements Serializable {
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "event_id"))
 	private Set<Event> events = new HashSet<>();
+
+	//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "team_id")
+//	@JsonManagedReference
+//	private Team team;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "organizer_id")
+	private Set<Event> ownedEvents = new HashSet<>();
 
 	public User() {
 	}
@@ -151,5 +154,13 @@ public class User implements Serializable {
 
 	public void setEvents(Set<Event> events) {
 		this.events = events;
+	}
+
+	public Set<Event> getOwnedEvents() {
+		return ownedEvents;
+	}
+
+	public void setOwnedEvents(Set<Event> ownedEvents) {
+		this.ownedEvents = ownedEvents;
 	}
 }

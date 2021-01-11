@@ -10,13 +10,15 @@ public class EventResponse {
     private String city;
     private String address;
     private Set<User> participants;
+    private User organizer_id;
 
-    public EventResponse(Long id, String city, String address, Set<User> participants){
+    public EventResponse(Long id, String city, String address, Set<User> participants, User organizer_id){
 
         this.id = id;
         this.city = city;
         this.address = address;
         this.participants = participants;
+        this.organizer_id = organizer_id;
     }
 
     public Long getId() {
@@ -49,5 +51,13 @@ public class EventResponse {
 
     public void setParticipants(Set<User> participants) {
         this.participants = participants;
+    }
+
+    public User getOrganizer_id() {
+        return organizer_id;
+    }
+
+    public void setOrganizer_id(User organizer_id) {
+        this.organizer_id = organizer_id;
     }
 }

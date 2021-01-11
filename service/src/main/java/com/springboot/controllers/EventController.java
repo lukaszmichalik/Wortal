@@ -28,7 +28,8 @@ public class EventController {
         return ResponseEntity.ok(new EventResponse(event.getId(),
                 event.getCity(),
                 event.getAddress(),
-                event.getParticipants())
+                event.getParticipants(),
+                event.getOrganizer_id())
         );
     }
 

@@ -35,6 +35,11 @@ public class Event implements Serializable{
 //            inverseJoinColumns = @JoinColumn(name = "role_id"))
 //    private Set<Role> roles = new HashSet<>();
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="organizer_id")
+    private User organizer_id;
+
     public Event() {
     }
 
@@ -74,5 +79,13 @@ public class Event implements Serializable{
 
     public void setParticipants(Set<User> participants) {
         this.participants = participants;
+    }
+
+    public User getOrganizer_id() {
+        return organizer_id;
+    }
+
+    public void setOrganizer_id(User organizer_id) {
+        this.organizer_id = organizer_id;
     }
 }
