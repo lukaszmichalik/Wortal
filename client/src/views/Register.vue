@@ -156,14 +156,40 @@ export default {
     else {
       this.$store
         .dispatch('auth/register', this.user)
-        .then(res => {
-          console.log(res)
+        .then(
+          (data) => {
+            this.message = data.message;
+            //this.successful = true;
+            console.log(this.message);
+            this.$router.push('/Welcome');
+          },
+          (error) => {
+            this.message = 
+            (error.response &&
+            error.response.data &&
+            error.response.data.message) || 
+            error.message || 
+            error.toString();
+            this.successful = false;
+            console.log(this.message);
+            if (this.message == "Error: Username is already taken!") {
+              alert("Rejestracja nie powiodła się. Podany login jest już w użyciu.")
+            } 
+            else if (this.message == "Error: Email is already in use!") {
+              alert("Rejestracja nie powiodła się. Podany adres e-mail jest już w użyciu.");
+            }
+          }
+        )
+        //console.log("ddddd")
+        //.then(res => {
+          //console.log("kkkkk")
           /*if(res.data == false) {
             this.$router.push('/Welcome')
           } else {
             alert("Rejestracja nie powiodła się. Podany adres e-mail jest już w użyciu.")
           }*/
-        })
+        //})
+    //}
         //.then(this.$router.push('/Welcome'));
     }
     }

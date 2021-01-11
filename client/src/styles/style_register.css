@@ -6,12 +6,12 @@
 }
 
 #register_space {
-  height: 3vh;
+  height: 1vh;
 }
 
 #register_div {
   text-align: center;
-  margin-top: 8%;
+  margin-top: 6%;
 }
 
 #register_name_input_required {
