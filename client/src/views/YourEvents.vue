@@ -61,6 +61,7 @@
 
 <script>
 import UserService from '../services/user.service';
+import EventService from '../services/event.service';
 
 export default {
   name: 'YourEvents',
@@ -80,6 +81,8 @@ export default {
   methods:{
     enterEventInfo(id){
       console.log(id)
+      EventService.getEvent(id)
+      this.$router.push('/eventOverview');
     }
   },
   mounted() {

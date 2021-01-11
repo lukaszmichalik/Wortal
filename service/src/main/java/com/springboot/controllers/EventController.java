@@ -21,24 +21,24 @@ public class EventController {
     @Autowired
     EventRepository eventRepository;
 
-//    @PostMapping("/getEvent")
-//    public ResponseEntity<?> getEvent(@RequestBody IdRequest idRequest){
-//
-//        Event event = eventRepository.getOne(idRequest.getId());
-//        return ResponseEntity.ok(new EventResponse(event.getId(),
-//                event.getCity(),
-//                event.getAddress(),
-//                event.getParticipants())
-//        );
-//    }
-
     @PostMapping("/getEvent")
-    public Set<User> getEvent(@RequestBody IdRequest idRequest){
+    public ResponseEntity<?> getEvent(@RequestBody IdRequest idRequest){
 
         Event event = eventRepository.getOne(idRequest.getId());
-
-
-
-        return event.getParticipants();
+        return ResponseEntity.ok(new EventResponse(event.getId(),
+                event.getCity(),
+                event.getAddress(),
+                event.getParticipants())
+        );
     }
+
+//    @PostMapping("/getEvent")
+//    public Set<User> getEvent(@RequestBody IdRequest idRequest){
+//
+//        Event event = eventRepository.getOne(idRequest.getId());
+//
+//
+//
+//        return event.getParticipants();
+//    }
 }

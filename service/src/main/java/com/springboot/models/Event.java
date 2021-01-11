@@ -23,7 +23,7 @@ public class Event implements Serializable{
     @Size(max = 50)
     private String city;
 
-    @JsonIgnore
+    @NotBlank
     @Size(max = 50)
     private String address;
 

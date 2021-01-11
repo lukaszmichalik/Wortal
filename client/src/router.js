@@ -45,6 +45,12 @@ export const router = new Router({
       component: () => import('./views/YourEvents.vue')
     },
     {
+      path: '/eventOverview',
+      name: 'eventOverview',
+      // lazy-loaded
+      component: () => import('./views/EventOverview.vue')
+    },
+    {
       path: '/admin',
       name: 'admin',
       // lazy-loaded

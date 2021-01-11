@@ -1,56 +1,58 @@
 <template>
 
   <v-app class="global_app">
-           <!-- <v-card
-            v-for="{address, city, id} in events"
-            :key="id"
+    <p id="event_details_caption" class="global_caption">Szczegóły wydarzenia</p>
+    <v-card
             class="mx-auto ma-5"
-            max-width="60%"
+            min-width="80%"
             padding="20px"
-        >
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
-          ></v-img>
-      
-          <v-card-title v-if="loaded" >
-            {{city}}
-          </v-card-title>
-      
-          <v-card-subtitle>
-           {{address}}
-          </v-card-subtitle>
-      
-          <v-card-actions>
-            <v-btn
-              color="orange lighten-2"
-              text
-            >
-              Explore
-            </v-btn>
-      
-            <v-spacer></v-spacer>
-      
-            <v-btn
-              icon
-              @click="show = !show"
-            >
-              <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-            </v-btn>
-          </v-card-actions>
-      
-          <v-expand-transition>
-            <div v-show="show">
-              <v-divider></v-divider>
-      
-              <v-card-text>
-                I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
-              </v-card-text>
+            
+          >
+            <div class="d-flex flex-no-wrap justify-space-between">
+              <div>
+                <v-card-title
+                  class="headline"
+                  v-text="currentEvent.city"
+                  
+                ></v-card-title>
+
+                <v-card-subtitle ></v-card-subtitle>
+
+                <v-card-actions>
+                  <v-btn
+                   
+                    class="ml-2 mt-3"
+                    fab
+                    icon
+                    height="40px"
+                    right
+                    width="40px"
+                  >
+                    <v-icon>mdi-play</v-icon>
+                  </v-btn>
+
+                  <v-btn
+                   
+                    class="ml-2 mt-5"
+                    outlined
+                    rounded
+                    small
+                  >
+                    START RADIO
+                  </v-btn>
+                </v-card-actions>
+              </div>
+
+              <v-avatar
+                class="ma-3"
+                size="125"
+                tile
+              >
+                <v-img></v-img>
+              </v-avatar>
             </div>
-          </v-expand-transition>
-        </v-card>
-     
-  </v-app> -->
+          </v-card>
+  </v-app> 
 
 </template>
 
@@ -59,46 +61,29 @@
 
 
  <script>
-// import UserService from '../services/user.service';
 
-// export default {
-//   name: 'YourEvents',
-//   data(){
-//     return{
-//       userValue: this.$store.state.auth.user || '',
-//       events: '',
-//       loaded: false,
-//       show: false,
-//     };
-//   },
-//   computed: {
-//     currentUser() {
-//       return this.userValue;
-//     },
 
-//     // eventsData(){
-//     //   return UserService.getEvents(this.currentUser.id).then(
-//     //     (data) => {
-//     //           this.events = data;
-//     //           console.log(this.events)
-//     //           this.loaded = true;
-//     //         })
-//     // },
+export default {
+  name: 'EventOverview',
+  data(){
+      return{
+          eventValue: JSON.parse(localStorage.getItem('event')) || '',
+      };
+  },
+  computed:{
+      currentEvent(){
+          return this.eventValue;
+      },
+      currentUser() {
+      return this.$store;
+    },
+  },
+  mounted() {
+    if (!this.currentUser) {
+      this.$router.push('/login');
+    }
+  }
+  
+};
 
-//   },
-//   mounted() {
-//     if (!this.currentUser) {
-//       this.$router.push('/login');
-//     }
-
-//     UserService.getEvents(this.currentUser.id).then(
-//         (data) => {
-//               this.events = data;
-//               this.loaded = true
-//               console.log(this.events)
-//             })
-//   }
-// };
-//UserService.getEvents(this.userValue.id)
-//{{events[0].city}}
 </script>
