@@ -3,12 +3,17 @@
     <div id="register_space" />
     <div id="register_div" class="global_div">
       <div id="register_caption" class="global_caption">Utwórz konto</div>
-      
-      <form name="form" @submit.prevent="handleRegister">
 
+      <form name="form" @submit.prevent="handleRegister">
         <div v-if="!successful">
           <div class="input">
-            <div id="register_name_input_required" v-if="!$v.user.name.required" class="global_input_required">to pole jest wymagane</div>
+            <div
+              id="register_name_input_required"
+              v-if="!$v.user.name.required"
+              class="global_input_required"
+            >
+              to pole jest wymagane
+            </div>
             <input
               id="register_name"
               class="global_login_or_register_data_input"
@@ -33,7 +38,9 @@
           </div>
 
           <div class="input">
-            <div v-if="!$v.user.dob.required" class="global_input_required">to pole jest wymagane</div>
+            <div v-if="!$v.user.dob.required" class="global_input_required">
+              to pole jest wymagane
+            </div>
             <input
               id="register_dob"
               class="global_login_or_register_data_input"
@@ -44,8 +51,12 @@
           </div>
 
           <div class="input">
-            <div v-if="!$v.user.email.required" class="global_input_required">to pole jest wymagane</div>
-            <div v-if="!$v.user.email.email" class="global_input_required">adres e-mail jest niepoprawny</div>
+            <div v-if="!$v.user.email.required" class="global_input_required">
+              to pole jest wymagane
+            </div>
+            <div v-if="!$v.user.email.email" class="global_input_required">
+              adres e-mail jest niepoprawny
+            </div>
             <input
               id="register_email"
               class="global_login_or_register_data_input"
@@ -57,7 +68,12 @@
           </div>
 
           <div class="input">
-            <div v-if="!$v.user.username.required" class="global_input_required">to pole jest wymagane</div>
+            <div
+              v-if="!$v.user.username.required"
+              class="global_input_required"
+            >
+              to pole jest wymagane
+            </div>
             <input
               id="register_username"
               class="global_login_or_register_data_input"
@@ -69,8 +85,18 @@
           </div>
 
           <div class="input">
-            <div v-if="!$v.user.password.required" class="global_input_required">to pole jest wymagane</div>
-            <div v-if="!$v.user.password.minLength" class="global_input_required">hasło musi zawierać minimum 6 znaków</div>
+            <div
+              v-if="!$v.user.password.required"
+              class="global_input_required"
+            >
+              to pole jest wymagane
+            </div>
+            <div
+              v-if="!$v.user.password.minLength"
+              class="global_input_required"
+            >
+              hasło musi zawierać minimum 6 znaków
+            </div>
             <input
               id="register_password"
               class="global_login_or_register_data_input"
@@ -104,9 +130,9 @@
 import User from '../models/user';
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
-import {required, email, minLength} from 'vuelidate/lib/validators';
+import { required, email, minLength } from 'vuelidate/lib/validators';
 
-Vue.use(Vuelidate)
+Vue.use(Vuelidate);
 
 export default {
   name: 'Register',
@@ -130,33 +156,32 @@ export default {
   },
   validations: {
     user: {
-        name: {
-          required
-        },
-        dob: {
-          required
-        },
-        email: {
-          required,
-          email
-        },
-        username: {
-          required
-        },
-        password: {
-          required,
-          minLength: minLength(6)
-        }
-    }
+      name: {
+        required,
+      },
+      dob: {
+        required,
+      },
+      email: {
+        required,
+        email,
+      },
+      username: {
+        required,
+      },
+      password: {
+        required,
+        minLength: minLength(6),
+      },
+    },
   },
   methods: {
     handleRegister() {
-    this.$v.$touch();
-    if (this.$v.$pendind || this.$v.$error) {alert('Rejestracja nie powiodła się')}
-    else {
-      this.$store
-        .dispatch('auth/register', this.user)
-        .then(
+      this.$v.$touch();
+      if (this.$v.$pendind || this.$v.$error) {
+        alert('Rejestracja nie powiodła się');
+      } else {
+        this.$store.dispatch('auth/register', this.user).then(
           (data) => {
             this.message = data.message;
             //this.successful = true;
@@ -164,40 +189,27 @@ export default {
             this.$router.push('/Welcome');
           },
           (error) => {
-            this.message = 
-            (error.response &&
-            error.response.data &&
-            error.response.data.message) || 
-            error.message || 
-            error.toString();
-            this.successful = false;
+            this.message =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+            //this.successful = false;
             console.log(this.message);
-            if (this.message == "Error: Username is already taken!") {
-              alert("Rejestracja nie powiodła się. Podany login jest już w użyciu.")
-            } 
-            else if (this.message == "Error: Email is already in use!") {
-              alert("Rejestracja nie powiodła się. Podany adres e-mail jest już w użyciu.");
+            if (this.message == 'Error: Username is already taken!') {
+              alert(
+                'Rejestracja nie powiodła się. Podany login jest już w użyciu.'
+              );
+            } else if (this.message == 'Error: Email is already in use!') {
+              alert(
+                'Rejestracja nie powiodła się. Podany adres e-mail jest już w użyciu.'
+              );
             }
           }
-        )
-        //console.log("ddddd")
-        //.then(res => {
-          //console.log("kkkkk")
-          /*if(res.data == false) {
-            this.$router.push('/Welcome')
-          } else {
-            alert("Rejestracja nie powiodła się. Podany adres e-mail jest już w użyciu.")
-          }*/
-        //})
-    //}
-        //.then(this.$router.push('/Welcome'));
-    }
-    }
-    /*handleRegister() {
-      this.$store
-        .dispatch('auth/register', this.user)
-        .then(this.$router.push('/Welcome'));
-    },*/
+        );
+      }
+    },
   },
 };
 </script>
