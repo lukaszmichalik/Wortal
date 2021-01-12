@@ -25,6 +25,9 @@ public class Event implements Serializable{
     @Size(max = 50)
     private String address;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private ESurface surface;
 
     @ManyToMany(mappedBy = "events")
     @JsonIgnore
@@ -43,9 +46,10 @@ public class Event implements Serializable{
     public Event() {
     }
 
-    public Event( String city, String address ) {
+    public Event( String city, String address, ESurface surface) {
         this.city = city;
         this.address = address;
+        this.surface = surface;
     }
 
 
@@ -87,5 +91,13 @@ public class Event implements Serializable{
 
     public void setOrganizer_id(User organizer_id) {
         this.organizer_id = organizer_id;
+    }
+
+    public ESurface getSurface() {
+        return surface;
+    }
+
+    public void setSurface(ESurface surface) {
+        this.surface = surface;
     }
 }

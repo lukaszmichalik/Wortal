@@ -1,6 +1,7 @@
 package com.springboot.payload.response;
 
 
+import com.springboot.models.ESurface;
 import com.springboot.models.User;
 
 import java.util.Set;
@@ -9,14 +10,22 @@ public class EventResponse {
     private Long id;
     private String city;
     private String address;
+    private ESurface surface;
     private Set<User> participants;
     private User organizer_id;
 
-    public EventResponse(Long id, String city, String address, Set<User> participants, User organizer_id){
+    public EventResponse(Long id,
+                         String city,
+                         String address,
+                         ESurface surface,
+                         Set<User> participants,
+                         User organizer_id)
+    {
 
         this.id = id;
         this.city = city;
         this.address = address;
+        this.surface = surface;
         this.participants = participants;
         this.organizer_id = organizer_id;
     }
@@ -59,5 +68,13 @@ public class EventResponse {
 
     public void setOrganizer_id(User organizer_id) {
         this.organizer_id = organizer_id;
+    }
+
+    public ESurface getSurface() {
+        return surface;
+    }
+
+    public void setSurface(ESurface surface) {
+        this.surface = surface;
     }
 }

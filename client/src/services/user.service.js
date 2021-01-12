@@ -49,7 +49,7 @@ class UserService {
     });
   }
 
-  getEvents(id){
+  getUserEvents(id){
     return axios.post(API_URL + 'getUserEvents', {
       id: id
     }).then( response =>{
