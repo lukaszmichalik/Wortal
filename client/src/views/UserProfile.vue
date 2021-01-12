@@ -41,7 +41,7 @@
 
       <br />
       <div id="user_profile_buttons_div" class="global_div_centerize">
-        <v-btn id="user_profile_button_edit" class="global_v_btn">EDYTUJ</v-btn>
+        <v-btn id="user_profile_button_edit" class="global_v_btn" to="/EditProfile">EDYTUJ</v-btn>
         <br />
         <v-btn
           id="user_profile_button_delete_account"

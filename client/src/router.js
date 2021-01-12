@@ -6,6 +6,7 @@ import Register from './views/Register.vue';
 import Welcome from './views/Welcome.vue';
 import UserProfile from './views/UserProfile.vue';
 import EditProfile from './views/EditProfile.vue';
+import DeleteAccount from './views/DeleteAccount';
 
 Vue.use(Router);
 
@@ -55,10 +56,13 @@ export const router = new Router({
       path: '/user',
       name: 'user',
       component: () => import('./views/BoardUser.vue')
+    },
+    {
+      path: '/DeleteAccount',
+      component: DeleteAccount
     }
   ]
 });
-
 
 
 
