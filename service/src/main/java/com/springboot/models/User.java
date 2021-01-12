@@ -44,6 +44,7 @@ public class User implements Serializable {
 	@Size(max = 50)
 	private String username;
 
+	@JsonIgnore
 	@NotBlank
 	@Size(max = 120)
 	private String password;

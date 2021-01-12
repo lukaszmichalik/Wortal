@@ -1,6 +1,9 @@
-INSERT INTO events VALUES(101, 'ul. Kwiatowa', 'Wrocław', 'Hala', 3);
-INSERT INTO events VALUES(102, 'ul. Grzybowa', 'Kraków', 'Tartan', 2);
-INSERT INTO events VALUES(103, 'ul. Fiołkowa', 'Bytom', 'Hala', 2);
-INSERT INTO events VALUES(104, 'ul. Makowa', 'Zabrze', 'Naturalna', 1);
-INSERT INTO events VALUES(105, 'ul. Masłowa', 'Gliwice', 'Sztuczna', 1);
-INSERT INTO events VALUES(106, 'ul. Sienkiewicza', 'Katowice', 'Tartan', 1);
+INSERT INTO events VALUES(101, 'ul. Kwiatowa', 'Wrocław','23-Styczeń-2021 11:30','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!','2 h',  '12',  'pending','Hala',  3);
+INSERT INTO events VALUES(102, 'ul. Grzybowa', 'Kraków', '30-Marzec-2021 12:30','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!','2 h', '10',  'pending','Tartan',  2);
+INSERT INTO events VALUES(103, 'ul. Fiołkowa', 'Bytom', '23-Sierpień-2021 13:30','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!','2 h', '14',  'pending','Hala',  2);
+INSERT INTO events VALUES(104, 'ul. Makowa', 'Zabrze', '03-Czerwiec-2021 15:30','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!','2 h','16',  'pending','Naturalna',  1);
+INSERT INTO events VALUES(105, 'ul. Masłowa', 'Gliwice', '12-Grudzień-2021 16:30','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!','2 h','24',  'pending', 'Sztuczna', 1);
+INSERT INTO events VALUES(106, 'ul. Sienkiewicza', 'Katowice', '17-Październik-2021 08:30','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!','2 h','12',  'pending','Tartan', 1);
+INSERT INTO events VALUES(107, 'ul. Krakowska', 'Poznań', '19-Maj-2021 19:30','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!','2 h', '12',  'pending', 'Tartan', 1 );
+INSERT INTO events VALUES(108, 'ul. Piłsudzkiego', 'Lublin', '23-Wrzesień-2021 08:30','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!','2 h','10',  'pending','Sztuczna',  2 );
+INSERT INTO events VALUES(109, 'ul. Krzakowska', 'Toruń', '23-Luty-2021 06:30','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!','2 h','8', 'pending', 'Sztuczna', 3 );

@@ -1,6 +1,7 @@
 package com.springboot.models;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -25,9 +26,25 @@ public class Event implements Serializable{
     @Size(max = 50)
     private String address;
 
+    @JsonFormat(pattern="dd-MMMM-yyyy HH:mm:ss", locale ="pl-PL",shape = JsonFormat.Shape.STRING)
+    private String date;
+
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private ESurface surface;
+
+    @Size(max = 50)
+    private String limitation;
+
+    @Size(max = 50)
+    private String duration;
+
+    @Size(max = 50)
+    private String state;
+
+    @Size(max = 250)
+    private String description;
+
 
     @ManyToMany(mappedBy = "events")
     @JsonIgnore
@@ -46,10 +63,23 @@ public class Event implements Serializable{
     public Event() {
     }
 
-    public Event( String city, String address, ESurface surface) {
+    public Event(String city,
+                 String address,
+                 String date,
+                 ESurface surface,
+                 String limitation,
+                 String duration,
+                 String state,
+                 String description
+    ) {
         this.city = city;
         this.address = address;
+        this.date = date;
         this.surface = surface;
+        this.limitation = limitation;
+        this.duration = duration;
+        this.state = state;
+       this.description = description;
     }
 
 
@@ -100,4 +130,46 @@ public class Event implements Serializable{
     public void setSurface(ESurface surface) {
         this.surface = surface;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getLimitation() {
+        return limitation;
+    }
+
+    public void setLimitation(String limitation) {
+        this.limitation = limitation;
+    }
+//
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
+
+

@@ -1,14 +1,20 @@
 <template>
   <v-app class="global_app">
     <v-card
-      v-for="{ address, city, surface, id } in events"
+      v-for="{ address, city, date, surface,description, id } in events"
       :key="id"
       class="mx-auto ma-5"
       max-width="60%"
       min-width="60%"
       padding="20px"
     >
-      <v-img :src="getImgUrl(surface)" v-bind:alt="surface" height="200px"> </v-img>
+      <v-img :src="getImgUrl(surface)" v-bind:alt="surface" height="200px" aspect-ratio="2.75"> 
+        <v-card-title class="white--text mt-8">
+          <p class="ml-3">
+              {{date}}
+            </p>
+        </v-card-title>
+      </v-img>
 
       <v-card-title v-if="loaded">
         {{ city }}
@@ -35,11 +41,7 @@
           <v-divider></v-divider>
 
           <v-card-text>
-            I'm a thing. But, like most politicians, he promised more than he
-            could deliver. You won't have time for sleeping, soldier, not with
-            all the bed making you'll be doing. Then we'll go with that data
-            file! Hey, you add a one and two zeros to that or we walk! You're
-            going to do his laundry? I've got to find a way to escape.
+          {{description}}
           </v-card-text>
         </div>
       </v-expand-transition>
@@ -103,6 +105,15 @@ export default {
     });
   },
 };
-//UserService.getEvents(this.userValue.id)
-//{{events[0].city}}
+
 </script>
+
+<style>
+  .my-span {
+  color: white;
+  font-weight: bold;
+  margin-right: 0;
+  padding: 20px;
+  
+}
+</style>

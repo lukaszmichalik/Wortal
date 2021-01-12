@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand navbar-blue bg-dark">
       <v-app-bar-nav-icon v-if="currentUser" id="toolbar_icon"  @click="drawer = !drawer"></v-app-bar-nav-icon>
       <a href class="navbar-brand" @click.prevent>BallWortal</a>
-      <div class="navbar-nav mr-auto">
+      <!-- <div class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link to="/home" class="nav-link">
             <font-awesome-icon icon="home" />Home
@@ -14,11 +14,11 @@
         </li>
         <li v-if="showModeratorBoard" class="nav-item">
           <router-link to="/mod" class="nav-link">Moderator Board</router-link>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
           <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
-        </li>
-      </div>
+        </li> -->
+      <!-- </div> -->
 
       <div v-if="!currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -63,7 +63,9 @@
 
     <v-main>
       <v-container  fluid class="custom-container container-fluid">
-        <router-view></router-view>
+        <transition name="fade" mode="out-in" >
+          <router-view></router-view>
+        </transition>
       </v-container>
     </v-main>
 
