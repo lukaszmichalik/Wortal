@@ -1,0 +1,102 @@
+#user_edit_app {
+    background-image: url('../assets/dark_blue_5.png');
+    background-size: cover;
+}
+
+#user_edit_caption {
+    margin-bottom: 30px;
+}
+
+.user_edit_row {
+    margin-left: 2%;
+    margin-top: 10px;
+    max-width: 500px;
+    word-break: break-all;
+}
+
+#user_edit_row_button {
+    margin-left: 2%;
+    margin-top: 30px;
+    max-width: 500px;
+}
+
+.user_edit_label {
+    color: #7BD300;
+    font-size: 26px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#user_edit_label_password {
+    color: #7BD300;
+    font-size: 26px;
+    font-weight: bold;
+    margin-right: 16px;
+}
+
+.user_edit_data {
+    color: rgb(255, 255, 255);
+    font-size: 29px;
+    margin-top: -3px;
+    margin-right: 0px;
+}
+
+.user_edit_input {
+    font-size: 20px;
+    outline-color: rgb(21, 52, 80);
+    background-color: rgb(240, 240, 240);
+    padding: 10px;
+    width: 250px;
+    margin-top: 20px;
+}
+
+.user_edit_div {
+    margin-top: 20px;
+    margin-left: 0.5%;
+}
+
+.user_edit_caption {
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    margin-top: 16px;
+    margin-left: 1%;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 1200px) {
+    #user_edit_app {
+        background-image: url('../assets/mobile_tablet_dark_blue_5.png');
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #user_edit_app {
+        background-image: url('../assets/mobile_dark_blue_5.png');
+    }
+    #user_edit_div {
+        margin-bottom: 60px;
+    }
+    #user_edit_caption {
+        margin-bottom: 80px;
+    }
+    #user_edit_row {
+        margin-top: 10px;
+        max-width: 250px;
+        margin-left: 6px;
+        word-break: break-all;
+    }
+    #user_edit_label {
+        font-size: 23px;
+        font-weight: 410;
+        margin-bottom: 10px;
+    }
+    #user_edit_label_password {
+        font-size: 23px;
+        font-weight: 410;
+        margin-right: 16px;
+    }
+    .user_edit_data {
+        font-size: 26px;
+        margin-left: 0px;
+    }
+}
