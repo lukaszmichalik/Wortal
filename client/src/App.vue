@@ -52,9 +52,13 @@
         </div>
       </nav>
 
-      <div>
-        <router-view />
-      </div>
+      <v-main>
+      <v-container  fluid class="custom-container container-fluid">
+        <transition name="fade" mode="out-in" >
+          <router-view></router-view>
+        </transition>
+      </v-container>
+    </v-main>
     </div>
   </v-app>
 </template>
@@ -79,7 +83,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('auth/logout');
-      this.$router.push('/Home');
+      this.$router.push('/home');
     },
   },
 };
@@ -91,6 +95,15 @@ export default {
 
 <style>
 @import './styles/style_sidebar.css';
+
+.container-fluid.custom-container {
+  padding: 0px;
+  min-width: 100%;
+};
+v-btn:hover{
+  opacity: 0.5;
+};
+
 </style>
 
 
