@@ -9,6 +9,9 @@
         <p class="edit_profile_input_required" v-if="!$v.user.name.required">
           to pole jest wymagane
         </p>
+        <p class="edit_profile_input_required" v-if="!$v.user.name.maxLength">
+          to pole może zawierać maksymalnie 50 znaków
+        </p>
 
         <input
           id="edit_profile_name"
@@ -56,6 +59,9 @@
         <p class="edit_profile_input_required" v-if="!$v.user.email.email">
           adres e-mail jest niepoprawny
         </p>
+        <p class="edit_profile_input_required" v-if="!$v.user.email.maxLength">
+          to pole może zawierać maksymalnie 50 znaków
+        </p>
 
         <input
           id="edit_profile_email"
@@ -74,6 +80,9 @@
         >
           to pole jest wymagane
         </p>
+        <p class="edit_profile_input_required" v-if="!$v.user.username.maxLength">
+          to pole może zawierać maksymalnie 50 znaków
+        </p>
 
         <input
           id="edit_profile_login"
@@ -91,6 +100,9 @@
           v-if="!$v.user.password.minLength"
         >
           hasło musi zawierać minimum 6 znaków
+        </p>
+        <p class="edit_profile_input_required" v-if="!$v.user.password.maxLength">
+          to pole może zawierać maksymalnie 120 znaków
         </p>
 
         <input
@@ -155,7 +167,7 @@ import AuthService from '../services/auth.service';
 import User from '../models/user';
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
-import { required, email, minLength } from 'vuelidate/lib/validators';
+import { required, email, minLength, maxLength } from 'vuelidate/lib/validators';
 
 Vue.use(Vuelidate);
 
@@ -181,6 +193,7 @@ export default {
     user: {
       name: {
         required,
+        maxLength: maxLength(50)
       },
       dob: {
         required,
@@ -188,12 +201,15 @@ export default {
       email: {
         required,
         email,
+        maxLength: maxLength(50)
       },
       username: {
         required,
+        maxLength: maxLength(50)
       },
       password: {
         minLength: minLength(6),
+        maxLength: maxLength(120)
       },
     },
   },
