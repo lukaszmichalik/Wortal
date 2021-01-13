@@ -116,6 +116,9 @@
               UTWÓRZ KONTO
             </v-btn>
           </div>
+
+<div v-if="registerFailed">REJESTRACJA SIĘ NIE POWIODŁA</div>
+
         </div>
       </form>
     </div>
@@ -142,6 +145,7 @@ export default {
       submitted: false,
       successful: false,
       message: '',
+      var: registerFailed = 0
     };
   },
   computed: {
@@ -197,11 +201,12 @@ export default {
               error.toString();
             //this.successful = false;
             console.log(this.message);
-            if (this.message == 'Error: Username is already taken!') {
+            if (this.message == 'Błąd: Taki login już istnieje!') {
+              registerFailed = 1;
               alert(
                 'Rejestracja nie powiodła się. Podany login jest już w użyciu.'
               );
-            } else if (this.message == 'Error: Email is already in use!') {
+            } else if (this.message == 'Błąd: Taki adres email jest już w użyciu!') {
               alert(
                 'Rejestracja nie powiodła się. Podany adres e-mail jest już w użyciu.'
               );
