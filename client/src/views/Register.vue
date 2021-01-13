@@ -218,6 +218,7 @@ export default {
 
 
 
+
 <style>
 @import '../styles/style_register.css';
 @import '../styles/style_global.css';
