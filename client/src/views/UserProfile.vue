@@ -61,9 +61,14 @@
 <script>
 export default {
   name: 'UserProfile',
+  data(){
+    return {
+      userValue: JSON.parse(localStorage.getItem('user')) || '',
+    };
+  },
   computed: {
     currentUser() {
-      return this.$store.state.auth.user;
+      return this.userValue;
     },
   },
   mounted() {
