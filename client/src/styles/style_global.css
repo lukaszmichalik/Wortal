@@ -88,6 +88,17 @@
   text-align: center;
 }
 
+.global_error {
+  color: rgb(248, 61, 61);
+  font-size: 20px;
+  font-weight: 700;
+  margin-left: 30vw;
+  margin-right: 30vw;
+  text-align: center;
+  margin-top: -30px;
+  margin-bottom: 30px;
+}
+
 @media screen and (max-width: 500px) {
   .global_app {
     background-color: rgb(49, 110, 160) !important;
@@ -132,6 +143,12 @@
     margin: 20px;
     margin-bottom: 50px;
     width: 90%;
+  }
+  .global_error {
+    font-size: 16px;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    text-align: center;
   }
 }
 

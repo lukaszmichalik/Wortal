@@ -1,6 +1,5 @@
 <template>
-  <div id="register_div_background">
-    <div id="register_space" />
+<v-app id="register_app">
     <div id="register_div" class="global_div">
       <div id="register_caption" class="global_caption">Utwórz konto</div>
 
@@ -107,6 +106,13 @@
             />
           </div>
 
+          <div class="global_error" v-if="registerFailed == 'login in usage'">
+            REJESTRACJA NIE POWIODŁA SIĘ. LOGIN JEST JUŻ ZAJĘTY.
+          </div>
+          <div class="global_error" v-if="registerFailed == 'email in usage'">
+            REJESTRACJA NIE POWIODŁA SIĘ. ADRES E-MAIL JEST JUŻ W UŻYCIU.
+          </div>
+
           <div class="submit">
             <v-btn
               id="register_button_register"
@@ -116,13 +122,10 @@
               UTWÓRZ KONTO
             </v-btn>
           </div>
-
-<div v-if="registerFailed">REJESTRACJA SIĘ NIE POWIODŁA</div>
-
         </div>
       </form>
     </div>
-  </div>
+</v-app>
 </template>
 
 
@@ -145,7 +148,7 @@ export default {
       submitted: false,
       successful: false,
       message: '',
-      var: registerFailed = 0
+      registerFailed: '',
     };
   },
   computed: {
@@ -202,14 +205,11 @@ export default {
             //this.successful = false;
             console.log(this.message);
             if (this.message == 'Błąd: Taki login już istnieje!') {
-              registerFailed = 1;
-              alert(
-                'Rejestracja nie powiodła się. Podany login jest już w użyciu.'
-              );
-            } else if (this.message == 'Błąd: Taki adres email jest już w użyciu!') {
-              alert(
-                'Rejestracja nie powiodła się. Podany adres e-mail jest już w użyciu.'
-              );
+              this.registerFailed = 'login in usage';
+            } else if (
+              this.message == 'Błąd: Taki adres email jest już w użyciu!'
+            ) {
+              this.registerFailed = 'email in usage';
             }
           }
         );

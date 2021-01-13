@@ -5,6 +5,11 @@
   width: 100vw;
 }
 
+#register_app {
+  background-image: url('../assets/dark_blue_1.png');
+  background-size: cover;
+}
+
 #register_space {
   height: 1vh;
 }
@@ -47,6 +52,10 @@
 #register_password {
   margin-top: 5px;
   margin-bottom: 60px;
+}
+
+#register_button_register {
+  margin-bottom: 40px;
 }
 
 @media screen and (max-width: 1200px) {
