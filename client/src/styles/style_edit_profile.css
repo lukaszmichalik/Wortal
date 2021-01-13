@@ -28,7 +28,6 @@
     margin-right: 16px;
 }
 
-
 #edit_profile_password {
     margin-bottom: 10px;
 }
@@ -71,8 +70,8 @@
         margin-bottom: 50px;
         margin-top: 10px;
     }
-    #edit_profile_row {
-        margin-bottom: 10px;
+    #edit_profile_col {
+        margin-bottom: -10px;
         max-width: 300px;
         margin-left: 6px;
     }

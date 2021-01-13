@@ -13,6 +13,13 @@
             >
               to pole jest wymagane
             </div>
+            <div
+              id="register_name_input_required"
+              v-if="!$v.user.name.maxLength"
+              class="global_input_required"
+            >
+              to pole może zawierać maksymalnie 50 znaków
+            </div>
             <input
               id="register_name"
               class="global_data_input"
@@ -56,6 +63,9 @@
             <div v-if="!$v.user.email.email" class="global_input_required">
               adres e-mail jest niepoprawny
             </div>
+            <div v-if="!$v.user.email.maxLength" class="global_input_required">
+              to pole może zawierać maksymalnie 50 znaków
+            </div>
             <input
               id="register_email"
               class="global_data_input"
@@ -72,6 +82,12 @@
               class="global_input_required"
             >
               to pole jest wymagane
+            </div>
+            <div
+              v-if="!$v.user.username.maxLength"
+              class="global_input_required"
+            >
+              to pole może zawierać maksymalnie 50 znaków
             </div>
             <input
               id="register_username"
@@ -96,6 +112,12 @@
             >
               hasło musi zawierać minimum 6 znaków
             </div>
+            <div
+              v-if="!$v.user.password.maxLength"
+              class="global_input_required"
+            >
+              to pole może zawierć maksymalnie 120 znaków
+            </div>
             <input
               id="register_password"
               class="global_data_input"
@@ -106,15 +128,15 @@
             />
           </div>
 
-          <div class="global_error" v-if="registerFailed == 'login in usage'">
+          <label class="global_error" id="register_error" v-if="registerFailed == 'login in usage'">
             REJESTRACJA NIE POWIODŁA SIĘ. LOGIN JEST JUŻ ZAJĘTY.
-          </div>
-          <div class="global_error" v-if="registerFailed == 'email in usage'">
+          </label>
+          <label class="global_error" id="register_error" v-if="registerFailed == 'email in usage'">
             REJESTRACJA NIE POWIODŁA SIĘ. ADRES E-MAIL JEST JUŻ W UŻYCIU.
-          </div>
-          <div class="global_error" v-if="registerFailed == 'input error'">
+          </label>
+          <label class="global_error" id="register_error" v-if="registerFailed == 'input error'">
             REJESTRACJA NIE POWIODŁA SIĘ. WYPEŁNIJ POPRAWNIE WSZYSTKIE POLA FORMULARZA.
-          </div>
+          </label>
 
           <div class="submit">
             <v-btn
@@ -139,7 +161,7 @@
 import User from '../models/user';
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
-import { required, email, minLength } from 'vuelidate/lib/validators';
+import { required, email, minLength, maxLength } from 'vuelidate/lib/validators';
 
 Vue.use(Vuelidate);
 
@@ -168,6 +190,7 @@ export default {
     user: {
       name: {
         required,
+        maxLength: maxLength(50)
       },
       dob: {
         required,
@@ -175,13 +198,16 @@ export default {
       email: {
         required,
         email,
+        maxLength: maxLength(50)
       },
       username: {
         required,
+        maxLength: maxLength(50)
       },
       password: {
         required,
         minLength: minLength(6),
+        maxLength: maxLength(120)
       },
     },
   },

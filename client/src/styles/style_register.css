@@ -58,6 +58,11 @@
   margin-bottom: 40px;
 }
 
+#register_error {
+  width: 270px;
+  text-align: center;
+}
+
 @media screen and (max-width: 1200px) {
   #register_app {
     background-image: url('../assets/mobile_tablet_dark_blue_1.png');

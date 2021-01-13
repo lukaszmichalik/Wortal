@@ -24,6 +24,15 @@
           v-model="user.password"
         />
         <br />
+
+        <label class="global_error" id="login_error" v-if="loginFailed == 'login failed'">
+          NIE UDAŁO SIĘ ZALOGOWAĆ.
+        </label>
+        <label class="global_error" id="login_error" v-if="loginFailed == 'empty fields'">
+          WYPEŁNIJ WSZYSTKIE POLA FORMULARZA.
+        </label>
+        <br/>
+
         <v-btn id="login_button_login" class="global_v_btn" type="submit"
           >ZALOGUJ</v-btn
         >
@@ -31,6 +40,7 @@
         <v-btn id="login_button_register" class="global_v_btn" to="/Register"
           >UTWÓRZ KONTO</v-btn
         >
+
       </form>
     </div>
   </div>
@@ -50,6 +60,7 @@ export default {
       user: new User('', ''),
       loading: false,
       message: '',
+      loginFailed: ''
     };
   },
   computed: {
@@ -84,8 +95,11 @@ export default {
                   error.response.data.message) ||
                 error.message ||
                 error.toString();
+                this.loginFailed = "login failed";
             }
           );
+        } else {
+          this.loginFailed = "empty fields";
         }
       });
     },
