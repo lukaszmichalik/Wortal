@@ -15,32 +15,44 @@ export const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'home',
       component: Home
     },
     {
-      path: '/Home',
+      path: '/home',
       component: Home
     },
     {
-      path: '/Login',
+      path: '/login',
       component: Login
     },
     {
-      path: '/Register',
+      path: '/register',
       component: Register
     },
     {
-      path: '/Welcome',
+      path: '/welcome',
       component: Welcome
     },
     {
-      path: '/UserProfile',
-      component: UserProfile
+      path: '/userProfile',
+      name: 'userProfile',
+      component: () => import('./views/UserProfile.vue')
     },
     {
-      path: '/EditProfile',
-      component: EditProfile
+      path: '/editProfile',
+      name: 'editProfile',
+      component: () => import('./views/EditProfile.vue')
+    },
+    {
+      path: '/yourEvents',
+      name: 'yourEvents',
+      component: () => import('./views/YourEvents.vue')
+    },
+    {
+      path: '/eventOverview',
+      name: 'eventOverview',
+      component: () => import('./views/EventOverview.vue')
     },
     {
       path: '/admin',
