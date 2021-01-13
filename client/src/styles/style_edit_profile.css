@@ -1,89 +1,93 @@
-#edit_profile_background {
+#edit_profile_app {
     background-image: url('../assets/dark_blue_5.png');
     background-size: cover;
-    height: 100vh;
-    width: 100vw;
-  }
-  
-  #edit_profile_space {
-    height: 20px;
-  }
-  
-  #edit_profile_div {
+}
+
+#edit_profile_div {
     margin-top: 0;
-  }
-  
-  #edit_profile_caption {
+}
+
+#edit_profile_caption {
     margin-bottom: 70px;
     margin-top: 40px;
-  }
-  
-  #edit_profile_row {
-    margin-left: 2%;
-    margin-top: 10px;
-    width: 300px;
-  }
+}
 
-  #edit_profile_dob {
+#edit_profile_col {
     margin-left: 2%;
     margin-top: 10px;
-    width: 300px;
-  }
-  
-  #edit_profile_label {
+    margin-bottom: 30px;
+    max-width: 300px;
+    word-break: break-all;
+}
+
+#edit_profile_label {
     color: #7BD300;
     font-size: 26px;
     font-weight: bold;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     margin-right: 16px;
-  }
-  
-  .edit_profile_data {
-    color: rgb(206, 57, 57);
-    font-size: 29px;
-    font-weight: 300;
-    margin-top: -3px;
-    margin-right: -6px;
-    width: 100px;
-  }
-  
-  #edit_profile_buttons_div {
-    margin-top: 110px;
-  }
-  
-  #edit_profile_button_cancel {
-    background-color: crimson !important;
+}
+
+
+#edit_profile_password {
+    margin-bottom: 10px;
+}
+
+#edit_profile_buttons_div {
+    margin-top: 100px;
+}
+
+#edit_profile_button_cancel {
     text-decoration: none;
-  }
-  
-  @media screen and (max-width: 1200px) {
-    #edit_profile_background {
-      background-image: url('../assets/mobile_tablet_dark_blue_5.png');
+    margin-bottom: 100px;
+}
+
+.edit_profile_input_required {
+    color: rgb(248, 61, 61);
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    margin-left: 2%;
+    margin-bottom: 10px;
+    margin-top: 2px;
+}
+
+#edit_profile_error {
+    margin-top: 50px;
+    margin-bottom: -60px;
+}
+
+@media screen and (max-width: 1200px) {
+    #edit_profile_app {
+        background-image: url('../assets/mobile_tablet_dark_blue_5.png');
     }
-  }
-  
-  @media screen and (max-width: 500px) {
-    #edit_profile_background {
-      background-image: url('../assets/mobile_dark_blue_5.png');
+}
+
+@media screen and (max-width: 500px) {
+    #edit_profile_app {
+        background-image: url('../assets/mobile_dark_blue_5.png');
     }
     #edit_profile_caption {
-      margin-bottom: 80px;
-      margin-top: 10px;
+        margin-bottom: 50px;
+        margin-top: 10px;
     }
     #edit_profile_row {
-      margin-top: 10px;
-      max-width: 250px;
-      margin-left: 6px;
-      word-break: break-all;
+        margin-bottom: 10px;
+        max-width: 300px;
+        margin-left: 6px;
     }
     #edit_profile_label {
-      font-size: 23px;
-      font-weight: 410;
-      margin-bottom: 10px;
+        font-size: 23px;
+        font-weight: 410;
+        margin-bottom: 10px;
+        margin-top: 20px;
     }
     .edit_profile_data {
-      font-size: 26px;
-      margin-left: 0px;
-      font-weight: 300;
+        font-size: 26px;
+        margin-left: 0px;
+        font-weight: 300;
     }
-  }
+    .edit_profile_input_required {
+        margin-bottom: -40px;
+    }
+}

@@ -1,5 +1,5 @@
 <template>
-<v-app id="register_app">
+  <v-app id="register_app">
     <div id="register_div" class="global_div">
       <div id="register_caption" class="global_caption">Utwórz konto</div>
 
@@ -15,7 +15,7 @@
             </div>
             <input
               id="register_name"
-              class="global_login_or_register_data_input"
+              class="global_data_input"
               placeholder="imię i nazwisko"
               v-model="user.name"
               type="text"
@@ -26,7 +26,7 @@
           <div class="input">
             <select
               id="register_position"
-              class="global_login_or_register_data_input"
+              class="global_data_input"
               v-model="user.position"
             >
               <option value="napastnik">napastnik</option>
@@ -42,7 +42,7 @@
             </div>
             <input
               id="register_dob"
-              class="global_login_or_register_data_input"
+              class="global_data_input"
               type="date"
               v-model="user.dob"
               name="dob"
@@ -58,7 +58,7 @@
             </div>
             <input
               id="register_email"
-              class="global_login_or_register_data_input"
+              class="global_data_input"
               type="email"
               placeholder="adres e-mail"
               v-model="user.email"
@@ -75,7 +75,7 @@
             </div>
             <input
               id="register_username"
-              class="global_login_or_register_data_input"
+              class="global_data_input"
               placeholder="login"
               v-model="user.username"
               type="text"
@@ -98,7 +98,7 @@
             </div>
             <input
               id="register_password"
-              class="global_login_or_register_data_input"
+              class="global_data_input"
               type="password"
               placeholder="hasło"
               v-model="user.password"
@@ -111,6 +111,9 @@
           </div>
           <div class="global_error" v-if="registerFailed == 'email in usage'">
             REJESTRACJA NIE POWIODŁA SIĘ. ADRES E-MAIL JEST JUŻ W UŻYCIU.
+          </div>
+          <div class="global_error" v-if="registerFailed == 'input error'">
+            REJESTRACJA NIE POWIODŁA SIĘ. WYPEŁNIJ POPRAWNIE WSZYSTKIE POLA FORMULARZA.
           </div>
 
           <div class="submit">
@@ -125,7 +128,7 @@
         </div>
       </form>
     </div>
-</v-app>
+  </v-app>
 </template>
 
 
@@ -186,7 +189,7 @@ export default {
     handleRegister() {
       this.$v.$touch();
       if (this.$v.$pendind || this.$v.$error) {
-        alert('Rejestracja nie powiodła się');
+        this.registerFailed = 'input error';
       } else {
         this.$store.dispatch('auth/register', this.user).then(
           (data) => {

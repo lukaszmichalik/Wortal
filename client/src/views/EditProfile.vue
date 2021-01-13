@@ -1,130 +1,164 @@
 <template>
-  <v-app id="user_edit_app">
-    <div id="user_edit_div" class="user_edit_div">
-      <form name="editForm" @submit.prevent="handleEdit">
-        <v-row flex>
-          <v-col>
-            <p class="user_edit_caption">
-              Profil użytkownika
-            </p>
-  
-            <v-row class="user_edit_row" justify="space-between">
-              <p class="user_edit_label">Imię i Nazwisko:</p>
-              <input
-                required
-                class="user_edit_input"
-                v-validate="'required|min:3|max:40'"
-                type="text"
-                name="name"
-                v-model="user.name"
-              />
-            </v-row>
-  
-            <v-row  class="user_edit_row" justify="space-between">
-              <p class="user_edit_label">Pozycja:</p>
-              <select
-                required
-                v-model="user.position"
-                
-                class="user_edit_input"
-                name="position"
-              >
-                <option value="napastnik">napastnik</option>
-                <option value="obrońca">obrońca</option>
-                <option value="bramkarz">bramkarz</option>
-                <option value="pomocnik">pomocnik</option>
-              </select>
-            </v-row>
-  
-            <v-row class="user_edit_row" justify="space-between">
-              <p class="user_edit_label">Data Urodzenia:</p>
-  
-              <input
-                required
-                class="user_edit_input"
-                type="date"
-                v-model="user.dob"
-                v-validate="'required'"
-                name="dob"
-              />
-            </v-row>
-  
-            <v-row class="user_edit_row" justify="space-between">
-              <p class="user_edit_label">Email:</p>
-  
-              <input
-                class="user_edit_input"
-                type="email"
-                v-model="user.email"
-                v-validate="'required|email|max:30'"
-                name="email"
-              />
-            </v-row>
-  
-            <v-row class="user_edit_row" justify="space-between">
-              <p class="user_edit_label">Username:</p>
-  
-              <input
-                class="user_edit_input"
-                type="text"
-                v-model="user.username"
-                v-validate="'required|min:3|max:20'"
-                name="username"
-              />
-            </v-row>
-  
-            <v-row class="user_edit_row" justify="space-between">
-              <p class="user_edit_label">Nowe Hasło:</p>
-  
-              <input
-                class="user_edit_input"
-                type="password"
-                placeholder="Wprowadź nowe hasło"
-                v-model="user.password"
-                v-validate="'min:6|max:30'"
-                name="password"
-              />
-            </v-row>
-  
-            <v-row class="user_edit_row" justify="space-between">
-              <p class="user_edit_label">Potwierdź Hasło:</p>
-  
-              <input
-                class="user_edit_input"
-                type="password"
-                placeholder="Potwierdź nowe hasło"
-                v-validate="'min:6|max:30'"
-                v-model="confirmPassword"
-                name="confirmPassword"
-              />
-            </v-row>
-  
-            <v-row class="user_edit_row" justify="center">
-              <div v-if="message" class="alert-danger">
-                {{ message }}
-              </div>
-            </v-row>
-  
-            <v-row id="user_edit_row_button" justify="space-around">
-              
-                <v-btn color="primary" class="mt-5" large dark @click="cancel"> Anuluj </v-btn>
-              
-                <v-btn color="primary" class="mt-5" large dark type="submit">
-                  Zatwierdź
-                </v-btn>
-              
-            </v-row>
-          </v-col>
-        </v-row>
-      </form>
+  <v-app id="edit_profile_app">
+    <div id="edit_profile_div" class="global_div">
+      <p id="edit_profile_caption" class="global_caption">Edytuj profil</p>
+
+      <v-col id="edit_profile_col">
+        <p id="edit_profile_label">imię i nazwisko:</p>
+
+        <p class="edit_profile_input_required" v-if="!$v.user.name.required">
+          to pole jest wymagane
+        </p>
+
+        <input
+          id="edit_profile_name"
+          class="global_data_input"
+          type="text"
+          v-model="user.name"
+        />
+      </v-col>
+
+      <v-col id="edit_profile_col">
+        <p id="edit_profile_label">pozycja:</p>
+        <select
+          v-model="user.position"
+          class="global_data_input"
+          name="position"
+        >
+          <option value="napastnik">napastnik</option>
+          <option value="obrońca">obrońca</option>
+          <option value="bramkarz">bramkarz</option>
+          <option value="pomocnik">pomocnik</option>
+        </select>
+      </v-col>
+
+      <v-col id="edit_profile_col">
+        <p id="edit_profile_label">data urodzenia:</p>
+
+        <p class="edit_profile_input_required" v-if="!$v.user.dob.required">
+          to pole jest wymagane
+        </p>
+
+        <input
+          id="edit_profile_dob"
+          class="global_data_input"
+          type="date"
+          v-model="user.dob"
+        />
+      </v-col>
+
+      <v-col id="edit_profile_col">
+        <p id="edit_profile_label">adres e-mail:</p>
+
+        <p class="edit_profile_input_required" v-if="!$v.user.email.required">
+          to pole jest wymagane
+        </p>
+        <p class="edit_profile_input_required" v-if="!$v.user.email.email">
+          adres e-mail jest niepoprawny
+        </p>
+
+        <input
+          id="edit_profile_email"
+          class="global_data_input"
+          type="email"
+          v-model="user.email"
+        />
+      </v-col>
+
+      <v-col id="edit_profile_col">
+        <p id="edit_profile_label">login:</p>
+
+        <p
+          class="edit_profile_input_required"
+          v-if="!$v.user.username.required"
+        >
+          to pole jest wymagane
+        </p>
+
+        <input
+          id="edit_profile_login"
+          class="global_data_input"
+          type="text"
+          v-model="user.username"
+        />
+      </v-col>
+
+      <v-col id="edit_profile_col">
+        <p id="edit_profile_label">hasło:</p>
+
+        <p
+          class="edit_profile_input_required"
+          v-if="!$v.user.password.minLength"
+        >
+          hasło musi zawierać minimum 6 znaków
+        </p>
+
+        <input
+          id="edit_profile_password"
+          class="global_data_input"
+          type="password"
+          placeholder="podaj nowe hasło"
+          v-model="user.password"
+        />
+        <br />
+        <input
+          id="edit_profile_password"
+          class="global_data_input"
+          type="password"
+          placeholder="powtórz nowe hasło"
+          v-model="confirmPassword"
+        />
+      </v-col>
+
+      <div
+        id="edit_profile_error"
+        class="global_error"
+        v-if="editFailed == 'input error'"
+      >
+        EDYCJA DANYCH NIE POWIODŁA SIĘ. WYPEŁNIJ POPRAWNIE WSZYSTKIE POLA
+        FORMULARZA.
+      </div>
+      <div
+        id="edit_profile_error"
+        class="global_error"
+        v-if="editFailed == 'different passwords'"
+      >
+        EDYCJA DANYCH NIE POWIODŁA SIĘ. PODANE HASŁA SIĘ RÓŻNIĄ.
+      </div>
+
+      <div id="edit_profile_buttons_div" class="global_div_centerize">
+        <v-btn
+          id="edit_profile_button_edit"
+          class="global_v_btn"
+          @click="handleEdit"
+          >EDYTUJ</v-btn
+        >
+        <br />
+        <v-btn
+          id="edit_profile_button_cancel"
+          class="global_v_btn"
+          to="/userProfile"
+          >ANULUJ</v-btn
+        >
+      </div>
     </div>
   </v-app>
 </template>
+
+
+
+
 
 <script>
 import UserService from '../services/user.service';
 import AuthService from '../services/auth.service';
 import User from '../models/user';
+import Vue from 'vue';
+import Vuelidate from 'vuelidate';
+import { required, email, minLength } from 'vuelidate/lib/validators';
+
+Vue.use(Vuelidate);
+
 export default {
   name: 'EditProfile',
   data() {
@@ -135,6 +169,7 @@ export default {
       successful: false,
       message: '',
       userValue: JSON.parse(localStorage.getItem('user')) || '',
+      editFailed: '',
     };
   },
   computed: {
@@ -142,22 +177,48 @@ export default {
       return this.userValue;
     },
   },
+  validations: {
+    user: {
+      name: {
+        required,
+      },
+      dob: {
+        required,
+      },
+      email: {
+        required,
+        email,
+      },
+      username: {
+        required,
+      },
+      password: {
+        minLength: minLength(6),
+      },
+    },
+  },
   methods: {
     cancel() {
       this.$router.push('/userProfile');
     },
     handleEdit() {
-      if (this.user.password == this.confirmPassword) {
-        console.log('it went to api');
-        this.user.id = this.currentUser.id;
-        UserService.editUser(this.user);
-
-        if (this.user.username != this.currentUser.username) {
-          this.$store.dispatch('auth/logout');
-          this.$router.push('/login');
-        }
+      this.$v.$touch();
+      if (this.$v.$pendind || this.$v.$error) {
+        this.editFailed = 'input error';
       } else {
-        this.message = 'Nie pasujące hasła';
+        if (this.user.password == this.confirmPassword) {
+          console.log('it went to api');
+          this.user.id = this.currentUser.id;
+          UserService.editUser(this.user);
+
+          /*if (this.user.username != this.currentUser.username) {
+            this.$router.push('/login');
+            this.$store.dispatch('auth/logout');
+          }*/
+          this.$router.push('/userProfile');
+        } else {
+          this.editFailed = 'different passwords';
+        }
       }
     },
   },
@@ -175,6 +236,11 @@ export default {
 };
 </script>
 
+
+
+
+
 <style>
-@import '../styles/style_user_edit.css';
+@import '../styles/style_edit_profile.css';
+@import '../styles/style_global.css';
 </style>

@@ -1,5 +1,6 @@
 <template>
-  <div id="home_div_background">
+  <!--<div id="home_div_background">!-->
+    <v-app id="home_app">
     <div id="home_div" class="global_div">
       <img
         id="home_app_logo"
@@ -28,7 +29,8 @@
         >ZAREJESTRUJ SIĘ</v-btn
       >
     </div>
-  </div>
+  <!--</div>!-->
+    </v-app>
 </template>
 
 

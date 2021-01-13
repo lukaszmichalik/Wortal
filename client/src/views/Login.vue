@@ -10,7 +10,7 @@
       <form @submit.prevent="handleLogin">
         <input
           id="login_username"
-          class="global_login_or_register_data_input"
+          class="global_data_input"
           type="text"
           placeholder="login"
           v-model="user.username"
@@ -18,7 +18,7 @@
         <br />
         <input
           id="login_password"
-          class="global_login_or_register_data_input"
+          class="global_data_input"
           type="password"
           placeholder="hasło"
           v-model="user.password"

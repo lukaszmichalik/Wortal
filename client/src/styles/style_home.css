@@ -5,6 +5,11 @@
     width: 100vw;
 }
 
+#home_app {
+    background-image: url('../assets/dark_blue_7.png');
+    background-size: cover;
+}
+
 #home_app_logo {
     margin-top: 50px;
     width: 45%;
@@ -40,6 +45,7 @@
 
 #home_button_register {
     text-decoration: none;
+    margin-bottom: 50px;
 }
 
 @media screen and (max-width: 1200px) {

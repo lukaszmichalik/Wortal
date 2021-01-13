@@ -55,7 +55,7 @@
   margin-bottom: 20px;
 }
 
-.global_login_or_register_data_input {
+.global_data_input {
   font-size: 20px;
   outline-color: rgb(21, 52, 80);
   background-color: rgb(240, 240, 240);
@@ -153,7 +153,7 @@
 }
 
 @media screen and (max-width: 300px) {
-  .global_login_or_register_data_input {
+  .global_data_input {
     width: 240px;
   }
 }
