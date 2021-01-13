@@ -9,7 +9,7 @@
       </div>
 
       <br />
-      <v-btn id="delete_account_button_yes" class="global_v_btn" to="/Login"
+      <v-btn id="delete_account_button_yes" class="global_v_btn" @click.once="deleteUser"
         >TAK, USUŃ MOJE KONTO</v-btn
       >
       <br />
@@ -25,7 +25,38 @@
 </template>
 
 
+<script>
+import UserService from '../services/user.service';
 
+export default {
+  
+  
+  name: 'DeleteAccount',
+  data(){
+    return {
+      userValue: JSON.parse(localStorage.getItem('user')) || '',
+    };
+  },
+  computed: {
+    currentUser() {
+      return this.userValue;
+    },
+  },
+  methods: {
+    deleteUser() {
+      UserService.deleteUser(this.currentUser.id)
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/home');
+    },
+  },
+  mounted() {
+    if (!this.currentUser) {
+      this.$router.push('/login');
+    }
+  },
+
+}
+</script>
 
 
 <style>

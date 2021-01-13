@@ -29,7 +29,6 @@ class UserService {
         email: response.data.email,
         username: response.data.username
      }
-    console.log(response);
 
        localStorage.setItem('user', JSON.stringify(newValue));
 
@@ -41,6 +40,12 @@ class UserService {
       id: id
     }).then( response =>{
       return Promise.resolve(response.data)
+    })
+  }
+
+  deleteUser(id){
+    return axios.post(API_URL + 'deleteUser', {
+      id: id
     })
   }
 
