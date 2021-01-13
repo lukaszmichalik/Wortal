@@ -4,6 +4,7 @@ import com.springboot.models.Event;
 import com.springboot.models.User;
 import com.springboot.payload.request.EditRequest;
 import com.springboot.payload.request.IdRequest;
+import com.springboot.payload.response.MessageResponse;
 import com.springboot.payload.response.UserResponse;
 import com.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,9 +56,19 @@ public class UserController {
 
         User user = userRepository.getOne(idRequest.getId());
 
-//        userRepository.save(user);
-
         return user.getEvents();
+    }
 
+    @PostMapping("/deleteUser")
+    public ResponseEntity<?> deleteUser(@RequestBody IdRequest idRequest){
+
+        //User user = userRepository.getOne(idRequest.getId());
+        if (userRepository.existsById(idRequest.getId())) {
+            userRepository.deleteById(idRequest.getId());
+            return ResponseEntity.ok(new MessageResponse("Rejestracja się powiodła!"));
+        }
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("Błąd: Użytkownik o takim Id nie istnieje w bazie!"));
     }
 }
