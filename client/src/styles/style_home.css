@@ -1,13 +1,7 @@
-#home_div_background {
-    background-image: url('../assets/dark_blue_7.png');
-    background-size: cover;
-    height: 100vh;
-    width: 100vw;
-}
-
 #home_app {
     background-image: url('../assets/dark_blue_7.png');
     background-size: cover;
+    background-attachment: fixed;
 }
 
 #home_app_logo {

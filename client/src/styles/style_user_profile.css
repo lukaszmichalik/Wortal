@@ -1,6 +1,7 @@
 #user_profile_app {
   background-image: url('../assets/dark_blue_5.png');
   background-size: cover;
+  background-attachment: fixed;
 }
 
 #user_profile_div {

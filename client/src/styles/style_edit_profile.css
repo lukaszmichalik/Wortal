@@ -1,6 +1,7 @@
 #edit_profile_app {
     background-image: url('../assets/dark_blue_5.png');
     background-size: cover;
+    background-attachment: fixed;
 }
 
 #edit_profile_div {
@@ -33,7 +34,7 @@
 }
 
 #edit_profile_buttons_div {
-    margin-top: 30px;
+    margin-top: 100px;
 }
 
 #edit_profile_button_cancel {
@@ -55,6 +56,7 @@
     margin-top: 50px;
     text-align: center;
     width: 270px;
+    margin-bottom: 0px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -89,5 +91,11 @@
     }
     .edit_profile_input_required {
         margin-bottom: -40px;
+    }
+    #edit_profile_error {
+        width: 200px;
+    }
+    #edit_profile_buttons_div {
+        margin-top: 60px;
     }
 }

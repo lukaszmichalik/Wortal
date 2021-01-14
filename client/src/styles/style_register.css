@@ -1,13 +1,7 @@
-#register_div_background {
-  background-image: url('../assets/dark_blue_1.png');
-  background-size: cover;
-  height: 100vh;
-  width: 100vw;
-}
-
 #register_app {
   background-image: url('../assets/dark_blue_1.png');
   background-size: cover;
+  background-attachment: fixed;
 }
 
 #register_space {
@@ -72,5 +66,8 @@
 @media screen and (max-width: 500px) {
   #register_app {
     background-image: url('../assets/mobile_dark_blue_1.png');
+  }
+  #register_error {
+    width: 200px;
   }
 }

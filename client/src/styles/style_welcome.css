@@ -5,6 +5,12 @@
     width: 100vw;
 }
 
+#welcome_app {
+    background-image: url('../assets/dark_blue_10.png');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 #welcome_space {
     height: 25vh;
 }

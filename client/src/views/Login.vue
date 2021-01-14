@@ -1,5 +1,6 @@
 <template>
-  <div id="login_background">
+  <!--<div id="login_background">!-->
+  <v-app id="login_app">
     <div id="login_div" class="global_div">
       <img
         id="login_app_logo"
@@ -25,13 +26,21 @@
         />
         <br />
 
-        <label class="global_error" id="login_error" v-if="loginFailed == 'login failed'">
+        <label
+          class="global_error"
+          id="login_error"
+          v-if="loginFailed == 'login failed'"
+        >
           NIE UDAŁO SIĘ ZALOGOWAĆ.
         </label>
-        <label class="global_error" id="login_error" v-if="loginFailed == 'empty fields'">
+        <label
+          class="global_error"
+          id="login_error"
+          v-if="loginFailed == 'empty fields'"
+        >
           WYPEŁNIJ WSZYSTKIE POLA FORMULARZA.
         </label>
-        <br/>
+        <br />
 
         <v-btn id="login_button_login" class="global_v_btn" type="submit"
           >ZALOGUJ</v-btn
@@ -40,10 +49,9 @@
         <v-btn id="login_button_register" class="global_v_btn" to="/Register"
           >UTWÓRZ KONTO</v-btn
         >
-
       </form>
     </div>
-  </div>
+  </v-app>
 </template>
 
 
@@ -60,7 +68,7 @@ export default {
       user: new User('', ''),
       loading: false,
       message: '',
-      loginFailed: ''
+      loginFailed: '',
     };
   },
   computed: {
@@ -95,11 +103,11 @@ export default {
                   error.response.data.message) ||
                 error.message ||
                 error.toString();
-                this.loginFailed = "login failed";
+              this.loginFailed = 'login failed';
             }
           );
         } else {
-          this.loginFailed = "empty fields";
+          this.loginFailed = 'empty fields';
         }
       });
     },
