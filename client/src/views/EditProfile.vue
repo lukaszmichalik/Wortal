@@ -80,7 +80,10 @@
         >
           to pole jest wymagane
         </p>
-        <p class="edit_profile_input_required" v-if="!$v.user.username.maxLength">
+        <p
+          class="edit_profile_input_required"
+          v-if="!$v.user.username.maxLength"
+        >
           to pole może zawierać maksymalnie 50 znaków
         </p>
 
@@ -101,7 +104,10 @@
         >
           hasło musi zawierać minimum 6 znaków
         </p>
-        <p class="edit_profile_input_required" v-if="!$v.user.password.maxLength">
+        <p
+          class="edit_profile_input_required"
+          v-if="!$v.user.password.maxLength"
+        >
           to pole może zawierać maksymalnie 120 znaków
         </p>
 
@@ -122,21 +128,30 @@
         />
       </v-col>
 
-      <div
+<div class="global_div_centerize">
+      <label
         id="edit_profile_error"
         class="global_error"
         v-if="editFailed == 'input error'"
       >
         EDYCJA DANYCH NIE POWIODŁA SIĘ. WYPEŁNIJ POPRAWNIE WSZYSTKIE POLA
         FORMULARZA.
-      </div>
-      <div
+      </label>
+      <label
         id="edit_profile_error"
         class="global_error"
         v-if="editFailed == 'different passwords'"
       >
         EDYCJA DANYCH NIE POWIODŁA SIĘ. PODANE HASŁA SIĘ RÓŻNIĄ.
-      </div>
+      </label>
+      <label
+        id="edit_profile_error"
+        class="global_error"
+        v-if="editFailed == 'edit failed'"
+      >
+        EDYCJA DANYCH NIE POWIODŁA SIĘ.
+      </label>
+</div>
 
       <div id="edit_profile_buttons_div" class="global_div_centerize">
         <v-btn
@@ -167,7 +182,12 @@ import AuthService from '../services/auth.service';
 import User from '../models/user';
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
-import { required, email, minLength, maxLength } from 'vuelidate/lib/validators';
+import {
+  required,
+  email,
+  minLength,
+  maxLength,
+} from 'vuelidate/lib/validators';
 
 Vue.use(Vuelidate);
 
@@ -193,7 +213,7 @@ export default {
     user: {
       name: {
         required,
-        maxLength: maxLength(50)
+        maxLength: maxLength(50),
       },
       dob: {
         required,
@@ -201,15 +221,15 @@ export default {
       email: {
         required,
         email,
-        maxLength: maxLength(50)
+        maxLength: maxLength(50),
       },
       username: {
         required,
-        maxLength: maxLength(50)
+        maxLength: maxLength(50),
       },
       password: {
         minLength: minLength(6),
-        maxLength: maxLength(120)
+        maxLength: maxLength(120),
       },
     },
   },
@@ -223,15 +243,26 @@ export default {
         this.editFailed = 'input error';
       } else {
         if (this.user.password == this.confirmPassword) {
-          console.log('it went to api');
+          //console.log('it went to api');
           this.user.id = this.currentUser.id;
-          UserService.editUser(this.user);
-
-          /*if (this.user.username != this.currentUser.username) {
-            this.$router.push('/login');
-            this.$store.dispatch('auth/logout');
-          }*/
-          this.$router.push('/userProfile');
+          UserService.editUser(this.user).then(
+            () => {
+              //this.$router.push('/YourEvents');
+              this.$router.push('/userProfile');
+            },
+            (error) => {
+              this.loading = false;
+              this.message =
+                (error.response &&
+                  error.response.data &&
+                  error.response.data.message) ||
+                error.message ||
+                error.toString();
+                this.editFailed = "edit failed";
+            }
+          );
+          
+          
         } else {
           this.editFailed = 'different passwords';
         }
