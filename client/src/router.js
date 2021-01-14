@@ -53,6 +53,11 @@ export const router = new Router({
       component: () => import('./views/EventOverview.vue')
     },
     {
+      path: '/createEvent',
+      name: 'createEvent',
+      component: () => import('./views/CreateEvent.vue')
+    },
+    {
       path: '/admin',
       name: 'admin',
       component: () => import('./views/BoardAdmin.vue')
