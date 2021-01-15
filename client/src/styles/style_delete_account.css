@@ -1,9 +1,10 @@
-/*#delete_account_app {
+#delete_account_app {
     background-image: url('../assets/dark_blue_5.png');
     background-size: cover;
-}*/
+    background-attachment: fixed;
+}
 
-#delete_account_div_background {
+/*#delete_account_div_background {
     background-image: url('../assets/dark_blue_5.png');
     background-size: cover;
     height: 100vh;
@@ -12,7 +13,7 @@
 
 #delete_account_space {
     height: 1vh;
-}
+}*/
 
 #delete_account_div {
     text-align: center;
@@ -52,7 +53,7 @@
     }
     #delete_account_caption {
         font-size: 20px;
-        margin-top: 50%;
+        margin-top: 20%;
     }
     #delete_account_button_yes {
         width: 230px !important;

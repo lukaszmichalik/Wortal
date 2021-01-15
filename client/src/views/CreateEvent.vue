@@ -6,6 +6,11 @@
       <form @submit.prevent="handleCreateEvent">
         <v-col id="create_event_col">
           <p id="create_event_label_city">miejscowość:</p>
+
+          <p class="create_event_input_required" v-if="!$v.event.city.required">
+            to pole jest wymagane
+          </p>
+
           <v-autocomplete
             id="create_event_city"
             class="global_data_input"
@@ -19,6 +24,20 @@
 
         <v-col id="create_event_col">
           <p id="create_event_label">adres:</p>
+
+          <p
+            class="create_event_input_required"
+            v-if="!$v.event.address.required"
+          >
+            to pole jest wymagane
+          </p>
+          <p
+            class="create_event_input_required"
+            v-if="!$v.event.address.maxLength"
+          >
+            maksymalna ilość znaków to 50
+          </p>
+
           <input
             id="create_event_address"
             class="global_data_input"
@@ -30,6 +49,11 @@
 
         <v-col id="create_event_col">
           <p id="create_event_label">data:</p>
+
+          <p class="create_event_input_required" v-if="!$v.event.date.required">
+            to pole jest wymagane
+          </p>
+
           <input
             id="create_event_date"
             class="global_data_input"
@@ -41,6 +65,11 @@
 
         <v-col id="create_event_col">
           <p id="create_event_label">godzina rozpoczęcia:</p>
+
+          <p class="create_event_input_required" v-if="!$v.event.time.required">
+            to pole jest wymagane
+          </p>
+
           <input
             id="create_event_time"
             class="global_data_input"
@@ -52,14 +81,22 @@
 
         <v-col id="create_event_col">
           <p id="create_event_label">nawierzchnia:</p>
+
+          <p
+            class="create_event_input_required"
+            v-if="!$v.event.surface.required"
+          >
+            to pole jest wymagane
+          </p>
+
           <select
             id="create_event_surface"
             class="global_data_input"
             v-model="event.surface"
           >
-          <option disabled value="" selected hidden>
-                rodzaj nawierzchni
-              </option>
+            <option disabled value="" selected hidden>
+              rodzaj nawierzchni
+            </option>
 
             <option value="hala">hala</option>
             <option value="sztuczna">sztuczna</option>
@@ -67,7 +104,6 @@
             <option value="tartan">tartan</option>
           </select>
         </v-col>
-
 
         <!--<input
         id="create_event_limitation"
@@ -80,6 +116,26 @@
 
         <v-col id="create_event_col">
           <p id="create_event_label">limit uczestników:</p>
+
+          <p
+            class="create_event_input_required"
+            v-if="!$v.event.limitation.required"
+          >
+            to pole jest wymagane
+          </p>
+          <p
+            class="create_event_input_required"
+            v-if="!$v.event.limitation.minValue"
+          >
+            minimalna ilość uczestników to 4
+          </p>
+          <p
+            class="create_event_input_required"
+            v-if="!$v.event.limitation.maxValue"
+          >
+            maksymalna ilość uczestników to 32
+          </p>
+
           <v-text-field
             id="create_event_limitation"
             class="global_data_input"
@@ -95,6 +151,14 @@
 
         <v-col id="create_event_col">
           <p id="create_event_label">szczegóły:</p>
+
+          <p
+            class="create_event_input_required"
+            v-if="!$v.event.description.maxLength"
+          >
+            maksymalna ilość znaków to 250
+          </p>
+
           <!--<v-textarea!-->
           <textarea
             id="create_event_description"
@@ -110,84 +174,103 @@
           Dodaj uczestników:
         </p>
 
-<!--<v-flex xs12 style="overflow:auto">!-->
-  <!--<ul v-scroll="onScroll">!-->
+        <!--<v-flex xs12 style="overflow:auto">!-->
+        <!--<ul v-scroll="onScroll">!-->
 
-<v-col id="create_event_participants_list">
-  <div id="list">
+        <v-col id="create_event_participants_list">
+          <div id="create_event_list">
+            <v-card
+              id="create_event_participant"
+              padding="20px"
+              v-for="user in users"
+              :key="user.id"
+              elevation="12"
+            >
+              <v-row>
+                <v-col
+                  class="hidden-sm-and-down"
+                  align="center"
+                  justify="center"
+                >
+                  <v-avatar color="indigo ma-5" size="50">
+                    <span class="white--text headline">{{
+                      getInitials(user.name)
+                    }}</span>
+                  </v-avatar>
+                </v-col>
 
-        <v-card
-        id="create_event_participant"
-          padding="20px"
-          v-for="user in users"
-          :key="user.id"
-          elevation="12"
-        >
-          <v-row>
-            <v-col class="hidden-sm-and-down" align="center" justify="center">
-              <v-avatar color="indigo ma-5" size="50">
-                <span class="white--text headline">{{
-                  getInitials(user.name)
-                }}</span>
-              </v-avatar>
-            </v-col>
+                <v-col class="text-no-wrap">
+                  <v-card-title>Imię i Nazwisko</v-card-title>
 
-            <v-col class="text-no-wrap">
-              <v-card-title>Imię i Nazwisko</v-card-title>
+                  <v-card-text v-text="user.name"></v-card-text>
+                </v-col>
 
-              <v-card-text v-text="user.name"></v-card-text>
-            </v-col>
+                <v-col class="text-no-wrap">
+                  <v-card-title>Pozycja</v-card-title>
 
-            <v-col class="text-no-wrap">
-              <v-card-title>Pozycja</v-card-title>
+                  <v-card-text v-text="user.position"></v-card-text>
+                </v-col>
 
-              <v-card-text v-text="user.position"></v-card-text>
-            </v-col>
+                <v-col class="hidden-sm-and-down">
+                  <v-card-title>Wiek</v-card-title>
 
-            <v-col class="hidden-sm-and-down">
-              <v-card-title>Wiek</v-card-title>
+                  <v-card-text v-text="calculateAge(user.dob)"></v-card-text>
+                </v-col>
 
-              <v-card-text v-text="calculateAge(user.dob)"></v-card-text>
-            </v-col>
+                <v-col class="text-no-wrap">
+                  <v-btn
+                    v-if="!selectedUsers.includes(user.id)"
+                    @click="addTeammate(user.id)"
+                    color="primary ma-5"
+                    large
+                    dark
+                  >
+                    DODAJ
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-card>
+          </div>
+        </v-col>
+        <!--</ul>!-->
 
-            <v-col class="text-no-wrap">
-              <v-btn
-                v-if="!selectedUsers.includes(user.id)"
-                @click="addTeammate(user.id)"
-                color="primary ma-5"
-                large
-                dark
-              >
-                DODAJ
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-card>
-
-  </div>
-</v-col>
-  <!--</ul>!-->
-
-<!--</v-flex>!-->
+        <!--</v-flex>!-->
 
         <!-- CARDS USERS ENDING -->
 
+        <div class="global_div_centerize">
+          <label
+            id="create_event_error"
+            class="global_error"
+            v-if="creatingEventFailed == 'input error'"
+          >
+            NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA. WYPEŁNIJ POPRAWNIE WSZYSTKIE POLA
+            FORMULARZA.
+          </label>
+          <label
+            id="create_event_error"
+            class="global_error"
+            v-if="creatingEventFailed == 'creating event failed'"
+          >
+            NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA.
+          </label>
+        </div>
 
         <div id="create_event_buttons_div" class="global_div_centerize">
-        <v-btn
-          id="create_event_button_edit"
-          class="global_v_btn"
-          type="submit"
-          >UTWÓRZ</v-btn
-        >
-        <br />
-        <v-btn
-          id="edit_profile_button_cancel"
-          class="global_v_btn"
-          to="/yourEvents"
-          >ANULUJ</v-btn
-        >
-      </div>
+          <v-btn
+            id="create_event_button_edit"
+            class="global_v_btn"
+            type="submit"
+            >UTWÓRZ</v-btn
+          >
+          <br />
+          <v-btn
+            id="create_event_button_cancel"
+            class="global_v_btn"
+            to="/yourEvents"
+            >ANULUJ</v-btn
+          >
+        </div>
 
         <!--<v-row id="event_create_row_button" justify="space-around">
           <v-btn color="primary" class="mt-5" large dark> Anuluj </v-btn>
@@ -210,10 +293,17 @@ import UserService from '../services/user.service';
 import EventService from '../services/event.service';
 import Event from '../models/event';
 import json from '../resources/miasta.json';
-import Vue from 'vue'
-import vuescroll from 'vue-scroll'
- 
-Vue.use(vuescroll)
+import Vue from 'vue';
+import vuescroll from 'vue-scroll';
+import Vuelidate from 'vuelidate';
+import {
+  required,
+  maxLength,
+  minValue,
+  maxValue,
+} from 'vuelidate/lib/validators';
+
+Vue.use(vuescroll);
 
 export default {
   name: 'CreateEvent',
@@ -226,6 +316,7 @@ export default {
       users: '',
       selectedUsers: [],
       successful: false,
+      creatingEventFailed: '',
     };
   },
   computed: {
@@ -233,15 +324,63 @@ export default {
       return this.userValue;
     },
   },
+  validations: {
+    event: {
+      city: {
+        required,
+      },
+      address: {
+        required,
+        maxLength: maxLength(50),
+      },
+      date: {
+        required,
+      },
+      time: {
+        required,
+      },
+      surface: {
+        required,
+      },
+      limitation: {
+        required,
+        minValue: minValue(4),
+        maxValue: maxValue(32),
+      },
+      description: {
+        maxLength: maxLength(250),
+      },
+    },
+  },
   methods: {
     handleCreateEvent() {
-      console.log(this.event);
-      EventService.createEvent(this.event).then((data) => {
-        console.log('this is data below');
-        console.log(data);
-        this.message = data;
-        this.successful = true;
-      });
+      //console.log(this.event);
+      this.$v.$touch();
+      if (this.$v.$pendind || this.$v.$error) {
+        this.creatingEventFailed = 'input error';
+      } else {
+        EventService.createEvent(this.event).then(
+          (data) => {
+            //console.log('this is data below');
+            //console.log(data);
+            this.message = data;
+            if (this.message == 'Twoje wydarzenie zostało poprawinie opublikowane!') {
+              this.successful = true;
+              this.$router.push('/userProfile');
+            }
+          },
+          (error) => {
+            this.loading = false;
+            this.message =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+            this.creatingEventFailed = 'creating event failed';
+          }
+        );
+      }
     },
     calculateAge(birthday) {
       let currentDate = new Date();

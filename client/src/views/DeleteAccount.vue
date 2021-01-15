@@ -1,7 +1,7 @@
 <template>
-  <!--<v-app id="delete_account_app">!-->
-  <div id="delete_account_div_background">
-    <div id="delete_account_space" />
+  <v-app id="delete_account_app">
+  <!--<div id="delete_account_div_background">
+    <div id="delete_account_space" />!-->
     <div id="delete_account_div" class="global_div">
       <div id="delete_account_caption">
         Czy naprawdę chcesz usunąć swoje konto z serwisu? Utracisz dostęp do
@@ -20,9 +20,12 @@
         >NIE, ZABIERZ MNIE STĄD</v-btn
       >
     </div>
-    <!--</v-app>!-->
-  </div>
+    </v-app>
+  <!--</div>!-->
 </template>
+
+
+
 
 
 <script>

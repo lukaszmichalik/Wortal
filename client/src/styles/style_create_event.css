@@ -41,6 +41,11 @@
     margin-top: 100px;
 }
 
+#create_event_button_cancel {
+    text-decoration: none;
+    margin-bottom: 100px;
+}
+
 #create_event_participants_list {
     width: 90vw;
     margin-left: 2%;
@@ -48,7 +53,7 @@
     margin-bottom: 30px;
 }
 
-#list {
+#create_event_list {
     height: 550px;
     overflow-y: scroll;
 }
@@ -58,12 +63,7 @@
     width: 80vw;
 }
 
-#edit_profile_button_cancel {
-    text-decoration: none;
-    margin-bottom: 100px;
-}
-
-.edit_profile_input_required {
+.create_event_input_required {
     color: rgb(248, 61, 61);
     font-size: 13px;
     font-weight: 700;
@@ -73,7 +73,7 @@
     margin-top: 2px;
 }
 
-#edit_profile_error {
+#create_event_error {
     margin-top: 50px;
     text-align: center;
     width: 270px;
