@@ -1,97 +1,119 @@
-#create_event_caption {
-  margin-bottom: 70px;
+#create_event_app {
+    background-image: url('../assets/dark_blue_10.png');
+    background-size: cover;
+    background-attachment: fixed;
 }
 
-#create_event_p {
-  margin-top: 20px;
+#create_event_div {
+    margin-top: 0px;
 }
 
-#create_event_type {
-  width: 180px;
-  font-size: 30px;
-  margin-top: 5px;
-  margin-left: 1.5%;
-  margin-bottom: 90px;
-  outline-color: rgb(21, 52, 80);
-  background-color: rgb(240, 240, 240);
-  padding: 10px;
-  text-align: center;
+#create_event_col {
+    margin-left: 2%;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    max-width: 300px;
+    word-break: keep-all;
 }
 
-#create_event_date {
-  font-size: 30px;
-  margin-top: 5px;
-  margin-left: 1.5%;
-  margin-bottom: 90px;
-  outline-color: rgb(21, 52, 80);
-  background-color: rgb(240, 240, 240);
-  padding: 10px;
+#create_event_label {
+    color: #7BD300;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-right: 16px;
 }
 
-#create_event_start_time {
-  font-size: 30px;
-  margin-top: 5px;
-  margin-left: 1.5%;
-  margin-bottom: 90px;
-  outline-color: rgb(21, 52, 80);
-  background-color: rgb(240, 240, 240);
-  padding: 10px;
+#create_event_label_city {
+    margin-top: 60px;
+    color: #7BD300;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-right: 16px;
 }
 
-#create_event_end_time {
-  font-size: 30px;
-  margin-top: 5px;
-  margin-left: 1.5%;
-  margin-bottom: 90px;
-  outline-color: rgb(21, 52, 80);
-  background-color: rgb(240, 240, 240);
-  padding: 10px;
+#create_event_description {
+    width: 80vw;
 }
 
-#create_event_address {
-  margin-bottom: 90px;
+#create_event_buttons_div {
+    margin-top: 100px;
 }
 
-#create_event_details {
-  font-size: 20px;
-  margin-bottom: 90px;
+#create_event_participants_list {
+    width: 90vw;
+    margin-left: 2%;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 
-#create_event_participants {
-  margin-bottom: 100px;
-  margin-bottom: 90px;
+#list {
+    height: 550px;
+    overflow-y: scroll;
 }
 
-#create_event_button_create {
-  margin-bottom: 30px;
-  margin-left: -0.5%;
+#create_event_participant {
+    height: 200px;
+    width: 80vw;
+}
+
+#edit_profile_button_cancel {
+    text-decoration: none;
+    margin-bottom: 100px;
+}
+
+.edit_profile_input_required {
+    color: rgb(248, 61, 61);
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    margin-left: 2%;
+    margin-bottom: 10px;
+    margin-top: 2px;
+}
+
+#edit_profile_error {
+    margin-top: 50px;
+    text-align: center;
+    width: 270px;
+    margin-bottom: 0px;
 }
 
 @media screen and (max-width: 500px) {
-  #create_event_caption {
-    margin-bottom: 40px;
-  }
-  #create_event_type {
-    font-size: 23px;
-    margin-bottom: 36px;
-  }
-  #create_event_date {
-    font-size: 23px;
-    margin-bottom: 36px;
-  }
-  #create_event_start_time {
-    font-size: 23px;
-    margin-bottom: 36px;
-  }
-  #create_event_end_time {
-    font-size: 23px;
-    margin-bottom: 36px;
-  }
-  #create_event_address {
-    margin-bottom: 36px;
-  }
-  #create_event_details {
-    font-size: 18px;
-    margin-bottom: 36px;
-  }
+    #create_event_col {
+        margin-bottom: -10px;
+        max-width: 300px;
+        margin-left: 6px;
+    }
+    #create_event_label {
+        font-size: 23px;
+        font-weight: 410;
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
+    #create_event_label_city {
+        font-size: 23px;
+        font-weight: 410;
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
+    .create_event_data {
+        font-size: 26px;
+        margin-left: 0px;
+        font-weight: 300;
+    }
+    #create_event_participant {
+        height: 270px;
+        width: 80vw;
+    }
+    .create_event_input_required {
+        margin-bottom: -40px;
+    }
+    #create_event_error {
+        width: 200px;
+    }
+    #create_event_buttons_div {
+        margin-top: 60px;
+    }
 }

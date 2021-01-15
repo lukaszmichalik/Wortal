@@ -120,7 +120,7 @@
         />
         <br />
         <input
-          id="edit_profile_password"
+          id="edit_profile_confirm_password"
           class="global_data_input"
           type="password"
           placeholder="powtórz nowe hasło"
