@@ -63,7 +63,6 @@ public class Event implements Serializable{
                  ESurface surface,
                  String limitation,
                  String description,
-                 Set<User> participants,
                  User organizer
 
     ) {
@@ -74,7 +73,6 @@ public class Event implements Serializable{
         this.surface = surface;
         this.limitation = limitation;
         this.description = description;
-        this.participants = participants;
         this.organizer = organizer;
     }
 

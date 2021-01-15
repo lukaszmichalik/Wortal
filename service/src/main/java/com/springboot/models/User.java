@@ -33,7 +33,7 @@ public class User implements Serializable {
 	@Column(length = 20)
 	private EPosition position;
 
-	@JsonFormat(pattern="dd.MM.yyyy")
+	//@JsonFormat(pattern="dd.MM.yyyy")
 	@Column
 	private Date dob;
 

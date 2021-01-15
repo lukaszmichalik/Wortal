@@ -21,7 +21,6 @@ public class SignupRequest {
     @Column(length = 20)
     private EPosition position;
 
-    @JsonFormat(pattern="dd.MM.yyyy")
     private Date dob;
 
     @NotBlank
@@ -86,10 +85,5 @@ public class SignupRequest {
     public void setRole(Set<String> role) {
       this.role = role;
     }
-
-
-
-
-
 
 }

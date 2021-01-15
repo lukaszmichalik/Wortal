@@ -37,7 +37,7 @@ public class CreateEventRequest {
     @Size(min=3, max=250)
     private String description;
 
-    private Set<User> participants = new HashSet<>();
+    private Set<Long> participants;
 
     private Long organizer_id;
 
@@ -105,11 +105,11 @@ public class CreateEventRequest {
         this.organizer_id = organizer_id;
     }
 
-    public Set<User> getParticipants() {
+    public Set<Long> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(Set<User> participants) {
+    public void setParticipants(Set<Long> participants) {
         this.participants = participants;
     }
 }

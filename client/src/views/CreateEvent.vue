@@ -2,7 +2,7 @@
   <v-app id="event_create_app">
     <div id="event_create_div" class="event_create_div">
       <form name="editForm" @submit.prevent="handleAddEvent">
-        <v-row flex>
+        <v-row flex v-if="!successful">
           <v-col col="12" md="6">
             <p class="event_create_caption">Stwórz wydarzenie</p>
 
@@ -152,7 +152,7 @@
                 <v-col class="text-no-wrap">
                   <v-btn
                     v-if="!selectedUsers.includes(user.id)"
-                    @click="addTeammate(user, user.id)"
+                    @click="addTeammate(user.id)"
                     color="primary ma-5"
                     large
                     dark
@@ -175,12 +175,19 @@
               <v-btn color="primary" class="mt-5" large dark> Anuluj </v-btn>
 
               <v-btn color="primary" class="mt-5" large dark type="submit">
-                Zatwierdź
+                Opublikuj
               </v-btn>
             </v-row>
           </v-col>
         </v-row>
       </form>
+       <div
+        v-if="message"
+        class="alert input_error"
+        :class="successful ? 'alert-success' : 'alert-danger'"
+      >
+        {{ message }}
+      </div>
     </div>
   </v-app>
 </template>
@@ -200,6 +207,7 @@ export default {
       userValue: JSON.parse(localStorage.getItem('user')) || '',
       users: '',
       selectedUsers: [],
+      successful: false
     };
   },
   computed: {
@@ -211,6 +219,12 @@ export default {
     handleAddEvent() {
       console.log(this.event)
       EventService.createEvent(this.event)
+      .then( (data) => {
+        console.log("this is data below")
+        console.log(data)
+        this.message = data
+        this.successful = true
+      })
     },
 
     calculateAge(birthday) {
@@ -226,9 +240,9 @@ export default {
         .map((n) => n[0])
         .join('');
     },
-    addTeammate(user, index) {
-      this.selectedUsers.push(index);
-      this.event.participants.push(user);
+    addTeammate(userId) {
+      this.selectedUsers.push(userId);
+      this.event.participants.push(userId);
       console.log(this.event.participants);
     },
   },

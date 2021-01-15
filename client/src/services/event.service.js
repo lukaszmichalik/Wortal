@@ -25,7 +25,7 @@ class EventService {
 
         }).then(response =>{
             console.log(response)
-            // return Promise.resolve(response.data)
+            return Promise.resolve(response.data.message)
         })
     }
 

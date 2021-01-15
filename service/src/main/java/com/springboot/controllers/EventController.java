@@ -1,6 +1,7 @@
 package com.springboot.controllers;
 
 import com.springboot.models.Event;
+import com.springboot.models.Role;
 import com.springboot.models.User;
 import com.springboot.payload.request.CreateEventRequest;
 import com.springboot.payload.request.IdRequest;
@@ -14,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -49,7 +52,9 @@ public class EventController {
 
         User user = userRepository.getOne(createEventRequest.getOrganizer_id());
 
-     
+
+
+
         Event event = new Event(
                 createEventRequest.getCity(),
                 createEventRequest.getAddress(),
@@ -58,14 +63,28 @@ public class EventController {
                 createEventRequest.getSurface(),
                 createEventRequest.getLimitation(),
                 createEventRequest.getDescription(),
-                createEventRequest.getParticipants(),
                 user
         );
-
         eventRepository.save(event);
+        Set<Long> longParticipants = createEventRequest.getParticipants();
+        Set<User> participants = new HashSet<>();
+
+        longParticipants.forEach(id->{
+            System.out.print(id);
+            User participant = userRepository.getOne(id);
+            Set<Event> participantsEvents = participant.getEvents();
+            participantsEvents.add(event);
+            participant.setEvents(participantsEvents);
+            userRepository.save(participant);
+        });
 
 
-        return ResponseEntity.ok(new MessageResponse("ok"));
+//        event.setParticipants(participants);
+//        System.out.print(event.getParticipants());
+
+
+
+        return ResponseEntity.ok(new MessageResponse("Twoje wydarzenie zostało poprawinie opublikowane!"));
 
 
 
