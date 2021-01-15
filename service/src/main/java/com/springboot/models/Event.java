@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,8 +27,11 @@ public class Event implements Serializable{
     @Size(max = 50)
     private String address;
 
-    @JsonFormat(pattern="dd-MMMM-yyyy HH:mm:ss", locale ="pl-PL",shape = JsonFormat.Shape.STRING)
-    private String date;
+    @JsonFormat(pattern="dd-MM-yyyy", locale ="pl-PL")
+    private Date date;
+
+    @NotBlank
+    private String time;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
@@ -36,12 +40,6 @@ public class Event implements Serializable{
     @Size(max = 50)
     private String limitation;
 
-    @Size(max = 50)
-    private String duration;
-
-    @Size(max = 50)
-    private String state;
-
     @Size(max = 250)
     private String description;
 
@@ -49,37 +47,35 @@ public class Event implements Serializable{
     @ManyToMany(mappedBy = "events")
     @JsonIgnore
     private Set<User> participants = new HashSet<>();
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(	name = "user_roles",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    private Set<Role> roles = new HashSet<>();
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="organizer_id")
-    private User organizer_id;
+    @JoinColumn(name="organizer")
+    private User organizer;
 
     public Event() {
     }
 
     public Event(String city,
                  String address,
-                 String date,
+                 Date date,
+                 String time,
                  ESurface surface,
                  String limitation,
-                 String duration,
-                 String state,
-                 String description
+                 String description,
+                 Set<User> participants,
+                 User organizer
+
     ) {
         this.city = city;
         this.address = address;
         this.date = date;
+        this.time = time;
         this.surface = surface;
         this.limitation = limitation;
-        this.duration = duration;
-        this.state = state;
-       this.description = description;
+        this.description = description;
+        this.participants = participants;
+        this.organizer = organizer;
     }
 
 
@@ -115,12 +111,12 @@ public class Event implements Serializable{
         this.participants = participants;
     }
 
-    public User getOrganizer_id() {
-        return organizer_id;
+    public User getOrganizer() {
+        return organizer;
     }
 
-    public void setOrganizer_id(User organizer_id) {
-        this.organizer_id = organizer_id;
+    public void setOrganizer(User organizer) {
+        this.organizer = organizer;
     }
 
     public ESurface getSurface() {
@@ -131,11 +127,11 @@ public class Event implements Serializable{
         this.surface = surface;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -146,22 +142,6 @@ public class Event implements Serializable{
     public void setLimitation(String limitation) {
         this.limitation = limitation;
     }
-//
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
 
     public String getDescription() {
         return description;
@@ -169,6 +149,14 @@ public class Event implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }
 

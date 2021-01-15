@@ -1,10 +1,10 @@
 package com.springboot.controllers;
 
-import com.springboot.models.Event;
 import com.springboot.models.User;
-import com.springboot.payload.request.EditRequest;
+import com.springboot.payload.request.EditUserRequest;
 import com.springboot.payload.request.IdRequest;
 import com.springboot.payload.response.MessageResponse;
+import com.springboot.payload.response.UserEventsResponse;
 import com.springboot.payload.response.UserResponse;
 import com.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -27,7 +28,7 @@ public class UserController {
 
 
     @PostMapping("/editUser")
-    public ResponseEntity<?> editUser(@RequestBody EditRequest editUser){
+    public ResponseEntity<?> editUser(@RequestBody EditUserRequest editUser){
 
         User user = userRepository.getOne(editUser.getId());
 
@@ -52,11 +53,11 @@ public class UserController {
     }
 
     @PostMapping("/getUserEvents")
-    public Set<Event> getUserEvents(@RequestBody IdRequest idRequest){
+    public ResponseEntity<?> getUserEvents(@RequestBody IdRequest idRequest){
 
         User user = userRepository.getOne(idRequest.getId());
 
-        return user.getEvents();
+        return ResponseEntity.ok(new UserEventsResponse(user.getEvents()));
     }
 
     @PostMapping("/deleteUser")
@@ -71,4 +72,11 @@ public class UserController {
                 .badRequest()
                 .body(new MessageResponse("Błąd: Użytkownik o takim Id nie istnieje w bazie!"));
     }
+
+    @GetMapping("/allUsers")
+    @ResponseBody
+    List<User> allUsers(){
+        return userRepository.findAll();
+    }
+
 }

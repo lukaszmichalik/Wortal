@@ -1,18 +1,23 @@
 <template>
   <v-app class="global_app">
     <v-card
-      v-for="{ address, city, date, surface,description, id } in events"
+      v-for="{ address, city, date, surface, description, id } in events"
       :key="id"
       class="mx-auto ma-5"
       max-width="60%"
       min-width="60%"
       padding="20px"
     >
-      <v-img :src="getImgUrl(surface)" v-bind:alt="surface" height="200px" aspect-ratio="2.75"> 
+      <v-img
+        :src="getImgUrl(surface)"
+        v-bind:alt="surface"
+        height="200px"
+        aspect-ratio="2.75"
+      >
         <v-card-title class="white--text mt-8">
           <p class="ml-3">
-              {{date}}
-            </p>
+            {{ date }}
+          </p>
         </v-card-title>
       </v-img>
 
@@ -31,17 +36,19 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn icon @click="show = !show">
-          <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+        <v-btn icon @click="selected(id)">
+          <v-icon>{{
+            selectedCards.includes(id) ? 'mdi-chevron-up' : 'mdi-chevron-down'
+          }}</v-icon>
         </v-btn>
       </v-card-actions>
 
       <v-expand-transition>
-        <div v-show="show">
+        <div v-if="selectedCards.includes(id)">
           <v-divider></v-divider>
 
           <v-card-text>
-          {{description}}
+            {{ description }}
           </v-card-text>
         </div>
       </v-expand-transition>
@@ -62,6 +69,7 @@ export default {
       events: '',
       loaded: false,
       show: false,
+      selectedCards: [],
     };
   },
   computed: {
@@ -73,21 +81,31 @@ export default {
     },
   },
   methods: {
+    selected(id) {
+      if (this.selectedCards.includes(id)) {
+        let index = this.selectedCards.indexOf(id);
+        if (index >= 0) {
+          this.selectedCards.splice(index, 1);
+        }
+      } else {
+        this.selectedCards.push(id);
+      }
+    },
     enterEventInfo(id) {
       EventService.getEvent(id);
       this.$router.push('/eventOverview');
     },
     getImgUrl(surface) {
-      var images = require.context('../assets/', false)
+      var images = require.context('../assets/', false);
       switch (surface) {
-        case 'Hala':
-          return images('./' + surface + ".jpg")
-        case 'Naturalna':
-          return images('./' + surface + ".jpg")
-        case 'Sztuczna':
-          return images('./' + surface + ".jpg")
-        case 'Tartan':
-          return images('./' + surface + ".png")
+        case 'hala':
+          return images('./' + surface + '.jpg');
+        case 'naturalna':
+          return images('./' + surface + '.jpg');
+        case 'sztuczna':
+          return images('./' + surface + '.jpg');
+        case 'tartan':
+          return images('./' + surface + '.png');
         default:
           console.log(`Sorry, we are out of ${surface}.`);
       }
@@ -105,15 +123,13 @@ export default {
     });
   },
 };
-
 </script>
 
 <style>
-  .my-span {
+.my-span {
   color: white;
   font-weight: bold;
   margin-right: 0;
   padding: 20px;
-  
 }
 </style>

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springboot.models.EPosition;
 import com.springboot.models.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,13 +24,14 @@ public class UserDetailsImpl implements UserDetails {
 
 	private EPosition position;
 
+	@JsonFormat(pattern="dd.MM.yyyy")
 	private Date dob;
 
 	private String email;
 
+	@JsonIgnore
 	private String username;
 
-	@JsonIgnore
 	private String password;
 
 	private Collection<? extends GrantedAuthority> authorities;

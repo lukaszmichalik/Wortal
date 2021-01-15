@@ -4,45 +4,43 @@ package com.springboot.payload.response;
 import com.springboot.models.ESurface;
 import com.springboot.models.User;
 
+import java.sql.Date;
 import java.util.Set;
 
 public class EventResponse {
     private Long id;
     private String city;
     private String address;
-    private String date;
+    private Date date;
+    private String time;
     private ESurface surface;
     private String limitation;
-    private String duration;
-    private String state;
     private String description;
     private Set<User> participants;
-    private User organizer_id;
+    private User organizer;
 
     public EventResponse(Long id,
                          String city,
                          String address,
-                         String date,
+                         Date date,
+                         String time,
                          ESurface surface,
                          String limitation,
-                         String duration,
-                         String state,
                          String description,
                          Set<User> participants,
-                         User organizer_id)
+                         User organizer)
     {
 
         this.id = id;
         this.city = city;
         this.address = address;
         this.date = date;
+        this.time = time;
         this.surface = surface;
         this.limitation = limitation;
-        this.duration = duration;
-        this.state = state;
         this.description = description;
         this.participants = participants;
-        this.organizer_id = organizer_id;
+        this.organizer = organizer;
     }
 
     public Long getId() {
@@ -78,11 +76,11 @@ public class EventResponse {
     }
 
     public User getOrganizer_id() {
-        return organizer_id;
+        return organizer;
     }
 
-    public void setOrganizer_id(User organizer_id) {
-        this.organizer_id = organizer_id;
+    public void setOrganizer_id(User organizer) {
+        this.organizer = organizer;
     }
 
     public ESurface getSurface() {
@@ -93,11 +91,11 @@ public class EventResponse {
         this.surface = surface;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -109,27 +107,19 @@ public class EventResponse {
         this.limitation = limitation;
     }
 
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

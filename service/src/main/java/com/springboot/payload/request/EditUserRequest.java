@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 
-public class EditRequest {
+public class EditUserRequest {
 
     @NotBlank
     private Long id;

@@ -1,5 +1,6 @@
 package com.springboot.payload.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springboot.models.EPosition;
 
 import java.sql.Date;
@@ -11,6 +12,7 @@ public class JwtResponse {
 	private Long id;
 	private String name;
 	private EPosition position;
+	@JsonFormat(pattern="dd.MM.yyyy")
 	private Date dob;
 	private String email;
 	private String username;

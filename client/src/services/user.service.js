@@ -39,7 +39,8 @@ class UserService {
     return axios.post(API_URL + 'getUserEvents', {
       id: id
     }).then( response =>{
-      return Promise.resolve(response.data)
+      console.log(response)
+      return Promise.resolve(response.data.events)
     })
   }
 
@@ -47,6 +48,13 @@ class UserService {
     return axios.post(API_URL + 'deleteUser', {
       id: id
     })
+  }
+
+  allUsers(){
+    return axios.get(API_URL + 'allUsers').then(
+      response =>{
+        return Promise.resolve(response.data)
+      })
   }
 
 }

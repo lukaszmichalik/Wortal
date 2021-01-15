@@ -1,5 +1,6 @@
 package com.springboot.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -32,6 +33,7 @@ public class User implements Serializable {
 	@Column(length = 20)
 	private EPosition position;
 
+	@JsonFormat(pattern="dd.MM.yyyy")
 	@Column
 	private Date dob;
 
@@ -71,7 +73,7 @@ public class User implements Serializable {
 //	private Team team;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "organizer_id")
+	@OneToMany(mappedBy = "organizer")
 	private Set<Event> ownedEvents = new HashSet<>();
 
 	public User() {
@@ -86,6 +88,17 @@ public class User implements Serializable {
 		this.username = username;
 		this.password = password;
 
+	}
+
+	public User( Long id, String name, EPosition position, Date dob, String email, String username, Set<Role> roles ) {
+
+		this.id = id;
+		this.name = name;
+		this.position = position;
+		this.dob = dob;
+		this.email = email;
+		this.username = username;
+		this.roles = roles;
 	}
 
 	//remember that u can make other constructors that fits your needs
