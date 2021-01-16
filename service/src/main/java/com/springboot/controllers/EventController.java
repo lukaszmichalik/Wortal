@@ -51,7 +51,7 @@ public class EventController {
     @PostMapping("/createEvent")
     public ResponseEntity<?> createEvent(@RequestBody CreateEventRequest createEventRequest){
 
-        User user = userRepository.getOne(createEventRequest.getOrganizer_id());
+        User organizer = userRepository.getOne(createEventRequest.getOrganizer_id());
 
         Event event = new Event(
                 createEventRequest.getCity(),
@@ -61,14 +61,12 @@ public class EventController {
                 createEventRequest.getSurface(),
                 createEventRequest.getLimitation(),
                 createEventRequest.getDescription(),
-                user
+                organizer
         );
         eventRepository.save(event);
         Set<Long> longParticipants = createEventRequest.getParticipants();
-        Set<User> participants = new HashSet<>();
 
         longParticipants.forEach(id->{
-            System.out.print(id);
             User participant = userRepository.getOne(id);
             Set<Event> participantsEvents = participant.getEvents();
             participantsEvents.add(event);

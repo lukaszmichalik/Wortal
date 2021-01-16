@@ -3,10 +3,12 @@ package com.springboot.controllers;
 import com.springboot.models.Event;
 import com.springboot.models.User;
 import com.springboot.payload.request.EditUserRequest;
+import com.springboot.payload.request.EventUserIdsRequest;
 import com.springboot.payload.request.IdRequest;
 import com.springboot.payload.response.MessageResponse;
 import com.springboot.payload.response.UserEventsResponse;
 import com.springboot.payload.response.UserResponse;
+import com.springboot.repository.EventRepository;
 import com.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    EventRepository eventRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -84,6 +89,20 @@ public class UserController {
     @ResponseBody
     List<User> allUsers(){
         return userRepository.findAll();
+    }
+
+    @PostMapping("/addUserToEvent")
+    public ResponseEntity<?> addUserToEvent(@RequestBody EventUserIdsRequest eventUserIdsRequest){
+
+        Event event = eventRepository.getOne(eventUserIdsRequest.getEventId());
+        User user = userRepository.getOne(eventUserIdsRequest.getUserId());
+        Set<Event> userEvents = user.getEvents();
+        userEvents.add(event);
+        user.setEvents(userEvents);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new MessageResponse("Poprawnie dodano Cię do wydarzenia !"));
+
     }
 
 }

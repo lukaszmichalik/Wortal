@@ -61,17 +61,20 @@
 
       <v-card-text
         class="red--text"
-        v-if="participantsIds.length==currentEvent.limitation"
+        v-if="participantsIds.length == currentEvent.limitation"
         align="center"
-      > pełny skład</v-card-text>
+      >
+        pełny skład</v-card-text
+      >
 
       <v-card-actions>
         <v-btn
-          v-if="!isAdmin && participantsIds.length<currentEvent.limitation"
+          v-if="!isAdmin && participantsIds.length < currentEvent.limitation"
           class="mx-auto"
           :color="participantsIds.includes(currentUser.id) ? 'error' : 'green'"
           large
           text
+          @click.once="joinOrGiveUp()"
         >
           {{
             participantsIds.includes(currentUser.id) ? 'zrezygnuj' : 'dołącz'
@@ -88,7 +91,6 @@
             }}</v-icon
           >
         </v-btn>
-        
       </v-card-actions>
 
       <!-- <v-card-actions>
@@ -144,7 +146,7 @@
         </v-col>
 
         <v-col class="text-no-wrap" v-if="isAdmin">
-          <v-btn color="error ma-8" large dark > Usuń </v-btn>
+          <v-btn color="error ma-8" large dark> Usuń </v-btn>
         </v-col>
       </v-row>
     </v-card>
@@ -184,6 +186,8 @@
 
 
  <script>
+import UserService from '../services/user.service';
+
 export default {
   name: 'EventOverview',
   data() {
@@ -215,6 +219,9 @@ export default {
         .split(' ')
         .map((n) => n[0])
         .join('');
+    },
+    joinOrGiveUp() {
+      UserService.addUserToEvent(this.currentUser.id, this.currentEvent.id);
     },
   },
 

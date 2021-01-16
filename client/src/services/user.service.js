@@ -57,6 +57,16 @@ class UserService {
       })
   }
 
+  addUserToEvent(userId, eventId){
+    return axios.post(API_URL + 'addUserToEvent', {
+        userId: userId,
+        eventId: eventId
+    })
+    // .then(response =>{
+    //    return Promise.resolve(response.data)
+    // })
+}
+
 }
 
 export default new UserService();

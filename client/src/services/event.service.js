@@ -34,7 +34,7 @@ class EventService {
           response =>{
             return Promise.resolve(response.data)
           })
-      }
+    }
 
 }
 
