@@ -105,15 +105,6 @@
           </select>
         </v-col>
 
-        <!--<input
-        id="create_event_limitation"
-        class="create_event_input"
-        type="number"
-        v-model="event.limitation"
-        max="32"
-        min="4"
-        placeholder="12" />!-->
-
         <v-col id="create_event_col">
           <p id="create_event_label">limit uczestników:</p>
 
@@ -159,7 +150,6 @@
             maksymalna ilość znaków to 250
           </p>
 
-          <!--<v-textarea!-->
           <textarea
             id="create_event_description"
             class="global_data_input"
@@ -174,9 +164,6 @@
           Dodaj uczestników:
         </p>
 
-        <!--<v-flex xs12 style="overflow:auto">!-->
-        <!--<ul v-scroll="onScroll">!-->
-
         <v-col id="create_event_participants_list">
           <div id="create_event_list">
             <v-card
@@ -187,33 +174,18 @@
               elevation="12"
             >
               <v-row>
-                <v-col
-                  class="hidden-sm-and-down"
-                  align="center"
-                  justify="center"
-                >
-                  <v-avatar color="indigo ma-5" size="50">
-                    <span class="white--text headline">{{
-                      getInitials(user.name)
-                    }}</span>
-                  </v-avatar>
-                </v-col>
-
                 <v-col class="text-no-wrap">
-                  <v-card-title>Imię i Nazwisko</v-card-title>
-
+                  <v-card-title>imię i nazwisko</v-card-title>
                   <v-card-text v-text="user.name"></v-card-text>
                 </v-col>
 
                 <v-col class="text-no-wrap">
-                  <v-card-title>Pozycja</v-card-title>
-
+                  <v-card-title>pozycja</v-card-title>
                   <v-card-text v-text="user.position"></v-card-text>
                 </v-col>
 
-                <v-col class="hidden-sm-and-down">
-                  <v-card-title>Wiek</v-card-title>
-
+                <v-col class="hidden-sm-and-down">          <!-- chowa wiek, gdy za mało miejsca !-->
+                  <v-card-title>wiek</v-card-title>
                   <v-card-text v-text="calculateAge(user.dob)"></v-card-text>
                 </v-col>
 
@@ -221,9 +193,7 @@
                   <v-btn
                     v-if="!selectedUsers.includes(user.id)"
                     @click="addTeammate(user.id)"
-                    color="primary ma-5"
-                    large
-                    dark
+                    id="create_event_add_participant_button"
                   >
                     DODAJ
                   </v-btn>
@@ -232,9 +202,6 @@
             </v-card>
           </div>
         </v-col>
-        <!--</ul>!-->
-
-        <!--</v-flex>!-->
 
         <!-- CARDS USERS ENDING -->
 
@@ -272,13 +239,6 @@
           >
         </div>
 
-        <!--<v-row id="event_create_row_button" justify="space-around">
-          <v-btn color="primary" class="mt-5" large dark> Anuluj </v-btn>
-
-          <v-btn color="primary" class="mt-5" large dark type="submit">
-            Opublikuj
-          </v-btn>
-        </v-row>!-->
       </form>
     </div>
   </v-app>
@@ -364,7 +324,10 @@ export default {
             //console.log('this is data below');
             //console.log(data);
             this.message = data;
-            if (this.message == 'Twoje wydarzenie zostało poprawinie opublikowane!') {
+            if (
+              this.message ==
+              'Twoje wydarzenie zostało poprawinie opublikowane!'
+            ) {
               this.successful = true;
               this.$router.push('/userProfile');
             }
@@ -388,12 +351,6 @@ export default {
       let difference = currentDate - birthDate;
       let age = Math.floor(difference / 31557600000);
       return age;
-    },
-    getInitials(name) {
-      return name
-        .split(' ')
-        .map((n) => n[0])
-        .join('');
     },
     addTeammate(userId) {
       this.selectedUsers.push(userId);

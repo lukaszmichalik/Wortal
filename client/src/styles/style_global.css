@@ -132,7 +132,7 @@
     font-size: 15px !important;
     width: 200px !important;
   }
-  .global_participants {
+  /*.global_participants {
     margin-top: 36px;
     margin-left: 10px;
     margin-bottom: 50px;
@@ -145,7 +145,7 @@
     margin: 20px;
     margin-bottom: 50px;
     width: 90%;
-  }
+  }*/
   .global_error {
     font-size: 16px;
     margin-left: 10vw;

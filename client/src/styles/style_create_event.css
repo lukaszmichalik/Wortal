@@ -35,6 +35,7 @@
 
 #create_event_description {
     width: 80vw;
+    margin-bottom: 60px;
 }
 
 #create_event_buttons_div {
@@ -47,20 +48,32 @@
 }
 
 #create_event_participants_list {
-    width: 90vw;
+    width: 83vw;
     margin-left: 2%;
     margin-top: 10px;
     margin-bottom: 30px;
 }
 
 #create_event_list {
-    height: 550px;
+    height: 430px;
+    margin-right: 0vw;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #create_event_participant {
-    height: 200px;
-    width: 80vw;
+    height: 160px;
+    width: 90vw;
+}
+
+#create_event_add_participant_button {
+    background-color: #2196f3;
+    color: #ffffff;
+    padding: 17px !important;
+    font-size: 12px !important;
+    width: 90px !important;
+    margin-top: 20px;
+    margin-left: 16px;
 }
 
 .create_event_input_required {
@@ -78,6 +91,12 @@
     text-align: center;
     width: 270px;
     margin-bottom: 0px;
+}
+
+@media screen and (max-width: 616px) {
+    #create_event_participant {
+        height: 230px;
+    }
 }
 
 @media screen and (max-width: 500px) {
@@ -103,9 +122,15 @@
         margin-left: 0px;
         font-weight: 300;
     }
+    #create_event_participants_list {
+        width: 90vw;
+        margin-left: 2%;
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
     #create_event_participant {
         height: 270px;
-        width: 80vw;
+        width: 90vw;
     }
     .create_event_input_required {
         margin-bottom: -40px;
@@ -115,5 +140,11 @@
     }
     #create_event_buttons_div {
         margin-top: 60px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    #create_event_participant {
+        height: 370px;
     }
 }
