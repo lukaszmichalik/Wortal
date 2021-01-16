@@ -329,7 +329,7 @@ export default {
               'Twoje wydarzenie zostało poprawinie opublikowane!'
             ) {
               this.successful = true;
-              this.$router.push('/userProfile');
+              this.$router.push('/yourEvents');
             }
           },
           (error) => {
@@ -345,12 +345,12 @@ export default {
         );
       }
     },
-    calculateAge(birthday) {
-      let currentDate = new Date();
-      let birthDate = new Date(birthday);
-      let difference = currentDate - birthDate;
-      let age = Math.floor(difference / 31557600000);
-      return age;
+    calculateAge(userBirthday) {
+      let today = new Date();
+      let birthDate = new Date(userBirthday);
+      let difference = today - birthDate;
+      let userAge = Math.floor(difference / 31557600000);
+      return userAge;
     },
     addTeammate(userId) {
       this.selectedUsers.push(userId);
