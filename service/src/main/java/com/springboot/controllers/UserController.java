@@ -1,5 +1,6 @@
 package com.springboot.controllers;
 
+import com.springboot.models.Event;
 import com.springboot.models.User;
 import com.springboot.payload.request.EditUserRequest;
 import com.springboot.payload.request.IdRequest;
@@ -56,6 +57,12 @@ public class UserController {
     public ResponseEntity<?> getUserEvents(@RequestBody IdRequest idRequest){
 
         User user = userRepository.getOne(idRequest.getId());
+
+//        Set<Event> userEvents = user.getEvents();
+//
+//        userEvents.forEach(event -> {
+//            Integer size = event.getParticipants().size();
+//        });
 
         return ResponseEntity.ok(new UserEventsResponse(user.getEvents()));
     }

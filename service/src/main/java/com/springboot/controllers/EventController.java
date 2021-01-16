@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -52,9 +53,6 @@ public class EventController {
 
         User user = userRepository.getOne(createEventRequest.getOrganizer_id());
 
-
-
-
         Event event = new Event(
                 createEventRequest.getCity(),
                 createEventRequest.getAddress(),
@@ -78,26 +76,14 @@ public class EventController {
             userRepository.save(participant);
         });
 
-
-//        event.setParticipants(participants);
-//        System.out.print(event.getParticipants());
-
-
-
         return ResponseEntity.ok(new MessageResponse("Twoje wydarzenie zostało poprawinie opublikowane!"));
 
+    }
 
-
-//        return ResponseEntity.ok(new EventResponse(event.getId(),
-//                event.getCity(),
-//                event.getAddress(),
-//                event.getDate(),
-//                event.getSurface(),
-//                event.getLimitation(),
-//                event.getDescription(),
-//                event.getParticipants(),
-//                event.getOrganizer())
-//        );
+    @GetMapping("/allEvents")
+    @ResponseBody
+    List<Event> allEvents(){
+        return eventRepository.findAll();
     }
 
 }

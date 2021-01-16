@@ -29,6 +29,13 @@ class EventService {
         })
     }
 
+    allEvents(){
+        return axios.get(API_URL + 'allEvents').then(
+          response =>{
+            return Promise.resolve(response.data)
+          })
+      }
+
 }
 
 export default new EventService();

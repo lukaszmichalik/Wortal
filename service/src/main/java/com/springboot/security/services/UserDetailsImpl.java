@@ -24,7 +24,6 @@ public class UserDetailsImpl implements UserDetails {
 
 	private EPosition position;
 
-	@JsonFormat(pattern="dd.MM.yyyy")
 	private Date dob;
 
 	private String email;

@@ -7,6 +7,8 @@ import java.util.Set;
 public class UserEventsResponse {
     private Set<Event> events;
 
+    private Long playersNumber;
+
 
     public UserEventsResponse(Set<Event> events) {
         this.events = events;

@@ -156,11 +156,17 @@ export default {
       this.$router.push('/login');
     }
 
-    UserService.getUserEvents(this.currentUser.id).then((data) => {
+    EventService.allEvents().then((data) => {
       this.events = data;
       this.loaded = true;
       console.log(this.events);
     });
+
+    // UserService.getUserEvents(this.currentUser.id).then((data) => {
+    //   this.events = data;
+    //   this.loaded = true;
+    //   console.log(this.events);
+    // });
   },
 };
 </script>

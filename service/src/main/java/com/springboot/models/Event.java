@@ -3,6 +3,7 @@ package com.springboot.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -27,7 +28,6 @@ public class Event implements Serializable{
     @Size(max = 50)
     private String address;
 
-    @JsonFormat(pattern="dd-MM-yyyy", locale ="pl-PL")
     private Date date;
 
     @NotBlank

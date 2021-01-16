@@ -12,7 +12,6 @@ public class JwtResponse {
 	private Long id;
 	private String name;
 	private EPosition position;
-	@JsonFormat(pattern="dd.MM.yyyy")
 	private Date dob;
 	private String email;
 	private String username;
