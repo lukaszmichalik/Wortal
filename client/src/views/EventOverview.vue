@@ -52,13 +52,43 @@
         uczestników:</v-card-title
       >
 
-      <v-card-text class="title" v-text="currentEvent.limitation"></v-card-text>
+      <v-card-text
+        class="title"
+        v-text="
+          this.participantsIds.length.toString() + '/' + currentEvent.limitation
+        "
+      ></v-card-text>
+
+      <v-card-text
+        class="red--text"
+        v-if="participantsIds.length==currentEvent.limitation"
+        align="center"
+      > pełny skład</v-card-text>
 
       <v-card-actions>
-        <v-btn v-if="!isAdmin" class="mx-auto" color="green" large text>
-          Dołącz
-          <v-icon color="green" right>mdi-account-plus</v-icon>
+        <v-btn
+          v-if="!isAdmin && participantsIds.length<currentEvent.limitation"
+          class="mx-auto"
+          :color="participantsIds.includes(currentUser.id) ? 'error' : 'green'"
+          large
+          text
+        >
+          {{
+            participantsIds.includes(currentUser.id) ? 'zrezygnuj' : 'dołącz'
+          }}
+          <v-icon
+            :color="
+              participantsIds.includes(currentUser.id) ? 'error' : 'green'
+            "
+            right
+            >{{
+              participantsIds.includes(currentUser.id)
+                ? 'mdi-account-minus'
+                : 'mdi-account-plus'
+            }}</v-icon
+          >
         </v-btn>
+        
       </v-card-actions>
 
       <!-- <v-card-actions>
@@ -114,7 +144,7 @@
         </v-col>
 
         <v-col class="text-no-wrap" v-if="isAdmin">
-          <v-btn color="error ma-8" large dark> Usuń </v-btn>
+          <v-btn color="error ma-8" large dark > Usuń </v-btn>
         </v-col>
       </v-row>
     </v-card>
@@ -159,9 +189,9 @@ export default {
   data() {
     return {
       eventValue: JSON.parse(localStorage.getItem('event')) || '',
-      lorem: 'dfjasofjdasofj adsofj asdfj asdfj asdjf iasjdf asidjfisdajf asd',
       userValue: JSON.parse(localStorage.getItem('user')) || '',
       isAdmin: false,
+      participantsIds: [],
     };
   },
   computed: {
@@ -192,10 +222,14 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
-    console.log(this.currentUser.id);
-    console.log(this.currentEvent.organizer_id.id);
+    // console.log(this.currentUser.id);
+    // console.log(this.currentEvent.organizer_id.id);
     if (this.currentUser.id == this.currentEvent.organizer_id.id) {
       this.isAdmin = true;
+    }
+
+    for (let i = 0; i < this.currentEvent.participants.length; i++) {
+      this.participantsIds.push(this.currentEvent.participants[i].id);
     }
   },
 };
