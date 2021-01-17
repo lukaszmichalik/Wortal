@@ -41,7 +41,7 @@
       
 
       <v-card-actions>
-        <v-btn color="primary lighten-2" text @click="enterEventInfo(event.id)">
+        <v-btn color="primary lighten-2" :loading="loading" text @click="enterEventInfo(event.id)">
           Przeglądaj
           <v-icon color="primary" small>mdi-information-outline</v-icon>
         </v-btn>
@@ -82,6 +82,7 @@ export default {
       userValue: this.$store.state.auth.user || '',
       events: '',
       loaded: false,
+      loading: false,
       show: false,
       selectedCards: [],
     };
@@ -106,8 +107,12 @@ export default {
       }
     },
     enterEventInfo(id) {
-      EventService.getEvent(id);
-      this.$router.push('/eventOverview');
+      var that=this;
+      this.loading=true;
+      setTimeout(function () {
+      
+      that.$router.push('/eventOverview');
+       }, 500);
     },
     getImgUrl(surface) {
       var images = require.context('../assets/', false);
