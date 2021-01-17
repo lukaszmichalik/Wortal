@@ -1,6 +1,6 @@
 <template>
   <v-app class="global_app">
-    <p class="mx-auto mt-5 white--text display-3">Twoje wydarzenia</p>
+    <p class="mx-auto mt-5 white--text display-3">Wszystkie Wydarzenia</p>
     <v-card
       v-for="event in events"
       :key="event.id"
