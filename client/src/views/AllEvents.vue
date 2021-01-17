@@ -107,6 +107,7 @@ export default {
       }
     },
     enterEventInfo(id) {
+      EventService.getEvent(id);
       var that=this;
       this.loading=true;
       setTimeout(function () {
