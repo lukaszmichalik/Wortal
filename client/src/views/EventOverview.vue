@@ -6,7 +6,7 @@
     <v-card
       class="mx-auto ma-5"
       max-width="80%"
-      min-width="60%"
+      min-width="80%"
       padding="20px"
       elevation="12"
     >
