@@ -28,44 +28,47 @@ class UserService {
         dob: response.data.dob,
         email: response.data.email,
         username: response.data.username
-     }
+      }
 
-       localStorage.setItem('user', JSON.stringify(newValue));
+      localStorage.setItem('user', JSON.stringify(newValue));
 
     });
   }
 
-  getUserEvents(id){
+  getUserEvents(id) {
     return axios.post(API_URL + 'getUserEvents', {
       id: id
-    }).then( response =>{
-      console.log(response)
+    }).then(response => {
       return Promise.resolve(response.data.events)
     })
   }
 
-  deleteUser(id){
+  deleteUser(id) {
     return axios.post(API_URL + 'deleteUser', {
       id: id
     })
   }
 
-  allUsers(){
+  allUsers() {
     return axios.get(API_URL + 'allUsers').then(
-      response =>{
+      response => {
         return Promise.resolve(response.data)
       })
   }
 
-  addUserToEvent(userId, eventId){
+  addUserToEvent(userId, eventId) {
     return axios.post(API_URL + 'addUserToEvent', {
-        userId: userId,
-        eventId: eventId
+      userId: userId,
+      eventId: eventId
     })
-    // .then(response =>{
-    //    return Promise.resolve(response.data)
-    // })
-}
+  }
+
+  deleteUserFromEvent(userId, eventId) {
+    return axios.post(API_URL + 'deleteUserFromEvent', {
+      userId: userId,
+      eventId: eventId
+    })
+  }
 
 }
 

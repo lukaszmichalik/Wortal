@@ -61,7 +61,7 @@
 
       <v-card-text
         class="red--text"
-        v-if="participantsIds.length == currentEvent.limitation"
+        v-if="participantsIds.length == currentEvent.limitation && !participantsIds.includes(currentUser.id)"
         align="center"
       >
         pełny skład</v-card-text
@@ -69,12 +69,13 @@
 
       <v-card-actions>
         <v-btn
-          v-if="!isAdmin && participantsIds.length < currentEvent.limitation"
+          v-if="!isAdmin && hasAccess"
           class="mx-auto"
           :color="participantsIds.includes(currentUser.id) ? 'error' : 'green'"
+          :loading="loading"
           large
           text
-          @click.once="joinOrGiveUp()"
+          @click="joinOrGiveUp()"
         >
           {{
             participantsIds.includes(currentUser.id) ? 'zrezygnuj' : 'dołącz'
@@ -92,24 +93,9 @@
           >
         </v-btn>
       </v-card-actions>
-
-      <!-- <v-card-actions>
-        <v-btn class="ml-2 mt-3" fab icon height="40px" right width="40px">
-          <v-icon>mdi-play</v-icon>
-        </v-btn>
-
-        <v-btn class="ml-2 mt-5" outlined rounded small> START RADIO </v-btn>
-      </v-card-actions> -->
     </v-card>
 
-    <!-- END OF CARD DETAIL -->
-    <!-- START OF CARD ORGANIZER -->
 
-    <!-- END OF CARD DETAIL -->
-    <!-- START OF CARD ORGANIZER -->
-    <!-- <v-avatar color="indigo" size="36">
-                <span class="white--text headline">{{ getInitials }}</span>
-              </v-avatar> -->
     <p id="event_details_caption" class="global_caption">Uczestnicy</p>
     <v-card
       class="mx-auto ma-1"
@@ -150,8 +136,6 @@
         </v-col>
       </v-row>
     </v-card>
-    <!-- END OF CARD DETAIL -->
-    <!-- START OF CARD ORGANIZER -->
 
     <p id="event_details_caption" class="global_caption">Organizator</p>
     <v-card
@@ -182,25 +166,31 @@
 </template>
 
 
-
-
-
  <script>
 import UserService from '../services/user.service';
+import EventService from '../services/event.service';
 
 export default {
   name: 'EventOverview',
   data() {
     return {
-      eventValue: JSON.parse(localStorage.getItem('event')) || '',
-      userValue: JSON.parse(localStorage.getItem('user')) || '',
+      eventValue: JSON.parse(localStorage.getItem('event')) || {},
+      userValue: JSON.parse(localStorage.getItem('user')) || {},
       isAdmin: false,
       participantsIds: [],
+      loading: false,
+      hasAccess: true
     };
   },
   computed: {
-    currentEvent() {
-      return this.eventValue;
+    currentEvent: {
+      get: function () {
+        return this.eventValue;
+      },
+      set: function (event) {
+        this.eventValue = event;
+        localStorage.setItem('event', JSON.stringify(event));
+      },
     },
     currentUser() {
       return this.userValue;
@@ -221,7 +211,41 @@ export default {
         .join('');
     },
     joinOrGiveUp() {
-      UserService.addUserToEvent(this.currentUser.id, this.currentEvent.id);
+      var that = this;
+
+      this.loading = true;
+
+      if (!this.participantsIds.includes(this.currentUser.id)) {
+        UserService.addUserToEvent(this.currentUser.id, this.currentEvent.id);
+
+        setTimeout(function () {
+          EventService.getEvent(that.currentEvent.id);
+        }, 600);
+
+        setTimeout(function () {
+          that.currentEvent = JSON.parse(localStorage.getItem('event'));
+          that.participantsIds.push(that.currentUser.id);
+          that.loading = false;
+        }, 1200);
+      } else {
+        UserService.deleteUserFromEvent(
+          this.currentUser.id,
+          this.currentEvent.id
+        );
+
+        setTimeout(function () {
+          EventService.getEvent(that.currentEvent.id);
+        }, 600);
+
+        setTimeout(function () {
+          that.currentEvent = JSON.parse(localStorage.getItem('event'));
+          let index = that.participantsIds.indexOf(that.currentUser.id);
+          if (index >= 0) {
+            that.participantsIds.splice(index, 1);
+          }
+          that.loading = false;
+        }, 1200);
+      }
     },
   },
 
@@ -229,15 +253,19 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
-    // console.log(this.currentUser.id);
-    // console.log(this.currentEvent.organizer_id.id);
-    if (this.currentUser.id == this.currentEvent.organizer_id.id) {
+    
+    if (this.currentUser.id == this.eventValue.organizer_id.id) {
       this.isAdmin = true;
     }
 
     for (let i = 0; i < this.currentEvent.participants.length; i++) {
-      this.participantsIds.push(this.currentEvent.participants[i].id);
+      this.participantsIds.push(this.eventValue.participants[i].id);
     }
+
+    if(this.participantsIds.length==this.currentEvent.limitation && !this.participantsIds.includes(this.currentUser.id)){
+      this.hasAccess=false
+    }
+
   },
 };
 </script>

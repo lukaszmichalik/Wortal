@@ -84,4 +84,15 @@ public class EventController {
         return eventRepository.findAll();
     }
 
+    @PostMapping("/notAttendedEvents")
+    @ResponseBody
+    public List<Event> notAttendedEvents(@RequestBody IdRequest idRequest){
+        List<Event> allEvents = eventRepository.findAll();
+        User user = userRepository.getOne(idRequest.getId());
+        Set<Event> userEvents = user.getEvents();
+        userEvents.forEach(allEvents::remove);
+
+        return allEvents;
+    }
+
 }

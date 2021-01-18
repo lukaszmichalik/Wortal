@@ -105,4 +105,18 @@ public class UserController {
 
     }
 
+    @PostMapping("/deleteUserFromEvent")
+    public ResponseEntity<?> deleteUserFromEvent(@RequestBody EventUserIdsRequest eventUserIdsRequest){
+
+        Event event = eventRepository.getOne(eventUserIdsRequest.getEventId());
+        User user = userRepository.getOne(eventUserIdsRequest.getUserId());
+        Set<Event> userEvents = user.getEvents();
+        userEvents.remove(event);
+        user.setEvents(userEvents);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new MessageResponse("Poprawnie usunięto Cię z wydarzenia !"));
+
+    }
+
 }

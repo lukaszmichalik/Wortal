@@ -38,10 +38,8 @@
           <v-icon color="green" small> mdi-account </v-icon>
       </v-card-text>
 
-      
-
       <v-card-actions>
-        <v-btn color="primary lighten-2" :loading="loading" text @click="enterEventInfo(event.id)">
+        <v-btn color="primary lighten-2" :loading="loading && selectedBtn==event.id" text @click="enterEventInfo(event.id)">
           Przeglądaj
           <v-icon color="primary" small>mdi-information-outline</v-icon>
         </v-btn>
@@ -85,6 +83,7 @@ export default {
       loading: false,
       show: false,
       selectedCards: [],
+      selectedBtn: ''
     };
   },
   computed: {
@@ -107,6 +106,7 @@ export default {
       }
     },
     enterEventInfo(id) {
+      this.selectedBtn=id
       EventService.getEvent(id);
       var that=this;
       this.loading=true;
@@ -165,7 +165,6 @@ export default {
     UserService.getUserEvents(this.currentUser.id).then((data) => {
       this.events = data;
       this.loaded = true;
-      console.log(this.events);
     });
   },
 };

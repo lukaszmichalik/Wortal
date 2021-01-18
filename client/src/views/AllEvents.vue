@@ -162,17 +162,10 @@ export default {
       this.$router.push('/login');
     }
 
-    EventService.allEvents().then((data) => {
+    EventService.notAttendedEvents(this.currentUser.id).then((data) => {
       this.events = data;
       this.loaded = true;
-      console.log(this.events);
     });
-
-    // UserService.getUserEvents(this.currentUser.id).then((data) => {
-    //   this.events = data;
-    //   this.loaded = true;
-    //   console.log(this.events);
-    // });
   },
 };
 </script>

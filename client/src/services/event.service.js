@@ -11,6 +11,14 @@ class EventService {
         })
     }
 
+    getEventTest(id){
+        return axios.post(API_URL + 'getEvent', {
+            id: id
+        }).then(response =>{
+            return Promise.resolve(response.data)
+        })
+    }
+
     createEvent(event){
         return axios.post(API_URL + 'createEvent', {
             city:event.city,
@@ -24,13 +32,21 @@ class EventService {
             organizer_id:event.organizer_id
 
         }).then(response =>{
-            console.log(response)
             return Promise.resolve(response.data.message)
         })
     }
 
     allEvents(){
         return axios.get(API_URL + 'allEvents').then(
+          response =>{
+            return Promise.resolve(response.data)
+          })
+    }
+
+    notAttendedEvents(id){
+        return axios.post(API_URL + 'notAttendedEvents', {
+            id:id
+        }).then(
           response =>{
             return Promise.resolve(response.data)
           })
