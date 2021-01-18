@@ -61,7 +61,10 @@
 
       <v-card-text
         class="red--text"
-        v-if="participantsIds.length == currentEvent.limitation && !participantsIds.includes(currentUser.id)"
+        v-if="
+          participantsIds.length == currentEvent.limitation &&
+          !participantsIds.includes(currentUser.id)
+        "
         align="center"
       >
         pełny skład</v-card-text
@@ -95,44 +98,57 @@
       </v-card-actions>
     </v-card>
 
-
     <p id="event_details_caption" class="global_caption">Uczestnicy</p>
     <v-card
       class="mx-auto ma-1"
       min-width="80%"
       max-width="80%"
       padding="20px"
-      v-for="{ name, position, dob, id } in currentEvent.participants"
-      :key="id"
+      v-for="participant in currentEvent.participants"
+      :key="participant.id"
       elevation="12"
     >
       <v-row>
         <v-col class="hidden-sm-and-down" align="center" justify="center">
           <v-avatar color="indigo ma-5" size="50">
-            <span class="white--text headline">{{ getInitials(name) }}</span>
+            <span class="white--text headline">{{
+              getInitials(participant.name)
+            }}</span>
           </v-avatar>
         </v-col>
 
         <v-col class="text-no-wrap">
           <v-card-title>imię i nazwisko</v-card-title>
 
-          <v-card-text v-text="name"></v-card-text>
+          <v-card-text v-text="participant.name"></v-card-text>
         </v-col>
 
         <v-col class="text-no-wrap">
           <v-card-title>pozycja</v-card-title>
 
-          <v-card-text v-text="position"></v-card-text>
+          <v-card-text v-text="participant.position"></v-card-text>
         </v-col>
 
         <v-col class="hidden-sm-and-down">
           <v-card-title>wiek</v-card-title>
 
-          <v-card-text v-text="calculateAge(dob) + ' lat'"></v-card-text>
+          <v-card-text
+            v-text="calculateAge(participant.dob) + ' lat'"
+          ></v-card-text>
         </v-col>
 
         <v-col class="text-no-wrap" v-if="isAdmin">
-          <v-btn color="error ma-8" large dark> Usuń </v-btn>
+          <v-btn
+            color="error ma-8"
+            :loading="
+              loadingDelParticipant && selectedDelBtns.includes(participant.id)
+            "
+            large
+            dark
+            @click.once="deleteParticipant(participant.id)"
+          >
+            Usuń
+          </v-btn>
         </v-col>
       </v-row>
     </v-card>
@@ -179,7 +195,9 @@ export default {
       isAdmin: false,
       participantsIds: [],
       loading: false,
-      hasAccess: true
+      loadingDelParticipant: false,
+      hasAccess: true,
+      selectedDelBtns: [],
     };
   },
   computed: {
@@ -247,13 +265,32 @@ export default {
         }, 1200);
       }
     },
+    deleteParticipant(participantId) {
+      this.selectedDelBtns.push(participantId);
+      this.loadingDelParticipant = true;
+      var that = this;
+      UserService.deleteUserFromEvent(participantId, this.currentEvent.id);
+
+      setTimeout(function () {
+        EventService.getEvent(that.currentEvent.id);
+      }, 600);
+
+      setTimeout(function () {
+        that.currentEvent = JSON.parse(localStorage.getItem('event'));
+        let index = that.participantsIds.indexOf(participantId);
+        if (index >= 0) {
+          that.participantsIds.splice(index, 1);
+        }
+        that.loadingDelParticipant = false;
+      }, 1200);
+    },
   },
 
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
-    
+
     if (this.currentUser.id == this.eventValue.organizer_id.id) {
       this.isAdmin = true;
     }
@@ -262,10 +299,15 @@ export default {
       this.participantsIds.push(this.eventValue.participants[i].id);
     }
 
-    if(this.participantsIds.length==this.currentEvent.limitation && !this.participantsIds.includes(this.currentUser.id)){
-      this.hasAccess=false
+    if (
+      this.participantsIds.length == this.currentEvent.limitation &&
+      !this.participantsIds.includes(this.currentUser.id)
+    ) {
+      this.hasAccess = false;
     }
-
+  },
+  destroyed() {
+    console.log('say goodbye');
   },
 };
 </script>
