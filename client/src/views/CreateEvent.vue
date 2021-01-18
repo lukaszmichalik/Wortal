@@ -355,7 +355,6 @@ export default {
     addTeammate(userId) {
       this.selectedUsers.push(userId);
       this.event.participants.push(userId);
-      console.log(this.event.participants);
     },
   },
   mounted() {
@@ -367,6 +366,9 @@ export default {
       console.log(this.users);
     });
     this.event.organizer_id = this.currentUser.id;
+
+    this.selectedUsers.push(this.currentUser.id);
+    this.event.participants.push(this.currentUser.id);
   },
 };
 </script>

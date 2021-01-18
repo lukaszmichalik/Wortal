@@ -108,8 +108,9 @@
       :key="participant.id"
       elevation="12"
     >
+    
       <v-row>
-        <v-col class="hidden-sm-and-down" align="center" justify="center">
+        <v-col class="hidden-sm-and-down" align="center">
           <v-avatar color="indigo ma-5" size="50">
             <span class="white--text headline">{{
               getInitials(participant.name)
@@ -129,16 +130,17 @@
           <v-card-text v-text="participant.position"></v-card-text>
         </v-col>
 
-        <v-col class="hidden-sm-and-down">
+        <v-col class="hidden-sm-and-down" >
           <v-card-title>wiek</v-card-title>
 
-          <v-card-text
+          <v-card-text align="left"
             v-text="calculateAge(participant.dob) + ' lat'"
           ></v-card-text>
         </v-col>
 
-        <v-col class="text-no-wrap" v-if="isAdmin">
+        <v-col class="text-no-wrap" >
           <v-btn
+            v-if="isAdmin && participant.id!=currentUser.id"
             color="error ma-8"
             :loading="
               loadingDelParticipant && selectedDelBtns.includes(participant.id)
@@ -151,6 +153,7 @@
           </v-btn>
         </v-col>
       </v-row>
+      
     </v-card>
 
     <p id="event_details_caption" class="global_caption">Organizator</p>
@@ -175,9 +178,39 @@
         </v-col>
       </v-row>
     </v-card>
-    <v-btn v-if="isAdmin" class="mx-auto my-8" color="error"
-      >Odwołaj wydarzenie</v-btn
-    >
+    <v-dialog transition="dialog-bottom-transition" max-width="600">
+      <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-if="isAdmin"
+          class="mx-auto my-8"
+          color="error"
+            v-bind="attrs"
+            v-on="on"
+          >Odwołaj wydarzenie</v-btn>
+        </template>
+        <template v-slot:default="dialog">
+          <v-card>
+            <v-toolbar
+              color="error"
+              dark
+            >Czy na pewno chcesz usunąć wydarzenie ?</v-toolbar>
+            <v-card-text>
+              <div class="text-h5 pa-12">Tej akcji nie można cofnąć, czy na pewno chcesz usunąć to wydarznie?</div>
+            </v-card-text>
+            <v-card-actions class="justify-end">
+              <v-btn
+                text
+                @click="dialog.value = false"
+              >Anuluj</v-btn>
+               <v-btn
+                text
+                color="error"
+                @click="deleteEvent(currentEvent.id)"
+              >Tak, Usuń</v-btn>
+            </v-card-actions>
+          </v-card>
+        </template>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -283,6 +316,11 @@ export default {
         }
         that.loadingDelParticipant = false;
       }, 1200);
+    },
+
+    deleteEvent(id) {
+      EventService.deleteEvent(id);
+      this.$router.push('/yourEvents')
     },
   },
 

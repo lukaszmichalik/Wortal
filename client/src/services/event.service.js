@@ -52,6 +52,15 @@ class EventService {
           })
     }
 
+    deleteEvent(id){
+        return axios.post(API_URL + 'deleteEvent', {
+            id:id
+        }).then(
+          response =>{
+            return Promise.resolve(response.data)
+          })
+    }
+
 }
 
 export default new EventService();

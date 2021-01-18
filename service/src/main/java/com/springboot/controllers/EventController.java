@@ -95,4 +95,29 @@ public class EventController {
         return allEvents;
     }
 
+    @PostMapping("/deleteEvent")
+    @ResponseBody
+    public ResponseEntity<?> deleteEvent(@RequestBody IdRequest idRequest){
+
+        Event event = eventRepository.getOne(idRequest.getId());
+
+        Set<User> participants = event.getParticipants();
+
+        participants.forEach(participant->{
+            Set<Event> userEvents = participant.getEvents();
+            userEvents.remove(event);
+            participant.setEvents(userEvents);
+            userRepository.save(participant);
+        });
+
+        if (eventRepository.existsById(idRequest.getId())) {
+            eventRepository.deleteById(idRequest.getId());
+            return ResponseEntity.ok(new MessageResponse("Poprawnie usunięto wydarzenie!"));
+        }
+
+
+        return ResponseEntity.badRequest()
+                .body(new MessageResponse("Błąd: Wydarzeni o takim Id nie istnieje!"));
+    }
+
 }

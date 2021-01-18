@@ -78,7 +78,7 @@ public class UserController {
         //User user = userRepository.getOne(idRequest.getId());
         if (userRepository.existsById(idRequest.getId())) {
             userRepository.deleteById(idRequest.getId());
-            return ResponseEntity.ok(new MessageResponse("Rejestracja się powiodła!"));
+            return ResponseEntity.ok(new MessageResponse("Poprawnie usunięto użytkonika !"));
         }
         return ResponseEntity
                 .badRequest()

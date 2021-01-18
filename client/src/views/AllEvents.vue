@@ -41,7 +41,7 @@
       
 
       <v-card-actions>
-        <v-btn color="primary lighten-2" :loading="loading" text @click="enterEventInfo(event.id)">
+        <v-btn color="primary lighten-2" :loading="loading && selectedBtn==event.id" text @click="enterEventInfo(event.id)">
           Przeglądaj
           <v-icon color="primary" small>mdi-information-outline</v-icon>
         </v-btn>
@@ -76,7 +76,7 @@ import UserService from '../services/user.service';
 import EventService from '../services/event.service';
 
 export default {
-  name: 'YourEvents',
+  name: 'AllEvents',
   data() {
     return {
       userValue: this.$store.state.auth.user || '',
@@ -85,6 +85,7 @@ export default {
       loading: false,
       show: false,
       selectedCards: [],
+      selectedBtn: ''
     };
   },
   computed: {
@@ -107,6 +108,7 @@ export default {
       }
     },
     enterEventInfo(id) {
+      this.selectedBtn=id
       EventService.getEvent(id);
       var that=this;
       this.loading=true;
