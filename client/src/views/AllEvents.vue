@@ -127,7 +127,7 @@ export default {
         case 'sztuczna':
           return images('./' + surface + '.jpg');
         case 'tartan':
-          return images('./' + surface + '.png');
+          return images('./' + surface + '.jpg');
         default:
           console.log(`Sorry, we are out of ${surface}.`);
       }

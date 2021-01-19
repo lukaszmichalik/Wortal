@@ -67,14 +67,22 @@ public class User implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "event_id"))
 	private Set<Event> events = new HashSet<>();
 
-	//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "team_id")
-//	@JsonManagedReference
-//	private Team team;
-
 	@JsonIgnore
 	@OneToMany(mappedBy = "organizer")
 	private Set<Event> ownedEvents = new HashSet<>();
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "team_id")
+	private Team team;
+
+	@JsonIgnore
+	@OneToOne(mappedBy = "manager")
+	private Team managedTeam;
+
+
+
+
 
 	public User() {
 	}
@@ -101,14 +109,6 @@ public class User implements Serializable {
 		this.roles = roles;
 	}
 
-	//remember that u can make other constructors that fits your needs
-//	public User(String username,  Date dob, String email, String password) {
-//		this.username = username;
-//		this.dob = dob;
-//		this.email = email;
-//		this.password = password;
-//
-//	}
 
 	public Long getId() {
 		return id;
@@ -176,5 +176,21 @@ public class User implements Serializable {
 
 	public void setOwnedEvents(Set<Event> ownedEvents) {
 		this.ownedEvents = ownedEvents;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
+	public Team getManagedTeam() {
+		return managedTeam;
+	}
+
+	public void setManagedTeam(Team managedTeam) {
+		this.managedTeam = managedTeam;
 	}
 }
