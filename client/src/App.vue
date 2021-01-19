@@ -41,7 +41,7 @@
               <v-btn id="navigation_drawer_v_btn_green" to="/AllTeams"
                 >Wszystkie drużyny</v-btn
               >
-              <v-btn id="navigation_drawer_v_btn_green" to="/CreateTeam"
+              <v-btn id="navigation_drawer_v_btn_green" to="/createTeam"
                 >Utwórz drużynę</v-btn
               >
               <v-btn id="navigation_drawer_v_btn_red" to="/UserProfile"

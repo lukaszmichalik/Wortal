@@ -2,6 +2,7 @@ package com.springboot.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.lang.Nullable;
 
 
 import java.io.Serializable;
@@ -70,6 +71,7 @@ public class User implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "organizer")
 	private Set<Event> ownedEvents = new HashSet<>();
+
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)

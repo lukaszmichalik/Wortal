@@ -47,8 +47,6 @@ public class TeamController {
                 manager
         );
 
-
-
         teamRepository.save(team);
         Set<Long> longPlayers = createTeamRequest.getPlayers();
 
@@ -60,12 +58,40 @@ public class TeamController {
             }
         });
 
-        manager.setTeam(team);
+//        if(manager.getTeam()==null) {
+//            manager.setTeam(team);
+//            userRepository.save(manager);
+//        }else{
+//            return ResponseEntity.badRequest()
+//                    .body(new MessageResponse("Błąd: Ten użytkownik jest już managerem innej drużyny"));
+//        }
 
-        userRepository.save(manager);
 
         return ResponseEntity.ok(new MessageResponse("Twoja drużyna została poprawnie dodana!"));
 
     }
 
+    @PostMapping("/deleteTeam")
+    @ResponseBody
+    public ResponseEntity<?> deleteTeam(@RequestBody IdRequest idRequest){
+
+        Team team = teamRepository.getOne(idRequest.getId());
+
+        Set<User> players = team.getPlayers();
+
+        players.forEach(player->{
+            System.out.print(player.getName());
+            player.setTeam(null);
+            userRepository.save(player);
+        });
+
+        if (teamRepository.existsById(idRequest.getId())) {
+            teamRepository.deleteById(idRequest.getId());
+            return ResponseEntity.ok(new MessageResponse("Poprawnie usunięto drużynę!"));
+        }
+
+
+        return ResponseEntity.badRequest()
+                .body(new MessageResponse("Błąd: Drużyna o takim Id nie istnieje!"));
+    }
 }

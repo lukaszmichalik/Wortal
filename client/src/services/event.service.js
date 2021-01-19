@@ -11,14 +11,6 @@ class EventService {
         })
     }
 
-    getEventTest(id){
-        return axios.post(API_URL + 'getEvent', {
-            id: id
-        }).then(response =>{
-            return Promise.resolve(response.data)
-        })
-    }
-
     createEvent(event){
         return axios.post(API_URL + 'createEvent', {
             city:event.city,

@@ -37,8 +37,7 @@ public class Team {
     private String description;
 
     @JsonIgnore
-    @OneToMany(cascade =CascadeType.ALL, mappedBy = "team")
-    @JsonBackReference
+    @OneToMany(mappedBy = "team")
     private Set<User> players= new HashSet<>();
 
     @JsonIgnore

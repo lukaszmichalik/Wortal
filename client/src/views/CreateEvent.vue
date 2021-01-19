@@ -314,15 +314,12 @@ export default {
   },
   methods: {
     handleCreateEvent() {
-      //console.log(this.event);
       this.$v.$touch();
       if (this.$v.$pendind || this.$v.$error) {
         this.creatingEventFailed = 'input error';
       } else {
         EventService.createEvent(this.event).then(
           (data) => {
-            //console.log('this is data below');
-            //console.log(data);
             this.message = data;
             if (
               this.message ==
