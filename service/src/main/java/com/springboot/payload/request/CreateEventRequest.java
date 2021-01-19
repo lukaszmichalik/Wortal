@@ -1,17 +1,12 @@
 package com.springboot.payload.request;
 
-import com.springboot.models.EPosition;
 import com.springboot.models.ESurface;
-import com.springboot.models.User;
 
-import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 public class CreateEventRequest {

@@ -50,11 +50,12 @@ public class Team {
     public Team() {
     }
 
-    public Team(String name, String location, Date creationDate, String description) {
+    public Team(String name, String location, Date creationDate, String description, User manager) {
         this.name = name;
         this.location = location;
         this.creationDate = creationDate;
         this.description = description;
+        this.manager = manager;
     }
 
     public Long getId() {
