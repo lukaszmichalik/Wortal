@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springboot.models.EPosition;
+import com.springboot.models.Team;
 import com.springboot.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,15 +29,15 @@ public class UserDetailsImpl implements UserDetails {
 
 	private String email;
 
-	@JsonIgnore
 	private String username;
 
 	private String password;
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(Long id, String name, EPosition position, Date dob, String email, String username, String password,
-			Collection<? extends GrantedAuthority> authorities) {
+	public UserDetailsImpl(Long id, String name, EPosition position, Date dob, String email, String username,
+						   String password,
+						   Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.name = name;
 		this.position = position;
@@ -127,5 +128,6 @@ public class UserDetailsImpl implements UserDetails {
 		UserDetailsImpl user = (UserDetailsImpl) o;
 		return Objects.equals(id, user.id);
 	}
+
 
 }

@@ -72,7 +72,8 @@ public class AuthController {
 												 userDetails.getDob(),
 												 userDetails.getEmail(),
 												 userDetails.getUsername(),
-												 roles));
+											     roles
+		));
 	}
 
 	@PostMapping("/signup")
@@ -129,7 +130,6 @@ public class AuthController {
 		}
 
 		user.setRoles(roles);
-		System.out.print(user.getRoles());
 		userRepository.save(user);
 
 		return ResponseEntity.ok(new MessageResponse("Rejestracja się powiodła!"));

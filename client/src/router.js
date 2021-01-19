@@ -63,6 +63,21 @@ export const router = new Router({
       component: () => import('./views/AllEvents.vue')
     },
     {
+      path: '/createTeam',
+      name: 'createTeam',
+      component: () => import('./views/CreateTeam.vue')
+    },
+    {
+      path: '/teamOverview',
+      name: 'teamOverview',
+      component: () => import('./views/TeamOverview.vue')
+    },
+    {
+      path: '/allTeams',
+      name: 'allTeams',
+      component: () => import('./views/AllTeams.vue')
+    },
+    {
       path: '/admin',
       name: 'admin',
       component: () => import('./views/BoardAdmin.vue')

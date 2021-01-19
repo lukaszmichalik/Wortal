@@ -1,7 +1,8 @@
 package com.springboot.payload.response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springboot.models.EPosition;
+import com.springboot.models.Team;
 
 import java.sql.Date;
 import java.util.List;
@@ -17,7 +18,14 @@ public class JwtResponse {
 	private String username;
 	private List<String> roles;
 
-	public JwtResponse(String accessToken, Long id, String name, EPosition position, Date dob, String email, String username, List<String> roles) {
+	public JwtResponse(String accessToken,
+					   Long id,
+					   String name,
+					   EPosition position,
+					   Date dob,
+					   String email,
+					   String username,
+					   List<String> roles) {
 		this.token = accessToken;
 		this.id = id;
 		this.name = name;
@@ -95,4 +103,5 @@ public class JwtResponse {
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
+
 }

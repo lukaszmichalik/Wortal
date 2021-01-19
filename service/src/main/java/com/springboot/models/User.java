@@ -73,7 +73,7 @@ public class User implements Serializable {
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "team_id")
+	@JoinColumn(name = "team")
 	private Team team;
 
 	@JsonIgnore

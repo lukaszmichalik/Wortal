@@ -29,7 +29,9 @@ public class Team {
     @Size(max = 50)
     private String location;
 
+    @Column
     private Date creationDate;
+
 
     @Size(max = 250)
     private String description;
@@ -40,7 +42,7 @@ public class Team {
     private Set<User> players= new HashSet<>();
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "manager_id", referencedColumnName = "id")
     private User manager;
 
@@ -48,9 +50,11 @@ public class Team {
     public Team() {
     }
 
-    public Team(String name, String location) {
+    public Team(String name, String location, Date creationDate, String description) {
         this.name = name;
         this.location = location;
+        this.creationDate = creationDate;
+        this.description = description;
     }
 
     public Long getId() {
