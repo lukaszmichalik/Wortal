@@ -82,7 +82,6 @@ public class TeamController {
         Set<User> players = team.getPlayers();
 
         players.forEach(player->{
-            System.out.print(player.getName());
             player.setTeam(null);
             userRepository.save(player);
         });

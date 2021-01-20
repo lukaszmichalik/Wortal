@@ -35,7 +35,7 @@
               <v-btn id="navigation_drawer_v_btn_blue" to="/CreateEvent"
                 >Utwórz wydarzenie</v-btn
               >
-              <v-btn v-if="currentUser.team_id" id="navigation_drawer_v_btn_green" to="/TeamOverview" :loading="loading" text @click="enterTeamInfo(currentUser.team_id)"
+              <v-btn v-if="currentUser.team_id" id="navigation_drawer_v_btn_green" :loading="loading" text @click="enterTeamInfo(currentUser.team_id)"
                 >Twoja drużyna</v-btn
               >
               <v-btn id="navigation_drawer_v_btn_green" to="/AllTeams"

@@ -7,16 +7,10 @@
         <v-col id="create_event_col">
           <p id="create_event_label">nazwa drużyny:</p>
 
-          <p
-            class="create_event_input_required"
-            v-if="!$v.team.name.required"
-          >
+          <p class="create_event_input_required" v-if="!$v.team.name.required">
             to pole jest wymagane
           </p>
-          <p
-            class="create_event_input_required"
-            v-if="!$v.team.name.maxLength"
-          >
+          <p class="create_event_input_required" v-if="!$v.team.name.maxLength">
             maksymalna ilość znaków to 50
           </p>
 
@@ -32,7 +26,10 @@
         <v-col id="create_event_col">
           <p id="create_event_label_city">miejscowość:</p>
 
-          <p class="create_event_input_required" v-if="!$v.team.location.required">
+          <p
+            class="create_event_input_required"
+            v-if="!$v.team.location.required"
+          >
             to pole jest wymagane
           </p>
 
@@ -72,43 +69,41 @@
         </p>
 
         <v-col id="create_event_participants_list">
-          <div id="create_event_list">
-            <v-card
-              id="create_event_participant"
-              padding="20px"
-              v-for="user in users"
-              :key="user.id"
-              elevation="12"
-            >
-              <v-row>
-                <v-col class="text-no-wrap">
-                  <v-card-title>imię i nazwisko</v-card-title>
-                  <v-card-text v-text="user.name"></v-card-text>
-                </v-col>
+          <v-card
+            id="create_event_participant"
+            padding="20px"
+            v-for="user in users"
+            :key="user.id"
+            elevation="12"
+          >
+            <v-row>
+              <v-col class="text-no-wrap">
+                <v-card-title>imię i nazwisko</v-card-title>
+                <v-card-text v-text="user.name"></v-card-text>
+              </v-col>
 
-                <v-col class="text-no-wrap">
-                  <v-card-title>pozycja</v-card-title>
-                  <v-card-text v-text="user.position"></v-card-text>
-                </v-col>
+              <v-col class="text-no-wrap">
+                <v-card-title>pozycja</v-card-title>
+                <v-card-text v-text="user.position"></v-card-text>
+              </v-col>
 
-                <v-col class="hidden-sm-and-down">
-                  <!-- chowa wiek, gdy za mało miejsca !-->
-                  <v-card-title>wiek</v-card-title>
-                  <v-card-text v-text="calculateAge(user.dob)"></v-card-text>
-                </v-col>
+              <v-col class="hidden-sm-and-down">
+                <!-- chowa wiek, gdy za mało miejsca !-->
+                <v-card-title>wiek</v-card-title>
+                <v-card-text v-text="calculateAge(user.dob)"></v-card-text>
+              </v-col>
 
-                <v-col class="text-no-wrap">
-                  <v-btn
-                    v-if="!selectedUsers.includes(user.id)"
-                    @click="addTeammate(user.id)"
-                    id="create_event_add_participant_button"
-                  >
-                    DODAJ
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-card>
-          </div>
+              <v-col class="text-no-wrap">
+                <v-btn
+                  v-if="!selectedUsers.includes(user.id)"
+                  @click="addTeammate(user.id)"
+                  id="create_event_add_participant_button"
+                >
+                  DODAJ
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card>
         </v-col>
 
         <!-- CARDS USERS ENDING -->
@@ -178,7 +173,7 @@ export default {
     return {
       myJson: json,
       message: '',
-      team: new Team('', '', '', '', '',[]),
+      team: new Team('', '', '', '', '', []),
       userValue: JSON.parse(localStorage.getItem('user')) || '',
       users: '',
       selectedUsers: [],
@@ -211,7 +206,7 @@ export default {
       if (this.$v.$pendind || this.$v.$error) {
         this.creatingTeamFailed = 'input error';
       } else {
-          this.team.creationDate = Date.now()
+        this.team.creationDate = Date.now();
         TeamService.createTeam(this.team).then(
           (data) => {
             this.message = data;
