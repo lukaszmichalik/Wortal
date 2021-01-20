@@ -11,13 +11,17 @@ INSERT INTO events VALUES(109, 'ul. Krzakowska', 'Toruń', '1970-10-12','Cześć
 INSERT INTO user_events VALUES(1, 101);
 INSERT INTO user_events VALUES(1, 102);
 INSERT INTO user_events VALUES(1, 103);
-INSERT INTO user_events VALUES(2, 101);
-INSERT INTO user_events VALUES(2, 102);
-INSERT INTO user_events VALUES(3, 101);
 INSERT INTO user_events VALUES(1, 104);
 INSERT INTO user_events VALUES(1, 105);
+INSERT INTO user_events VALUES(1, 106);
+INSERT INTO user_events VALUES(1, 107);
+INSERT INTO user_events VALUES(2, 101);
+INSERT INTO user_events VALUES(2, 102);
+INSERT INTO user_events VALUES(2, 103);
+INSERT INTO user_events VALUES(3, 101);
 INSERT INTO user_events VALUES(3, 104);
 INSERT INTO user_events VALUES(3, 105);
+INSERT INTO user_events VALUES(3, 109);
 
 INSERT INTO teams VALUES(101,'1976-10-12','Ten klub zrzesza najlepszych piłkarzy z Wrocka', 'Wrocław', 'FC Tigers',  1);
 INSERT INTO teams VALUES(102,'2000-10-12','Byki to klub z tradycjami.','Kraków', 'TG Bulls', 2);

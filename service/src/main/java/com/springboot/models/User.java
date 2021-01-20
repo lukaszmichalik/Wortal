@@ -69,7 +69,7 @@ public class User implements Serializable {
 	private Set<Event> events = new HashSet<>();
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "organizer")
+	@OneToMany(mappedBy = "organizer",cascade=CascadeType.REMOVE)
 	private Set<Event> ownedEvents = new HashSet<>();
 
 
