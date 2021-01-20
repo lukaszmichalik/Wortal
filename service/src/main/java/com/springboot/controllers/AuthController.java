@@ -2,6 +2,7 @@ package com.springboot.controllers;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,7 @@ import javax.validation.Valid;
 
 import com.springboot.models.ERole;
 import com.springboot.models.Role;
+import com.springboot.models.Team;
 import com.springboot.models.User;
 import com.springboot.payload.request.LoginRequest;
 import com.springboot.payload.request.SignupRequest;
@@ -65,6 +67,15 @@ public class AuthController {
 				.map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
+		User user = userRepository.getOneByUsername(loginRequest.getUsername());
+		Long team_id;
+
+		if(user.getTeam()!=null) {
+			Team team = user.getTeam();
+			 team_id = team.getId();
+		}else {
+			team_id = null;
+		}
 		return ResponseEntity.ok(new JwtResponse(jwt,
 												 userDetails.getId(),
 												 userDetails.getName(),
@@ -72,6 +83,7 @@ public class AuthController {
 												 userDetails.getDob(),
 												 userDetails.getEmail(),
 												 userDetails.getUsername(),
+											     team_id,
 											     roles
 		));
 	}

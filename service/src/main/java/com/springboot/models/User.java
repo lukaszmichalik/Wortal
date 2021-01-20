@@ -83,9 +83,6 @@ public class User implements Serializable {
 	private Team managedTeam;
 
 
-
-
-
 	public User() {
 	}
 

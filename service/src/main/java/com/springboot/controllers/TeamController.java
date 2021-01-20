@@ -6,7 +6,9 @@ import com.springboot.models.User;
 import com.springboot.payload.request.CreateEventRequest;
 import com.springboot.payload.request.CreateTeamRequest;
 import com.springboot.payload.request.IdRequest;
+import com.springboot.payload.response.EventResponse;
 import com.springboot.payload.response.MessageResponse;
+import com.springboot.payload.response.TeamResponse;
 import com.springboot.repository.TeamRepository;
 import com.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,4 +96,20 @@ public class TeamController {
         return ResponseEntity.badRequest()
                 .body(new MessageResponse("Błąd: Drużyna o takim Id nie istnieje!"));
     }
+
+    @PostMapping("/getTeam")
+    public ResponseEntity<?> getTeam(@RequestBody IdRequest idRequest){
+
+        Team team = teamRepository.getOne(idRequest.getId());
+        return ResponseEntity.ok(new TeamResponse(team.getId(),
+                team.getName(),
+                team.getLocation(),
+                team.getCreationDate(),
+                team.getDescription(),
+                team.getPlayers(),
+                team.getManager())
+        );
+    }
+
+
 }

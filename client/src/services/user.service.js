@@ -70,6 +70,13 @@ class UserService {
     })
   }
 
+  allUsersWithoutTeam() {
+    return axios.get(API_URL + 'allUsersWithoutTeam').then(
+      response => {
+        return Promise.resolve(response.data)
+      })
+  }
+
 }
 
 export default new UserService();

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,7 +17,7 @@ import java.util.Set;
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "name")
         })
-public class Team {
+public class Team implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,12 +37,14 @@ public class Team {
     @Size(max = 250)
     private String description;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "team")
+    @JsonIgnore
     private Set<User> players= new HashSet<>();
 
-    @JsonIgnore
+
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "manager_id", referencedColumnName = "id")
     private User manager;
 

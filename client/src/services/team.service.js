@@ -18,6 +18,22 @@ class TeamService {
         })
     }
 
+    getTeam(id){
+        return axios.post(API_URL + 'getTeam', {
+            id: id
+        }).then(response =>{
+            localStorage.setItem('team', JSON.stringify(response.data))
+        })
+    }
+
+
+    allTeams(){
+        return axios.get(API_URL + 'allTeams').then(
+          response =>{
+            return Promise.resolve(response.data)
+          })
+    }
+
 }
 
 export default new TeamService();

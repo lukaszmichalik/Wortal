@@ -35,13 +35,13 @@
               <v-btn id="navigation_drawer_v_btn_blue" to="/CreateEvent"
                 >Utwórz wydarzenie</v-btn
               >
-              <v-btn id="navigation_drawer_v_btn_green" to="/TeamOverview"
+              <v-btn v-if="currentUser.team_id" id="navigation_drawer_v_btn_green" to="/TeamOverview" :loading="loading" text @click="enterTeamInfo(currentUser.team_id)"
                 >Twoja drużyna</v-btn
               >
               <v-btn id="navigation_drawer_v_btn_green" to="/AllTeams"
                 >Wszystkie drużyny</v-btn
               >
-              <v-btn id="navigation_drawer_v_btn_green" to="/createTeam"
+              <v-btn v-if="!currentUser.team_id" id="navigation_drawer_v_btn_green" to="/createTeam"
                 >Utwórz drużynę</v-btn
               >
               <v-btn id="navigation_drawer_v_btn_red" to="/UserProfile"
@@ -68,11 +68,14 @@
 
 
 <script>
+import TeamService from './services/team.service';
+
 export default {
   name: 'Sidebar',
   data() {
     return {
       drawer: false,
+      loading:false
     };
   },
   computed: {
@@ -84,6 +87,16 @@ export default {
     logout() {
       this.$store.dispatch('auth/logout');
       this.$router.push('/home');
+    },
+    enterTeamInfo(id) {
+      TeamService.getTeam(id);
+      var that=this;
+      this.loading=true;
+      setTimeout(function () {
+      
+      that.$router.push('/teamOverview');
+      that.loading=false;
+       }, 500);
     },
   },
 };

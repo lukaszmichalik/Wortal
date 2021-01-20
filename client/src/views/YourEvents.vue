@@ -166,6 +166,7 @@ export default {
       this.events = data;
       this.loaded = true;
     });
+
   },
 };
 </script>

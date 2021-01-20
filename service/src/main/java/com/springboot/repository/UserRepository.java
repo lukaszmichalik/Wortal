@@ -11,6 +11,8 @@ import com.springboot.models.User;
 public interface UserRepository extends JpaRepository<User, Long> {
   Optional<User> findByUsername(String username);
 
+  User getOneByUsername(String username);
+
   Boolean existsByUsername(String username);
 
   Boolean existsByEmail(String email);

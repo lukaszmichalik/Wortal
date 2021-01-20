@@ -252,7 +252,7 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
-    UserService.allUsers().then((data) => {
+    UserService.allUsersWithoutTeam().then((data) => {
       this.users = data;
     });
     this.team.manager_id = this.currentUser.id;

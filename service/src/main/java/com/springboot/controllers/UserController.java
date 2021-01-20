@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -89,6 +90,22 @@ public class UserController {
     @ResponseBody
     List<User> allUsers(){
         return userRepository.findAll();
+    }
+
+    @GetMapping("/allUsersWithoutTeam")
+    @ResponseBody
+    Set<User> allUsersWithoutTeam(){
+
+        List<User> allUsers = userRepository.findAll();
+        Set<User> usersWithoutTeam = new HashSet<>();
+
+        allUsers.forEach(user -> {
+            if(user.getTeam()==null){
+                usersWithoutTeam.add(user);
+            }
+        });
+
+        return usersWithoutTeam;
     }
 
     @PostMapping("/addUserToEvent")

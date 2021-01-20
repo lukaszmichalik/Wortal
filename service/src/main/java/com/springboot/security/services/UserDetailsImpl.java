@@ -33,6 +33,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	private String password;
 
+
 	private Collection<? extends GrantedAuthority> authorities;
 
 	public UserDetailsImpl(Long id, String name, EPosition position, Date dob, String email, String username,

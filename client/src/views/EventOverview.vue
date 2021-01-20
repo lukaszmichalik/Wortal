@@ -344,8 +344,5 @@ export default {
       this.hasAccess = false;
     }
   },
-  destroyed() {
-    console.log('say goodbye');
-  },
 };
 </script>
