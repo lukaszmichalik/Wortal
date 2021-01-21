@@ -1,54 +1,46 @@
 <template>
   <v-app class="global_app">
-    <p class="mx-auto mt-5 white--text display-3">Twoje wydarzenia</p>
+    <p class="mx-auto mt-5 white--text display-3">Twoje Drużyny</p>
     <v-card
-      v-for="event in events"
-      :key="event.id"
+      v-for="team in teams"
+      :key="team.id"
       class="mx-auto ma-5"
       max-width="50%"
       min-width="50%"
       padding="20px"
     >
-      <v-img
-        :src="getImgUrl(event.surface)"
-        v-bind:alt="event.surface"
-        height="200px"
-        aspect-ratio="2.75"
-      >
-        <v-card-title class="white--text mt-3">
-          <p class="ml-3">
-            {{ formatDate(event.date) }}
-          </p>
-        </v-card-title>
 
-        <p class="white--text ml-8 display-3">{{ event.time }}</p>
-      </v-img>
-
+    
       
         <v-card-title v-if="loaded" class="ml-1">
-          {{ event.city }}
+          {{ team.name }}
         </v-card-title>
 
         <v-card-subtitle v-if="loaded" class="ml-1">
-          {{ event.address }}
+          {{ team.location }}
         </v-card-subtitle>
 
-      <v-card-text class="ml-1">
-         limit graczy: {{ event.limitation }}
-          <v-icon color="green" small> mdi-account </v-icon>
-      </v-card-text>
+        <v-card-title class="dark--text mt-3">
+          <p class="ml-3">
+            {{ formatDate(team.creationDate) }}
+          </p>
+        </v-card-title>
+
+      
+
+      
 
       <v-card-actions>
-        <v-btn color="primary lighten-2" :loading="loading && selectedBtn==event.id" text @click="enterEventInfo(event.id)">
+        <v-btn color="primary lighten-2" :loading="loading && selectedBtn==team.id" text @click="enterTeamInfo(team.id)">
           Przeglądaj
           <v-icon color="primary" small>mdi-information-outline</v-icon>
         </v-btn>
 
         <v-spacer></v-spacer>
 
-        <v-btn icon @click="selected(event.id)">
+        <v-btn icon @click="selected(team.id)">
           <v-icon>{{
-            selectedCards.includes(event.id)
+            selectedCards.includes(team.id)
               ? 'mdi-chevron-up'
               : 'mdi-chevron-down'
           }}</v-icon>
@@ -56,11 +48,11 @@
       </v-card-actions>
 
       <v-expand-transition>
-        <div v-if="selectedCards.includes(event.id)">
+        <div v-if="selectedCards.includes(team.id)">
           <v-divider></v-divider>
 
           <v-card-text>
-            {{ event.description }}
+            {{ team.description }}
           </v-card-text>
         </div>
       </v-expand-transition>
@@ -71,14 +63,14 @@
 
 <script>
 import UserService from '../services/user.service';
-import EventService from '../services/event.service';
+import TeamService from '../services/team.service';
 
 export default {
-  name: 'YourEvents',
+  name: 'YourTeams',
   data() {
     return {
       userValue: this.$store.state.auth.user || '',
-      events: '',
+      teams: '',
       loaded: false,
       loading: false,
       show: false,
@@ -89,9 +81,6 @@ export default {
   computed: {
     currentUser() {
       return this.userValue;
-    },
-    validateUrl() {
-      return 'validating';
     },
   },
   methods: {
@@ -105,14 +94,14 @@ export default {
         this.selectedCards.push(id);
       }
     },
-    enterEventInfo(id) {
+    enterTeamInfo(id) {
       this.selectedBtn=id
-      EventService.getEvent(id);
+      TeamService.getTeam(id);
       var that=this;
       this.loading=true;
       setTimeout(function () {
       
-      that.$router.push('/eventOverview');
+      that.$router.push('/teamOverview');
        }, 500);
     },
     getImgUrl(surface) {
@@ -162,8 +151,13 @@ export default {
       this.$router.push('/login');
     }
 
-    EventService.getUserEvents(this.currentUser.id).then((data) => {
-      this.events = data;
+    // EventService.notAttendedEvents(this.currentUser.id).then((data) => {
+    //   this.events = data;
+    //   this.loaded = true;
+    // });
+
+    TeamService.getUserTeams(this.currentUser.id).then((data) => {
+      this.teams = data;
       this.loaded = true;
     });
 

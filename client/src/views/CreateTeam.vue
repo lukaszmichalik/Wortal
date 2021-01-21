@@ -208,26 +208,10 @@ export default {
       } else {
         this.team.creationDate = Date.now();
         TeamService.createTeam(this.team).then(
-          (data) => {
-            this.message = data;
-            if (
-              this.message ==
-              'Twoje wydarzenie zostało poprawinie opublikowane!'
-            ) {
-              this.successful = true;
-              this.$router.push('/yourEvents');
-            }
-          },
-          (error) => {
-            this.loading = false;
-            this.message =
-              (error.response &&
-                error.response.data &&
-                error.response.data.message) ||
-              error.message ||
-              error.toString();
-            this.creatingTeamFailed = 'creating event failed';
-          }
+        
+          this.successful = true,
+          this.$router.push('/yourEvents')
+            
         );
       }
     },
@@ -247,7 +231,7 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
-    UserService.allUsersWithoutTeam().then((data) => {
+    UserService.allUsers().then((data) => {
       this.users = data;
     });
     this.team.manager_id = this.currentUser.id;

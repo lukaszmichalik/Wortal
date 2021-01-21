@@ -37,16 +37,26 @@ public class Team implements Serializable {
     @Size(max = 250)
     private String description;
 
-
-    @OneToMany(mappedBy = "team")
+    @ManyToMany(mappedBy = "teams")
     @JsonIgnore
-    private Set<User> players= new HashSet<>();
+    private Set<User> players = new HashSet<>();
 
-
-    @OneToOne
     @JsonIgnore
-    @JoinColumn(name = "manager_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name="manager")
     private User manager;
+
+
+
+//    @OneToMany(mappedBy = "team")
+//    @JsonIgnore
+//    private Set<User> players= new HashSet<>();
+
+
+//    @OneToOne
+//    @JsonIgnore
+//    @JoinColumn(name = "manager_id", referencedColumnName = "id")
+//    private User manager;
 
 
     public Team() {
@@ -84,22 +94,6 @@ public class Team implements Serializable {
         this.location = location;
     }
 
-    public Set<User> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(Set<User> players) {
-        this.players = players;
-    }
-
-    public User getManager() {
-        return manager;
-    }
-
-    public void setManager(User manager) {
-        this.manager = manager;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -114,5 +108,21 @@ public class Team implements Serializable {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Set<User> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Set<User> players) {
+        this.players = players;
+    }
+
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 }

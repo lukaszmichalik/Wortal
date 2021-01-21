@@ -6,15 +6,15 @@ import com.springboot.models.User;
 import com.springboot.payload.request.CreateEventRequest;
 import com.springboot.payload.request.CreateTeamRequest;
 import com.springboot.payload.request.IdRequest;
-import com.springboot.payload.response.EventResponse;
-import com.springboot.payload.response.MessageResponse;
-import com.springboot.payload.response.TeamResponse;
+import com.springboot.payload.request.TeamUserIdsRequest;
+import com.springboot.payload.response.*;
 import com.springboot.repository.TeamRepository;
 import com.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -54,10 +54,10 @@ public class TeamController {
 
         longPlayers.forEach(id->{
             User player = userRepository.getOne(id);
-            if(player.getTeam()==null) {
-                player.setTeam(team);
-                userRepository.save(player);
-            }
+            Set<Team> userTeams = player.getTeams();
+            userTeams.add(team);
+            player.setTeams(userTeams);
+            userRepository.save(player);
         });
 
 //        if(manager.getTeam()==null) {
@@ -68,8 +68,10 @@ public class TeamController {
 //                    .body(new MessageResponse("Błąd: Ten użytkownik jest już managerem innej drużyny"));
 //        }
 
+        Team teamupdate = teamRepository.findByName(createTeamRequest.getName());
 
-        return ResponseEntity.ok(new MessageResponse("Twoja drużyna została poprawnie dodana!"));
+
+        return ResponseEntity.ok(new IdResponse(teamupdate.getId()));
 
     }
 
@@ -82,8 +84,11 @@ public class TeamController {
         Set<User> players = team.getPlayers();
 
         players.forEach(player->{
-            player.setTeam(null);
+            Set<Team> userTeams = player.getTeams();
+            userTeams.remove(team);
+            player.setTeams(userTeams);
             userRepository.save(player);
+
         });
 
         if (teamRepository.existsById(idRequest.getId())) {
@@ -110,5 +115,55 @@ public class TeamController {
         );
     }
 
+    @PostMapping("/getUserTeams")
+    public ResponseEntity<?> getUserTeams(@RequestBody IdRequest idRequest) {
 
+        User user = userRepository.getOne(idRequest.getId());
+
+        return ResponseEntity.ok(new UserTeamsResponse(user.getTeams()));
+    }
+
+    @GetMapping("/allUsersWithoutTeam")
+    @ResponseBody
+    Set<User> allUsersWithoutTeam() {
+
+        List<User> allUsers = userRepository.findAll();
+        Set<User> usersWithoutTeam = new HashSet<>();
+
+        allUsers.forEach(user -> {
+            if (user.getTeams() == null) {
+                usersWithoutTeam.add(user);
+            }
+        });
+
+        return usersWithoutTeam;
+    }
+
+    @PostMapping("/addUserToTeam")
+    public ResponseEntity<?> addUserToTeam(@RequestBody TeamUserIdsRequest teamUserIdsRequest) {
+
+        Team team = teamRepository.getOne(teamUserIdsRequest.getTeamId());
+        User user = userRepository.getOne(teamUserIdsRequest.getUserId());
+        Set<Team> userTeams = user.getTeams();
+        userTeams.add(team);
+        user.setTeams(userTeams);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new MessageResponse("Poprawnie dodano Cię do drużyny !"));
+
+    }
+
+    @PostMapping("/deleteUserFromTeam")
+    public ResponseEntity<?> deleteUserFromTeam(@RequestBody TeamUserIdsRequest teamUserIdsRequest) {
+
+        Team team = teamRepository.getOne(teamUserIdsRequest.getTeamId());
+        User user = userRepository.getOne(teamUserIdsRequest.getUserId());
+        Set<Team> userTeams = user.getTeams();
+        userTeams.remove(team);
+        user.setTeams(userTeams);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new MessageResponse("Poprawnie usunięto Cię z wydarzenia !"));
+
+    }
 }

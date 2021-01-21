@@ -35,13 +35,7 @@ class UserService {
     });
   }
 
-  getUserEvents(id) {
-    return axios.post(API_URL + 'getUserEvents', {
-      id: id
-    }).then(response => {
-      return Promise.resolve(response.data.events)
-    })
-  }
+
 
   deleteUser(id) {
     return axios.post(API_URL + 'deleteUser', {
@@ -56,26 +50,9 @@ class UserService {
       })
   }
 
-  addUserToEvent(userId, eventId) {
-    return axios.post(API_URL + 'addUserToEvent', {
-      userId: userId,
-      eventId: eventId
-    })
-  }
 
-  deleteUserFromEvent(userId, eventId) {
-    return axios.post(API_URL + 'deleteUserFromEvent', {
-      userId: userId,
-      eventId: eventId
-    })
-  }
 
-  allUsersWithoutTeam() {
-    return axios.get(API_URL + 'allUsersWithoutTeam').then(
-      response => {
-        return Promise.resolve(response.data)
-      })
-  }
+
 
 }
 

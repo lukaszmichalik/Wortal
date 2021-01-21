@@ -35,13 +35,13 @@
               <v-btn id="navigation_drawer_v_btn_blue" to="/CreateEvent"
                 >Utwórz wydarzenie</v-btn
               >
-              <v-btn v-if="currentUser.team_id" id="navigation_drawer_v_btn_green" :loading="loading" text @click="enterTeamInfo(currentUser.team_id)"
-                >Twoja drużyna</v-btn
+              <v-btn id="navigation_drawer_v_btn_green" to="/yourTeams"
+                >Twoje drużyny</v-btn
               >
               <v-btn id="navigation_drawer_v_btn_green" to="/AllTeams"
                 >Wszystkie drużyny</v-btn
               >
-              <v-btn v-if="!currentUser.team_id" id="navigation_drawer_v_btn_green" to="/createTeam"
+              <v-btn id="navigation_drawer_v_btn_green" to="/createTeam"
                 >Utwórz drużynę</v-btn
               >
               <v-btn id="navigation_drawer_v_btn_red" to="/UserProfile"

@@ -267,7 +267,7 @@ export default {
       this.loading = true;
 
       if (!this.participantsIds.includes(this.currentUser.id)) {
-        UserService.addUserToEvent(this.currentUser.id, this.currentEvent.id);
+        EventService.addUserToEvent(this.currentUser.id, this.currentEvent.id);
 
         setTimeout(function () {
           EventService.getEvent(that.currentEvent.id);
@@ -279,7 +279,7 @@ export default {
           that.loading = false;
         }, 1200);
       } else {
-        UserService.deleteUserFromEvent(
+        EventService.deleteUserFromEvent(
           this.currentUser.id,
           this.currentEvent.id
         );
@@ -302,7 +302,7 @@ export default {
       this.selectedDelBtns.push(participantId);
       this.loadingDelParticipant = true;
       var that = this;
-      UserService.deleteUserFromEvent(participantId, this.currentEvent.id);
+      EventService.deleteUserFromEvent(participantId, this.currentEvent.id);
 
       setTimeout(function () {
         EventService.getEvent(that.currentEvent.id);

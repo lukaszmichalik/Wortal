@@ -67,15 +67,15 @@ public class AuthController {
 				.map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
-		User user = userRepository.getOneByUsername(loginRequest.getUsername());
-		Long team_id;
-
-		if(user.getTeam()!=null) {
-			Team team = user.getTeam();
-			 team_id = team.getId();
-		}else {
-			team_id = null;
-		}
+//		User user = userRepository.getOneByUsername(loginRequest.getUsername());
+//		Long team_id;
+//
+//		if(user.getTeam()!=null) {
+//			Team team = user.getTeam();
+//			 team_id = team.getId();
+//		}else {
+//			team_id = null;
+//		}
 		return ResponseEntity.ok(new JwtResponse(jwt,
 												 userDetails.getId(),
 												 userDetails.getName(),
@@ -83,7 +83,7 @@ public class AuthController {
 												 userDetails.getDob(),
 												 userDetails.getEmail(),
 												 userDetails.getUsername(),
-											     team_id,
+//											     team_id,
 											     roles
 		));
 	}

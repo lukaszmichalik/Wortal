@@ -16,7 +16,7 @@ public class JwtResponse {
 	private Date dob;
 	private String email;
 	private String username;
-	private Long team_id;
+//	private Long team_id;
 	private List<String> roles;
 
 	public JwtResponse(String accessToken,
@@ -26,7 +26,7 @@ public class JwtResponse {
 					   Date dob,
 					   String email,
 					   String username,
-					   Long team_id,
+//					   Long team_id,
 					   List<String> roles) {
 		this.token = accessToken;
 		this.id = id;
@@ -35,7 +35,7 @@ public class JwtResponse {
 		this.dob = dob;
 		this.email = email;
 		this.username = username;
-		this.team_id = team_id;
+//		this.team_id = team_id;
 		this.roles = roles;
 	}
 
@@ -108,11 +108,11 @@ public class JwtResponse {
 	}
 
 
-	public Long getTeam_id() {
-		return team_id;
-	}
-
-	public void setTeam_id(Long team_id) {
-		this.team_id = team_id;
-	}
+//	public Long getTeam_id() {
+//		return team_id;
+//	}
+//
+//	public void setTeam_id(Long team_id) {
+//		this.team_id = team_id;
+//	}
 }

@@ -72,15 +72,26 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "organizer",cascade=CascadeType.REMOVE)
 	private Set<Event> ownedEvents = new HashSet<>();
 
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@JoinTable(	name = "user_teams",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "team_id"))
+	private Set<Team> teams = new HashSet<>();
 
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "team")
-	private Team team;
+	@OneToMany(mappedBy = "manager",cascade=CascadeType.REMOVE)
+	private Set<Team> managedTeams = new HashSet<>();
 
-	@JsonIgnore
-	@OneToOne(mappedBy = "manager")
-	private Team managedTeam;
+	//changing users teams to 2ways realationship
+//	@JsonIgnore
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "team")
+//	private Team team;
+//
+//	@JsonIgnore
+//	@OneToOne(mappedBy = "manager")
+//	private Team managedTeam;
 
 
 	public User() {
@@ -177,19 +188,19 @@ public class User implements Serializable {
 		this.ownedEvents = ownedEvents;
 	}
 
-	public Team getTeam() {
-		return team;
+	public Set<Team> getTeams() {
+		return teams;
 	}
 
-	public void setTeam(Team team) {
-		this.team = team;
+	public void setTeams(Set<Team> teams) {
+		this.teams = teams;
 	}
 
-	public Team getManagedTeam() {
-		return managedTeam;
+	public Set<Team> getManagedTeams() {
+		return managedTeams;
 	}
 
-	public void setManagedTeam(Team managedTeam) {
-		this.managedTeam = managedTeam;
+	public void setManagedTeams(Set<Team> managedTeams) {
+		this.managedTeams = managedTeams;
 	}
 }
