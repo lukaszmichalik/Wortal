@@ -67,17 +67,17 @@ public class UserController {
 
 
 
-//    @PostMapping("/deleteUser")
-//    public ResponseEntity<?> deleteUser(@RequestBody IdRequest idRequest) {
-//
-//        User user = userRepository.getOne(idRequest.getId());
-//
-//        user.setEvents(null);
-//
-//        userRepository.save(user);
-//
+    @PostMapping("/deleteUser")
+    public ResponseEntity<?> deleteUser(@RequestBody IdRequest idRequest) {
+
+        User user = userRepository.getOne(idRequest.getId());
+
+        user.setEvents(null);
+
+        userRepository.save(user);
+
 //        Team team = new Team();
-//
+
 //        if(user.getTeam()!=null) {
 //            team = user.getTeam();
 //
@@ -104,41 +104,62 @@ public class UserController {
 //
 //            }
 //        }
-//
-//        Set<Event> ownedEvents = user.getOwnedEvents();
-//
-//        ownedEvents.forEach(event -> {
-//            if(eventRepository.existsById(event.getId())) {
-//                Set<User> participants = event.getParticipants();
-//                Event event2 = eventRepository.getOne(event.getId());
-//
-//
-//                participants.forEach(participant -> {
-//                    if(userRepository.existsById(participant.getId())) {
-//                        Set<Event> userEvents = participant.getEvents();
-//                        userEvents.remove(event2);
-//                        participant.setEvents(userEvents);
-//                        userRepository.save(participant);
-//
-//                    }
-//                });
-//            }
-//
-//
-//        });
+        Set<Team> ownedTeams = user.getManagedTeams();
+
+        ownedTeams.forEach(team -> {
+            if(teamRepository.existsById(team.getId())) {
+                Set<User> players = team.getPlayers();
+                Team team2 = teamRepository.getOne(team.getId());
+
+
+                players.forEach(player -> {
+                    if(userRepository.existsById(player.getId())) {
+                        Set<Team> userTeams = player.getTeams();
+                        userTeams.remove(team2);
+                        player.setTeams(userTeams);
+                        userRepository.save(player);
+
+                    }
+                });
+            }
+
+
+        });
+
+        Set<Event> ownedEvents = user.getOwnedEvents();
+
+        ownedEvents.forEach(event -> {
+            if(eventRepository.existsById(event.getId())) {
+                Set<User> participants = event.getParticipants();
+                Event event2 = eventRepository.getOne(event.getId());
+
+
+                participants.forEach(participant -> {
+                    if(userRepository.existsById(participant.getId())) {
+                        Set<Event> userEvents = participant.getEvents();
+                        userEvents.remove(event2);
+                        participant.setEvents(userEvents);
+                        userRepository.save(participant);
+
+                    }
+                });
+            }
+
+
+        });
 
 
 
 //        return ResponseEntity.ok(new MessageResponse("Poprawnie usunięto użytkonika !"));
-//
-//        if (userRepository.existsById(idRequest.getId())) {
-//            userRepository.deleteById(idRequest.getId());
-//            return ResponseEntity.ok(new MessageResponse("Poprawnie usunięto użytkonika !"));
-//        }
-//        return ResponseEntity
-//                .badRequest()
-//                .body(new MessageResponse("Błąd: Użytkownik o takim Id nie istnieje w bazie!"));
-//    }
+
+        if (userRepository.existsById(idRequest.getId())) {
+            userRepository.deleteById(idRequest.getId());
+            return ResponseEntity.ok(new MessageResponse("Poprawnie usunięto użytkonika !"));
+        }
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("Błąd: Użytkownik o takim Id nie istnieje w bazie!"));
+    }
 
     @GetMapping("/allUsers")
     @ResponseBody
