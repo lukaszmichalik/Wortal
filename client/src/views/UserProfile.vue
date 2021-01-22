@@ -22,7 +22,7 @@
       <v-row id="user_profile_row">
         <p id="user_profile_label">data urodzenia:</p>
         <p id="user_profile_age" class="user_profile_data">
-          {{ currentUser.dob }}
+          {{ formatDate(currentUser.dob) }}
         </p>
       </v-row>
 
@@ -71,6 +71,34 @@ export default {
   computed: {
     currentUser() {
       return this.userValue;
+    },
+    
+  },
+  methods:{
+    formatDate(date) {
+      var expectedDateFormat = new Date(date);
+      var expectedMonths = [
+        'Styczeń',
+        'Luty',
+        'Marzec',
+        'Kwiecień',
+        'Maj',
+        'Czerwiec',
+        'Lipiec',
+        'Sierpień',
+        'Wrzesień',
+        'Październik',
+        'Listopad',
+        'Grudzień',
+      ][expectedDateFormat.getMonth()];
+
+      var expectedDateString =
+        expectedDateFormat.getDay() +
+        ' ' +
+        expectedMonths +
+        ' ' +
+        expectedDateFormat.getFullYear();
+      return expectedDateString;
     },
   },
   mounted() {

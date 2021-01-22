@@ -76,7 +76,7 @@ public class EventController {
             userRepository.save(participant);
         });
 
-        return ResponseEntity.ok(new MessageResponse("Twoje wydarzenie zostało poprawinie opublikowane!"));
+        return ResponseEntity.ok(new MessageResponse("Twoje wydarzenie zostało poprawnie opublikowane!"));
 
     }
 

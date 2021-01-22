@@ -9,7 +9,7 @@
       elevation="12"
     >
       <v-card-title class="headline"
-        ><v-icon color="primary" class="mr-3">mdi-account-group</v-icon>
+        ><v-icon color="primary" class="mr-3">mdi-shield</v-icon>
         nazwa:</v-card-title
       >
 
@@ -29,8 +29,15 @@
 
       <v-card-text
         class="title"
-        v-text="currentTeam.creationDate"
+        v-text="formatDate(currentTeam.creationDate)"
       ></v-card-text>
+
+      <v-card-title class="headline"
+        ><v-icon color="primary" class="mr-3">mdi-account-group</v-icon>liczba
+        uczestników:</v-card-title
+      >
+
+      <v-card-text class="title" v-text="currentTeam.players.length"></v-card-text>
 
       <v-card-title class="headline"
         ><v-icon color="primary" class="mr-3">mdi-information</v-icon>informacje
@@ -228,7 +235,7 @@ export default {
       this.loading = true;
 
       if (!this.playersIds.includes(this.currentUser.id)) {
-        UserService.addUserToUser(this.currentUser.id, this.currentTeam.id);
+        TeamService.addUserToTeam(this.currentUser.id, this.currentTeam.id);
 
         setTimeout(function () {
           TeamService.getTeam(that.currentTeam.id);
@@ -282,6 +289,32 @@ export default {
     deleteTeam(id) {
       TeamService.deleteTeam(id);
       this.$router.push('/yourTeams');
+    },
+    formatDate(date) {
+      var expectedDateFormat = new Date(date);
+      // var dateString = expectedDateFormat.toString();
+      var expectedMonths = [
+        'Styczeń',
+        'Luty',
+        'Marzec',
+        'Kwiecień',
+        'Maj',
+        'Czerwiec',
+        'Lipiec',
+        'Sierpień',
+        'Wrzesień',
+        'Październik',
+        'Listopad',
+        'Grudzień',
+      ][expectedDateFormat.getMonth()];
+
+      var expectedDateString =
+        expectedDateFormat.getDay() +
+        ' ' +
+        expectedMonths +
+        ' ' +
+        expectedDateFormat.getFullYear();
+      return expectedDateString;
     },
   },
 

@@ -3,7 +3,7 @@
     <div id="create_event_div" class="global_div">
       <p id="ecreate_event_caption" class="global_caption">Utwórz drużynę</p>
 
-      <form @submit.prevent="createTeam">
+      <form @keypress.enter.prevent @submit.prevent="createTeam">
         <v-col id="create_event_col">
           <p id="create_event_label">nazwa drużyny:</p>
 
@@ -41,6 +41,7 @@
             label="miejscowość"
             filled
             hide-details
+            no-data-text="brak danych"
           />
         </v-col>
 
@@ -67,13 +68,27 @@
         <p id="event_details_caption" class="global_caption">
           Dodaj uczestników:
         </p>
-
-        <v-col id="create_event_participants_list">
+        <div class="mx-auto ml-5">
+          <v-autocomplete
+            class="global_data_input"
+            v-model="selectedName"
+            :items="names"
+            label="wyszukaj po imieniu i nazwisku"
+            filled
+            hide-details
+            background-color="white"
+            no-data-text="brak danych"
+          />
+        </div>
+        <div
+          id="create_event_participants_list"
+          v-for="user in users"
+          :key="user.id"
+        >
           <v-card
             id="create_event_participant"
             padding="20px"
-            v-for="user in users"
-            :key="user.id"
+            v-if="(user.name == selectedName || !selectedName) && user.name!=currentUser.name"
             elevation="12"
           >
             <v-row>
@@ -90,21 +105,23 @@
               <v-col class="hidden-sm-and-down">
                 <!-- chowa wiek, gdy za mało miejsca !-->
                 <v-card-title>wiek</v-card-title>
-                <v-card-text v-text="calculateAge(user.dob)"></v-card-text>
+                <v-card-text
+                  v-text="calculateAge(user.dob) + ' lat'"
+                ></v-card-text>
               </v-col>
 
               <v-col class="text-no-wrap">
                 <v-btn
-                  v-if="!selectedUsers.includes(user.id)"
+                  :color="selectedUsers.includes(user.id) ? 'error' : 'green'"
                   @click="addTeammate(user.id)"
                   id="create_event_add_participant_button"
                 >
-                  DODAJ
+                  {{ selectedUsers.includes(user.id) ? 'anuluj' : 'dodaj' }}
                 </v-btn>
               </v-col>
             </v-row>
           </v-card>
-        </v-col>
+        </div>
 
         <!-- CARDS USERS ENDING -->
 
@@ -147,16 +164,12 @@
 </template>
 
 
-
-
-
 <script>
 import UserService from '../services/user.service';
 import TeamService from '../services/team.service';
 import Team from '../models/team';
 import json from '../resources/miasta.json';
 import Vue from 'vue';
-import vuescroll from 'vue-scroll';
 import Vuelidate from 'vuelidate';
 import {
   required,
@@ -165,7 +178,6 @@ import {
   maxValue,
 } from 'vuelidate/lib/validators';
 
-Vue.use(vuescroll);
 
 export default {
   name: 'CreateTeam',
@@ -179,6 +191,8 @@ export default {
       selectedUsers: [],
       successful: false,
       creatingTeamFailed: '',
+      names: [''],
+      selectedName: '',
     };
   },
   computed: {
@@ -208,10 +222,8 @@ export default {
       } else {
         this.team.creationDate = Date.now();
         TeamService.createTeam(this.team).then(
-        
-          this.successful = true,
-          this.$router.push('/yourEvents')
-            
+          (this.successful = true),
+          this.$router.push('/yourTeams')
         );
       }
     },
@@ -223,8 +235,19 @@ export default {
       return userAge;
     },
     addTeammate(userId) {
-      this.selectedUsers.push(userId);
-      this.team.players.push(userId);
+      if (this.selectedUsers.includes(userId)) {
+        let index = this.selectedUsers.indexOf(userId);
+        if (index >= 0) {
+          this.selectedUsers.splice(index, 1);
+        }
+        let inx = this.team.players.indexOf(userId);
+        if (inx >= 0) {
+          this.team.players.splice(inx, 1);
+        }
+      } else {
+        this.selectedUsers.push(userId);
+        this.team.players.push(userId);
+      }
     },
   },
   mounted() {
@@ -232,8 +255,12 @@ export default {
       this.$router.push('/login');
     }
     UserService.allUsers().then((data) => {
+      for (let i = 0; i < data.length; i++) {
+        this.names.push(data[i].name);
+      }
       this.users = data;
     });
+
     this.team.manager_id = this.currentUser.id;
 
     this.selectedUsers.push(this.currentUser.id);

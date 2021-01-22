@@ -3,7 +3,7 @@
     <div id="create_event_div" class="global_div">
       <p id="ecreate_event_caption" class="global_caption">Utwórz wydarzenie</p>
 
-      <form @submit.prevent="handleCreateEvent">
+      <form @keypress.enter.prevent @submit.prevent="handleCreateEvent">
         <v-col id="create_event_col">
           <p id="create_event_label_city">miejscowość:</p>
 
@@ -19,6 +19,7 @@
             label="miejscowość"
             filled
             hide-details
+            no-data-text="brak danych"
           />
         </v-col>
 
@@ -164,13 +165,32 @@
           Dodaj uczestników:
         </p>
 
-        <v-col id="create_event_participants_list">
-          <div id="create_event_list">
+        <div class="mx-auto ml-5">
+          <v-autocomplete
+            class="global_data_input"
+            v-model="selectedName"
+            :items="names"
+            label="wyszukaj po imieniu i nazwisku"
+            filled
+            hide-details
+            background-color="white"
+            no-data-text="brak danych"
+          />
+        </div>
+
+        <div
+          id="create_event_participants_list"
+          v-for="user in users"
+          :key="user.id"
+        >
+          <div>
             <v-card
               id="create_event_participant"
               padding="20px"
-              v-for="user in users"
-              :key="user.id"
+              v-if="
+                (user.name == selectedName || !selectedName) &&
+                user.name != currentUser.name
+              "
               elevation="12"
             >
               <v-row>
@@ -184,24 +204,25 @@
                   <v-card-text v-text="user.position"></v-card-text>
                 </v-col>
 
-                <v-col class="hidden-sm-and-down">          <!-- chowa wiek, gdy za mało miejsca !-->
+                <v-col class="hidden-sm-and-down">
+                  <!-- chowa wiek, gdy za mało miejsca !-->
                   <v-card-title>wiek</v-card-title>
-                  <v-card-text v-text="calculateAge(user.dob)"></v-card-text>
+                  <v-card-text v-text="calculateAge(user.dob)+' lat'"></v-card-text>
                 </v-col>
 
                 <v-col class="text-no-wrap">
                   <v-btn
-                    v-if="!selectedUsers.includes(user.id)"
+                    :color="selectedUsers.includes(user.id) ? 'error' : 'green'"
                     @click="addTeammate(user.id)"
                     id="create_event_add_participant_button"
                   >
-                    DODAJ
+                    {{ selectedUsers.includes(user.id) ? 'anuluj' : 'dodaj' }}
                   </v-btn>
                 </v-col>
               </v-row>
             </v-card>
           </div>
-        </v-col>
+        </div>
 
         <!-- CARDS USERS ENDING -->
 
@@ -238,7 +259,6 @@
             >ANULUJ</v-btn
           >
         </div>
-
       </form>
     </div>
   </v-app>
@@ -254,7 +274,6 @@ import EventService from '../services/event.service';
 import Event from '../models/event';
 import json from '../resources/miasta.json';
 import Vue from 'vue';
-import vuescroll from 'vue-scroll';
 import Vuelidate from 'vuelidate';
 import {
   required,
@@ -262,8 +281,6 @@ import {
   minValue,
   maxValue,
 } from 'vuelidate/lib/validators';
-
-Vue.use(vuescroll);
 
 export default {
   name: 'CreateEvent',
@@ -277,6 +294,8 @@ export default {
       selectedUsers: [],
       successful: false,
       creatingEventFailed: '',
+      names: [''],
+      selectedName: '',
     };
   },
   computed: {
@@ -314,6 +333,10 @@ export default {
   },
   methods: {
     handleCreateEvent() {
+      if(this.event.participants.length>this.event.limitation){
+        console.log('to many participants')
+        return
+      }
       this.$v.$touch();
       if (this.$v.$pendind || this.$v.$error) {
         this.creatingEventFailed = 'input error';
@@ -323,7 +346,7 @@ export default {
             this.message = data;
             if (
               this.message ==
-              'Twoje wydarzenie zostało poprawinie opublikowane!'
+              'Twoje wydarzenie zostało poprawnie opublikowane!'
             ) {
               this.successful = true;
               this.$router.push('/yourEvents');
@@ -350,8 +373,23 @@ export default {
       return userAge;
     },
     addTeammate(userId) {
-      this.selectedUsers.push(userId);
-      this.event.participants.push(userId);
+      if (this.selectedUsers.includes(userId)) {
+        let index = this.selectedUsers.indexOf(userId);
+        if (index >= 0) {
+          this.selectedUsers.splice(index, 1);
+        }
+      } else {
+        this.selectedUsers.push(userId);
+      }
+
+      if (this.event.participants.includes(userId)) {
+        let inx = this.event.participants.indexOf(userId);
+        if (inx >= 0) {
+          this.event.participants.splice(inx, 1);
+        }
+      } else {
+        this.event.participants.push(userId);
+      }
     },
   },
   mounted() {
@@ -359,6 +397,9 @@ export default {
       this.$router.push('/login');
     }
     UserService.allUsers().then((data) => {
+      for (let i = 0; i < data.length; i++) {
+        this.names.push(data[i].name);
+      }
       this.users = data;
       console.log(this.users);
     });

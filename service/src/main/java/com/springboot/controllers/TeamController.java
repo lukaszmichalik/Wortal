@@ -41,6 +41,12 @@ public class TeamController {
 
         User manager = userRepository.getOne(createTeamRequest.getManager_id());
 
+        if (teamRepository.existsByName(createTeamRequest.getName())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Błąd: Taka nazwa drużyny już istnieje!"));
+        }
+
         Team team = new Team(
                 createTeamRequest.getName(),
                 createTeamRequest.getLocation(),
@@ -59,14 +65,6 @@ public class TeamController {
             player.setTeams(userTeams);
             userRepository.save(player);
         });
-
-//        if(manager.getTeam()==null) {
-//            manager.setTeam(team);
-//            userRepository.save(manager);
-//        }else{
-//            return ResponseEntity.badRequest()
-//                    .body(new MessageResponse("Błąd: Ten użytkownik jest już managerem innej drużyny"));
-//        }
 
         Team teamupdate = teamRepository.findByName(createTeamRequest.getName());
 
