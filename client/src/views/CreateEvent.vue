@@ -48,20 +48,26 @@
           />
         </v-col>
 
-        <v-col id="create_event_col">
+        <v-col class="ml-5">
           <p id="create_event_label">data:</p>
 
           <p class="create_event_input_required" v-if="!$v.event.date.required">
             to pole jest wymagane
           </p>
 
-          <input
+          <!-- <input
             id="create_event_date"
             class="global_data_input"
             type="date"
             v-model="event.date"
             locale="pl-PL"
-          />
+          /> -->
+          <v-date-picker
+            :first-day-of-week="1"
+            v-model="event.date"
+            locale="pl-PL"
+            :min="new Date().toISOString().substr(0, 10)"
+          ></v-date-picker>
         </v-col>
 
         <v-col id="create_event_col">
@@ -207,7 +213,9 @@
                 <v-col class="hidden-sm-and-down">
                   <!-- chowa wiek, gdy za mało miejsca !-->
                   <v-card-title>wiek</v-card-title>
-                  <v-card-text v-text="calculateAge(user.dob)+' lat'"></v-card-text>
+                  <v-card-text
+                    v-text="calculateAge(user.dob) + ' lat'"
+                  ></v-card-text>
                 </v-col>
 
                 <v-col class="text-no-wrap">
@@ -333,9 +341,9 @@ export default {
   },
   methods: {
     handleCreateEvent() {
-      if(this.event.participants.length>this.event.limitation){
-        console.log('to many participants')
-        return
+      if (this.event.participants.length > this.event.limitation) {
+        console.log('to many participants');
+        return;
       }
       this.$v.$touch();
       if (this.$v.$pendind || this.$v.$error) {
@@ -345,8 +353,7 @@ export default {
           (data) => {
             this.message = data;
             if (
-              this.message ==
-              'Twoje wydarzenie zostało poprawnie opublikowane!'
+              this.message == 'Twoje wydarzenie zostało poprawnie opublikowane!'
             ) {
               this.successful = true;
               this.$router.push('/yourEvents');
@@ -407,6 +414,7 @@ export default {
 
     this.selectedUsers.push(this.currentUser.id);
     this.event.participants.push(this.currentUser.id);
+
   },
 };
 </script>
