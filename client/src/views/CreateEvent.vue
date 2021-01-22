@@ -408,9 +408,9 @@ export default {
         this.names.push(data[i].name);
       }
       this.users = data;
-      console.log(this.users);
     });
     this.event.organizer_id = this.currentUser.id;
+    this.event.date = new Date().toISOString().substr(0, 10);
 
     this.selectedUsers.push(this.currentUser.id);
     this.event.participants.push(this.currentUser.id);
