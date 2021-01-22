@@ -171,7 +171,7 @@
           Dodaj uczestników:
         </p>
 
-        <div class="mx-auto ml-5">
+        <div class="mx-auto  ml-8">
           <v-autocomplete
             class="global_data_input"
             v-model="selectedName"

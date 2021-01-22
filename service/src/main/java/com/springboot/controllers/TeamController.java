@@ -164,4 +164,15 @@ public class TeamController {
         return ResponseEntity.ok(new MessageResponse("Poprawnie usunięto Cię z wydarzenia !"));
 
     }
+
+//    @PostMapping("/getUserTeamsWithPlayers")
+//    public ResponseEntity<?> getUserEvents(@RequestBody IdRequest idRequest) {
+//
+//        User user = userRepository.getOne(idRequest.getId());
+//
+//        Set<Team> userTeams = user.getTeams();
+//
+//        return ResponseEntity.ok(new UserEventsResponse(user.getEvents()));
+//    }
+
 }

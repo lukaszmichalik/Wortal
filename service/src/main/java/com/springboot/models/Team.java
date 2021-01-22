@@ -46,19 +46,6 @@ public class Team implements Serializable {
     @JoinColumn(name="manager")
     private User manager;
 
-
-
-//    @OneToMany(mappedBy = "team")
-//    @JsonIgnore
-//    private Set<User> players= new HashSet<>();
-
-
-//    @OneToOne
-//    @JsonIgnore
-//    @JoinColumn(name = "manager_id", referencedColumnName = "id")
-//    private User manager;
-
-
     public Team() {
     }
 
