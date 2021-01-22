@@ -34,7 +34,6 @@ public class User implements Serializable {
 	@Column(length = 20)
 	private EPosition position;
 
-	//@JsonFormat(pattern="dd.MM.yyyy")
 	@Column
 	private Date dob;
 
@@ -55,6 +54,7 @@ public class User implements Serializable {
 
 
 	@ManyToMany(fetch = FetchType.LAZY)
+	@JsonIgnore
 	@JoinTable(	name = "user_roles", 
 				joinColumns = @JoinColumn(name = "user_id"),
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -82,17 +82,6 @@ public class User implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "manager",cascade=CascadeType.REMOVE)
 	private Set<Team> managedTeams = new HashSet<>();
-
-	//changing users teams to 2ways realationship
-//	@JsonIgnore
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "team")
-//	private Team team;
-//
-//	@JsonIgnore
-//	@OneToOne(mappedBy = "manager")
-//	private Team managedTeam;
-
 
 	public User() {
 	}

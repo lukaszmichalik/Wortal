@@ -165,6 +165,63 @@
           />
         </v-col>
 
+
+
+<!-- CARDS TEAMS STARTS-->
+<!-- <p id="event_details_caption" class="global_caption">
+          Dodaj drużyny:
+        </p>
+
+        <div
+          id="create_event_participants_list"
+          v-for="user in users"
+          :key="user.id"
+        >
+          <div>
+            <v-card
+              id="create_event_participant"
+              padding="20px"
+              v-if="
+                (user.name == selectedName || !selectedName) &&
+                user.name != currentUser.name
+              "
+              elevation="12"
+            >
+              <v-row>
+                <v-col class="text-no-wrap">
+                  <v-card-title>imię i nazwisko</v-card-title>
+                  <v-card-text v-text="user.name"></v-card-text>
+                </v-col>
+
+                <v-col class="text-no-wrap">
+                  <v-card-title>pozycja</v-card-title>
+                  <v-card-text v-text="user.position"></v-card-text>
+                </v-col>
+
+                <v-col class="hidden-sm-and-down">
+                 
+                  <v-card-title>wiek</v-card-title>
+                  <v-card-text
+                    v-text="calculateAge(user.dob) + ' lat'"
+                  ></v-card-text>
+                </v-col>
+
+                <v-col class="text-no-wrap">
+                  <v-btn
+                    :color="selectedUsers.includes(user.id) ? 'error' : 'green'"
+                    @click="addTeammate(user.id)"
+                    id="create_event_add_participant_button"
+                  >
+                    {{ selectedUsers.includes(user.id) ? 'anuluj' : 'dodaj' }}
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-card>
+          </div>
+        </div> -->
+
+ <!-- CARDS TEAMS ENDS -->
+
         <!-- CARD USERS STARTS -->
 
         <p id="event_details_caption" class="global_caption">

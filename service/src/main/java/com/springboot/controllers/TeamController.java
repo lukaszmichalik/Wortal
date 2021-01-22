@@ -1,9 +1,7 @@
 package com.springboot.controllers;
 
-import com.springboot.models.Event;
 import com.springboot.models.Team;
 import com.springboot.models.User;
-import com.springboot.payload.request.CreateEventRequest;
 import com.springboot.payload.request.CreateTeamRequest;
 import com.springboot.payload.request.IdRequest;
 import com.springboot.payload.request.TeamUserIdsRequest;
@@ -164,15 +162,6 @@ public class TeamController {
         return ResponseEntity.ok(new MessageResponse("Poprawnie usunięto Cię z wydarzenia !"));
 
     }
-
-//    @PostMapping("/getUserTeamsWithPlayers")
-//    public ResponseEntity<?> getUserEvents(@RequestBody IdRequest idRequest) {
-//
-//        User user = userRepository.getOne(idRequest.getId());
-//
-//        Set<Team> userTeams = user.getTeams();
-//
-//        return ResponseEntity.ok(new UserEventsResponse(user.getEvents()));
-//    }
+    
 
 }

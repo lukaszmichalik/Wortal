@@ -74,7 +74,6 @@ public class AuthController {
 												 userDetails.getDob(),
 												 userDetails.getEmail(),
 												 userDetails.getUsername(),
-//											     team_id,
 											     roles
 		));
 	}
