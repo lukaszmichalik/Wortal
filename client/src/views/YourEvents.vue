@@ -72,6 +72,7 @@
 <script>
 import EventService from '../services/event.service';
 import DateFormatter from '../utils/dateFormatter';
+import LoadSurfaceImg from '../utils/loadSurfaceImg';
 
 export default {
   name: 'YourEvents',
@@ -116,19 +117,7 @@ export default {
        }, 500);
     },
     getImgUrl(surface) {
-      var images = require.context('../assets/', false);
-      switch (surface) {
-        case 'hala':
-          return images('./' + surface + '.jpg');
-        case 'naturalna':
-          return images('./' + surface + '.jpg');
-        case 'sztuczna':
-          return images('./' + surface + '.jpg');
-        case 'tartan':
-          return images('./' + surface + '.jpg');
-        default:
-          console.log(`Sorry, we are out of ${surface}.`);
-      }
+      return LoadSurfaceImg.getImgUrl(surface)
     },
     formatDate(date) {
      return DateFormatter.formatDate(date)

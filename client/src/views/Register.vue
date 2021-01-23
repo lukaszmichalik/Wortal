@@ -221,7 +221,6 @@ export default {
           (data) => {
             this.message = data.message;
             //this.successful = true;
-            console.log(this.message);
             this.$router.push('/Welcome');
           },
           (error) => {
@@ -232,7 +231,6 @@ export default {
               error.message ||
               error.toString();
             //this.successful = false;
-            console.log(this.message);
             if (this.message == 'Błąd: Taki login już istnieje!') {
               this.registerFailed = 'login in usage';
             } else if (

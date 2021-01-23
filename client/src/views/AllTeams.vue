@@ -70,7 +70,6 @@
 
 
 <script>
-import UserService from '../services/user.service';
 import TeamService from '../services/team.service';
 import json from '../resources/miasta.json';
 
@@ -113,21 +112,6 @@ export default {
       setTimeout(function () {
         that.$router.push('/teamOverview');
       }, 500);
-    },
-    getImgUrl(surface) {
-      var images = require.context('../assets/', false);
-      switch (surface) {
-        case 'hala':
-          return images('./' + surface + '.jpg');
-        case 'naturalna':
-          return images('./' + surface + '.jpg');
-        case 'sztuczna':
-          return images('./' + surface + '.jpg');
-        case 'tartan':
-          return images('./' + surface + '.jpg');
-        default:
-          console.log(`Sorry, we are out of ${surface}.`);
-      }
     },
     
   },

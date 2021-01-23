@@ -90,57 +90,12 @@ export default {
       that.$router.push('/teamOverview');
        }, 500);
     },
-    getImgUrl(surface) {
-      var images = require.context('../assets/', false);
-      switch (surface) {
-        case 'hala':
-          return images('./' + surface + '.jpg');
-        case 'naturalna':
-          return images('./' + surface + '.jpg');
-        case 'sztuczna':
-          return images('./' + surface + '.jpg');
-        case 'tartan':
-          return images('./' + surface + '.jpg');
-        default:
-          console.log(`Sorry, we are out of ${surface}.`);
-      }
-    },
-    formatDate(date) {
-      var expectedDateFormat = new Date(date);
-      // var dateString = expectedDateFormat.toString();
-      var expectedMonths = [
-        'Styczeń',
-        'Luty',
-        'Marzec',
-        'Kwiecień',
-        'Maj',
-        'Czerwiec',
-        'Lipiec',
-        'Sierpień',
-        'Wrzesień',
-        'Październik',
-        'Listopad',
-        'Grudzień',
-      ][expectedDateFormat.getMonth()];
-
-      var expectedDateString =
-        expectedDateFormat.getDay() +
-        ' ' +
-        expectedMonths +
-        ' ' +
-        expectedDateFormat.getFullYear();
-      return expectedDateString;
-    },
+    
   },
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
-
-    // EventService.notAttendedEvents(this.currentUser.id).then((data) => {
-    //   this.events = data;
-    //   this.loaded = true;
-    // });
 
     TeamService.getUserTeams(this.currentUser.id).then((data) => {
       this.teams = data;
