@@ -218,6 +218,7 @@
  <script>
 import EventService from '../services/event.service';
 import DateFormatter from '../utils/dateFormatter';
+import CalculateAge from '../utils/calculateAge';
 
 export default {
   name: 'EventOverview',
@@ -251,12 +252,8 @@ export default {
     formatDate(date) {
      return DateFormatter.formatDate(date)
     },
-    calculateAge(birthday) {
-      let currentDate = new Date();
-      let birthDate = new Date(birthday);
-      let difference = currentDate - birthDate;
-      let age = Math.floor(difference / 31557600000);
-      return age;
+    calculateAge(userBirthday) {
+      return CalculateAge.calculateAge(userBirthday)
     },
     getInitials(name) {
       return name

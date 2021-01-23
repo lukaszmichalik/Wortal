@@ -170,6 +170,7 @@ import UserService from '../services/user.service';
 import TeamService from '../services/team.service';
 import Team from '../models/team';
 import json from '../resources/miasta.json';
+import CalculateAge from '../utils/calculateAge';
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
 import {
@@ -237,11 +238,7 @@ export default {
       }
     },
     calculateAge(userBirthday) {
-      let today = new Date();
-      let birthDate = new Date(userBirthday);
-      let difference = today - birthDate;
-      let userAge = Math.floor(difference / 31557600000);
-      return userAge;
+      return CalculateAge.calculateAge(userBirthday)
     },
     addTeammate(userId) {
       if (this.selectedUsers.includes(userId)) {
