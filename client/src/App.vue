@@ -47,6 +47,9 @@
               <v-btn id="navigation_drawer_v_btn_red" to="/UserProfile"
                 >Profil użytkownika</v-btn
               >
+              <v-btn v-if="showAdminBoard" id="navigation_drawer_v_btn_red" to="/admin"
+                >Panel administratora</v-btn
+              >
             </v-col>
           </v-navigation-drawer>
         </div>
@@ -65,7 +68,6 @@
 
 
 <script>
-import TeamService from './services/team.service';
 
 export default {
   name: 'Sidebar',
@@ -79,6 +81,11 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
+    showAdminBoard() {
+      if (this.currentUser && this.currentUser.roles) {
+        return this.currentUser.roles.includes('ROLE_ADMIN');
+      }
+    }
   },
   methods: {
     logout() {
