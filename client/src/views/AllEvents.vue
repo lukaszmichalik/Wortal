@@ -88,9 +88,9 @@
 
 
 <script>
-import UserService from '../services/user.service';
 import EventService from '../services/event.service';
 import json from '../resources/miasta.json';
+import DateFormatter from '../utils/dateFormatter';
 
 export default {
   name: 'AllEvents',
@@ -152,30 +152,7 @@ export default {
       }
     },
     formatDate(date) {
-      var expectedDateFormat = new Date(date);
-      // var dateString = expectedDateFormat.toString();
-      var expectedMonths = [
-        'Styczeń',
-        'Luty',
-        'Marzec',
-        'Kwiecień',
-        'Maj',
-        'Czerwiec',
-        'Lipiec',
-        'Sierpień',
-        'Wrzesień',
-        'Październik',
-        'Listopad',
-        'Grudzień',
-      ][expectedDateFormat.getMonth()];
-
-      var expectedDateString =
-        expectedDateFormat.getDay() +
-        ' ' +
-        expectedMonths +
-        ' ' +
-        expectedDateFormat.getFullYear();
-      return expectedDateString;
+     return DateFormatter.formatDate(date)
     },
   },
   mounted() {
@@ -184,6 +161,7 @@ export default {
     }
 
     EventService.notAttendedEvents(this.currentUser.id).then((data) => {
+      console.log(data)
       this.events = data;
       this.loaded = true;
     });

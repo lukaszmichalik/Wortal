@@ -88,16 +88,6 @@ export default {
       this.$store.dispatch('auth/logout');
       this.$router.push('/home');
     },
-    enterTeamInfo(id) {
-      TeamService.getTeam(id);
-      var that=this;
-      this.loading=true;
-      setTimeout(function () {
-      
-      that.$router.push('/teamOverview');
-      that.loading=false;
-       }, 500);
-    },
   },
 };
 </script>

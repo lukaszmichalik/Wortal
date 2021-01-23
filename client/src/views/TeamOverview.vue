@@ -184,8 +184,8 @@
 
 
  <script>
-import UserService from '../services/user.service';
 import TeamService from '../services/team.service';
+import DateFormatter from '../utils/dateFormatter';
 
 export default {
   name: 'TeamOverview',
@@ -291,30 +291,7 @@ export default {
       this.$router.push('/yourTeams');
     },
     formatDate(date) {
-      var expectedDateFormat = new Date(date);
-      // var dateString = expectedDateFormat.toString();
-      var expectedMonths = [
-        'Styczeń',
-        'Luty',
-        'Marzec',
-        'Kwiecień',
-        'Maj',
-        'Czerwiec',
-        'Lipiec',
-        'Sierpień',
-        'Wrzesień',
-        'Październik',
-        'Listopad',
-        'Grudzień',
-      ][expectedDateFormat.getMonth()];
-
-      var expectedDateString =
-        expectedDateFormat.getDay() +
-        ' ' +
-        expectedMonths +
-        ' ' +
-        expectedDateFormat.getFullYear();
-      return expectedDateString;
+     return DateFormatter.formatDate(date)
     },
   },
 

@@ -27,7 +27,7 @@
 
       <v-card-text
         class="title"
-        v-text="currentEvent.date + ', ' + currentEvent.time"
+        v-text="formatDate(currentEvent.date)+ ', ' + currentEvent.time"
       ></v-card-text>
 
       <v-card-title class="headline"
@@ -216,8 +216,8 @@
 
 
  <script>
-import UserService from '../services/user.service';
 import EventService from '../services/event.service';
+import DateFormatter from '../utils/dateFormatter';
 
 export default {
   name: 'EventOverview',
@@ -248,6 +248,9 @@ export default {
     },
   },
   methods: {
+    formatDate(date) {
+     return DateFormatter.formatDate(date)
+    },
     calculateAge(birthday) {
       let currentDate = new Date();
       let birthDate = new Date(birthday);

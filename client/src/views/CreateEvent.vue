@@ -54,14 +54,6 @@
           <p class="create_event_input_required" v-if="!$v.event.date.required">
             to pole jest wymagane
           </p>
-
-          <!-- <input
-            id="create_event_date"
-            class="global_data_input"
-            type="date"
-            v-model="event.date"
-            locale="pl-PL"
-          /> -->
           <v-date-picker
             :first-day-of-week="1"
             v-model="event.date"
@@ -165,62 +157,47 @@
           />
         </v-col>
 
+        <!-- CARDS TEAMS STARTS-->
 
-
-<!-- CARDS TEAMS STARTS-->
-<!-- <p id="event_details_caption" class="global_caption">
-          Dodaj drużyny:
-        </p>
+        <p id="event_details_caption" class="global_caption">Dodaj drużyny:</p>
 
         <div
           id="create_event_participants_list"
-          v-for="user in users"
-          :key="user.id"
+          v-for="team in userTeamsWithPlayers"
+          :key="team.name"
         >
           <div>
-            <v-card
-              id="create_event_participant"
-              padding="20px"
-              v-if="
-                (user.name == selectedName || !selectedName) &&
-                user.name != currentUser.name
-              "
-              elevation="12"
-            >
+            <v-card id="create_event_participant" padding="20px" elevation="12">
               <v-row>
                 <v-col class="text-no-wrap">
-                  <v-card-title>imię i nazwisko</v-card-title>
-                  <v-card-text v-text="user.name"></v-card-text>
+                  <v-card-title>nazwa drużyny</v-card-title>
+                  <v-card-text v-text="team.name"></v-card-text>
                 </v-col>
 
                 <v-col class="text-no-wrap">
-                  <v-card-title>pozycja</v-card-title>
-                  <v-card-text v-text="user.position"></v-card-text>
-                </v-col>
-
-                <v-col class="hidden-sm-and-down">
-                 
-                  <v-card-title>wiek</v-card-title>
-                  <v-card-text
-                    v-text="calculateAge(user.dob) + ' lat'"
-                  ></v-card-text>
+                  <v-card-title>liczba członków</v-card-title>
+                  <v-card-text v-text="team.players.length"></v-card-text>
                 </v-col>
 
                 <v-col class="text-no-wrap">
                   <v-btn
-                    :color="selectedUsers.includes(user.id) ? 'error' : 'green'"
-                    @click="addTeammate(user.id)"
+                    :color="selectedTeams.includes(team.id) ? 'error' : 'green'"
+                    @click="
+                      selectedTeams.includes(team.id)
+                        ? deleteTeamFromEvent(team.id, team.players)
+                        : addTeamToEvent(team.id, team.players)
+                    "
                     id="create_event_add_participant_button"
                   >
-                    {{ selectedUsers.includes(user.id) ? 'anuluj' : 'dodaj' }}
+                    {{ selectedTeams.includes(team.id) ? 'anuluj' : 'dodaj' }}
                   </v-btn>
                 </v-col>
               </v-row>
             </v-card>
           </div>
-        </div> -->
+        </div>
 
- <!-- CARDS TEAMS ENDS -->
+        <!-- CARDS TEAMS ENDS -->
 
         <!-- CARD USERS STARTS -->
 
@@ -228,7 +205,7 @@
           Dodaj uczestników:
         </p>
 
-        <div class="mx-auto  ml-8">
+        <div class="mx-auto ml-8">
           <v-autocomplete
             class="global_data_input"
             v-model="selectedName"
@@ -278,7 +255,7 @@
                 <v-col class="text-no-wrap">
                   <v-btn
                     :color="selectedUsers.includes(user.id) ? 'error' : 'green'"
-                    @click="addTeammate(user.id)"
+                    @click="addUserToEvent(user.id)"
                     id="create_event_add_participant_button"
                   >
                     {{ selectedUsers.includes(user.id) ? 'anuluj' : 'dodaj' }}
@@ -330,12 +307,10 @@
 </template>
 
 
-
-
-
 <script>
 import UserService from '../services/user.service';
 import EventService from '../services/event.service';
+import TeamService from '../services/team.service';
 import Event from '../models/event';
 import json from '../resources/miasta.json';
 import Vue from 'vue';
@@ -361,6 +336,10 @@ export default {
       creatingEventFailed: '',
       names: [''],
       selectedName: '',
+      // loaded: false,
+      userTeamsIds: [],
+      userTeamsWithPlayers: [],
+      selectedTeams: [],
     };
   },
   computed: {
@@ -406,6 +385,8 @@ export default {
       if (this.$v.$pendind || this.$v.$error) {
         this.creatingEventFailed = 'input error';
       } else {
+        console.log(this.event.participants)
+        console.log(this.event.date)
         EventService.createEvent(this.event).then(
           (data) => {
             this.message = data;
@@ -436,7 +417,7 @@ export default {
       let userAge = Math.floor(difference / 31557600000);
       return userAge;
     },
-    addTeammate(userId) {
+    addUserToEvent(userId) {
       if (this.selectedUsers.includes(userId)) {
         let index = this.selectedUsers.indexOf(userId);
         if (index >= 0) {
@@ -455,6 +436,39 @@ export default {
         this.event.participants.push(userId);
       }
     },
+    addTeamToEvent(teamId, players) {
+      this.selectedTeams.push(teamId);
+
+      for (let i = 0; i < players.length; i++) {
+        if (!this.event.participants.includes(players[i].id))
+          this.event.participants.push(players[i].id);
+        if (!this.selectedUsers.includes(players[i].id))
+          this.selectedUsers.push(players[i].id);
+      }
+    },
+    deleteTeamFromEvent(teamId, players) {
+      let index2 = this.selectedTeams.indexOf(teamId);
+      if(index2>=0){
+        this.selectedTeams.splice(index2, 1)
+      }
+
+      for (let i = 0; i < players.length; i++) {
+        if (this.event.participants.includes(players[i].id) && this.currentUser.id!=players[i].id){
+          let ind = this.event.participants.indexOf(players[i].id);
+          if(ind>=0){
+            this.event.participants.splice(ind, 1)
+          }
+        }
+
+        if (this.selectedUsers.includes(players[i].id)){
+          let ind = this.selectedUsers.indexOf(players[i].id);
+          if(ind>=0){
+            this.selectedUsers.splice(ind, 1)
+          }
+        }
+      }
+      
+    },
   },
   mounted() {
     if (!this.currentUser) {
@@ -472,13 +486,32 @@ export default {
     this.selectedUsers.push(this.currentUser.id);
     this.event.participants.push(this.currentUser.id);
 
+    TeamService.getUserTeams(this.currentUser.id).then((data) => {
+      // console.log('this is user teams data response:');
+      // console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        this.userTeamsIds.push(data[i].id);
+      }
+      // console.log('this is teams ids:');
+      // console.log(this.userTeamsIds);
+      // this.teams = data;
+      // this.loaded = true;
+    });
+
+    var that = this;
+    setTimeout(function () {
+      for (let i = 0; i < that.userTeamsIds.length; i++) {
+        if (that.userTeamsIds[1]) {
+          TeamService.getTeamTest(that.userTeamsIds[i]).then((data) => {
+            that.userTeamsWithPlayers.push(data);
+          });
+        } 
+      }
+    }, 500);
+
   },
 };
 </script>
-
-
-
-
 
 <style>
 @import '../styles/style_create_event.css';

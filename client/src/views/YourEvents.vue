@@ -70,8 +70,8 @@
 
 
 <script>
-import UserService from '../services/user.service';
 import EventService from '../services/event.service';
+import DateFormatter from '../utils/dateFormatter';
 
 export default {
   name: 'YourEvents',
@@ -131,30 +131,7 @@ export default {
       }
     },
     formatDate(date) {
-      var expectedDateFormat = new Date(date);
-      // var dateString = expectedDateFormat.toString();
-      var expectedMonths = [
-        'Styczeń',
-        'Luty',
-        'Marzec',
-        'Kwiecień',
-        'Maj',
-        'Czerwiec',
-        'Lipiec',
-        'Sierpień',
-        'Wrzesień',
-        'Październik',
-        'Listopad',
-        'Grudzień',
-      ][expectedDateFormat.getMonth()];
-
-      var expectedDateString =
-        expectedDateFormat.getDay() +
-        ' ' +
-        expectedMonths +
-        ' ' +
-        expectedDateFormat.getFullYear();
-      return expectedDateString;
+     return DateFormatter.formatDate(date)
     },
   },
   mounted() {

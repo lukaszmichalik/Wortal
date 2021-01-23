@@ -56,11 +56,9 @@
   <!--</div>!-->
 </template>
 
-
-
-
-
 <script>
+import DateFormatter from '../utils/dateFormatter';
+
 export default {
   name: 'UserProfile',
   data(){
@@ -76,29 +74,7 @@ export default {
   },
   methods:{
     formatDate(date) {
-      var expectedDateFormat = new Date(date);
-      var expectedMonths = [
-        'Styczeń',
-        'Luty',
-        'Marzec',
-        'Kwiecień',
-        'Maj',
-        'Czerwiec',
-        'Lipiec',
-        'Sierpień',
-        'Wrzesień',
-        'Październik',
-        'Listopad',
-        'Grudzień',
-      ][expectedDateFormat.getMonth()];
-
-      var expectedDateString =
-        expectedDateFormat.getDay() +
-        ' ' +
-        expectedMonths +
-        ' ' +
-        expectedDateFormat.getFullYear();
-      return expectedDateString;
+     return DateFormatter.formatDate(date)
     },
   },
   mounted() {

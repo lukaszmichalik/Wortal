@@ -33,6 +33,14 @@ class TeamService {
     })
   }
 
+  getTeamTest(id) {
+    return axios.post(API_URL + 'getTeam', {
+      id: id
+    }).then(response => {
+      return Promise.resolve(response.data)
+    })
+  }
+
 
   allTeams() {
     return axios.get(API_URL + 'allTeams').then(
