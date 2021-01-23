@@ -1,4 +1,5 @@
 import axios from 'axios';
+import authHeader from './auth-header';
 
 const API_URL = 'http://localhost:8080/api/event/';
 
@@ -6,7 +7,7 @@ class EventService {
     getEvent(id) {
         return axios.post(API_URL + 'getEvent', {
             id: id
-        }).then(response => {
+        },{ headers: authHeader() }).then(response => {
             localStorage.setItem('event', JSON.stringify(response.data))
         })
     }
@@ -23,13 +24,13 @@ class EventService {
             participants: event.participants,
             organizer_id: event.organizer_id
 
-        }).then(response => {
+        },{ headers: authHeader() }).then(response => {
             return Promise.resolve(response.data.message)
         })
     }
 
     allEvents() {
-        return axios.get(API_URL + 'allEvents').then(
+        return axios.get(API_URL + 'allEvents',{ headers: authHeader() }).then(
             response => {
                 return Promise.resolve(response.data)
             })
@@ -38,7 +39,7 @@ class EventService {
     notAttendedEvents(id) {
         return axios.post(API_URL + 'notAttendedEvents', {
             id: id
-        }).then(
+        },{ headers: authHeader() }).then(
             response => {
                 return Promise.resolve(response.data)
             })
@@ -47,7 +48,7 @@ class EventService {
     deleteEvent(id) {
         return axios.post(API_URL + 'deleteEvent', {
             id: id
-        }).then(
+        },{ headers: authHeader() }).then(
             response => {
                 return Promise.resolve(response.data)
             })
@@ -56,7 +57,7 @@ class EventService {
     getUserEvents(id) {
         return axios.post(API_URL + 'getUserEvents', {
             id: id
-        }).then(response => {
+        },{ headers: authHeader() }).then(response => {
             return Promise.resolve(response.data.events)
         })
     }
@@ -65,14 +66,14 @@ class EventService {
         return axios.post(API_URL + 'addUserToEvent', {
             userId: userId,
             eventId: eventId
-        })
+        },{ headers: authHeader() })
     }
 
     deleteUserFromEvent(userId, eventId) {
         return axios.post(API_URL + 'deleteUserFromEvent', {
             userId: userId,
             eventId: eventId
-        })
+        },{ headers: authHeader() })
     }
 
 }

@@ -1,24 +1,22 @@
 <template>
   <v-app class="global_app">
-    
     <div class="mx-auto ma-5">
       <v-autocomplete
-              v-model="searchCity"
-              :items="myJson"
-              label="wyszukaj po miejscowości"
-              filled
-              hide-details
-              background-color="white"
-              no-data-text="brak danych"
-            />
+        v-model="searchCity"
+        :items="myJson"
+        label="wyszukaj po miejscowości"
+        filled
+        hide-details
+        background-color="white"
+        no-data-text="brak danych"
+      />
     </div>
-  
+
     <p class="mx-auto mt-5 white--text display-2">Wszystkie Wydarzenia</p>
-    <p class="mx-auto mt-5 white--text display-1">{{searchCity}}</p>
-    <div v-for="event in events"
-        :key="event.id">
+    <p class="mx-auto mt-5 white--text display-1">{{ searchCity }}</p>
+    <div v-for="event in events" :key="event.id">
       <v-card
-        v-if="event.city==searchCity || !searchCity"
+        v-if="event.city == searchCity || !searchCity"
         class="mx-auto ma-5"
         max-width="50%"
         min-width="50%"
@@ -35,34 +33,36 @@
               {{ formatDate(event.date) }}
             </p>
           </v-card-title>
-  
+
           <p class="white--text ml-8 display-3">{{ event.time }}</p>
         </v-img>
-  
-        
-          <v-card-title v-if="loaded" class="ml-1">
-            {{ event.city }}
-          </v-card-title>
-  
-          <v-card-subtitle v-if="loaded" class="ml-1">
-            {{ event.address }}
-          </v-card-subtitle>
-  
+
+        <v-card-title class="ml-1">
+          {{ event.city }}
+        </v-card-title>
+
+        <v-card-subtitle class="ml-1">
+          {{ event.address }}
+        </v-card-subtitle>
+
         <v-card-text class="ml-1">
-           limit graczy: {{ event.limitation }}
-            <v-icon color="green" small> mdi-account </v-icon>
+          limit graczy: {{ event.limitation }}
+          <v-icon color="green" small> mdi-account </v-icon>
         </v-card-text>
-  
-        
-  
+
         <v-card-actions>
-          <v-btn color="primary lighten-2" :loading="loading && selectedBtn==event.id" text @click="enterEventInfo(event.id)">
+          <v-btn
+            color="primary lighten-2"
+            :loading="loading && selectedBtn == event.id"
+            text
+            @click="enterEventInfo(event.id)"
+          >
             Przeglądaj
             <v-icon color="primary" small>mdi-information-outline</v-icon>
           </v-btn>
-  
+
           <v-spacer></v-spacer>
-  
+
           <v-btn icon @click="selected(event.id)">
             <v-icon>{{
               selectedCards.includes(event.id)
@@ -71,11 +71,11 @@
             }}</v-icon>
           </v-btn>
         </v-card-actions>
-  
+
         <v-expand-transition>
           <div v-if="selectedCards.includes(event.id)">
             <v-divider></v-divider>
-  
+
             <v-card-text>
               {{ event.description }}
             </v-card-text>
@@ -100,12 +100,11 @@ export default {
       myJson: json,
       userValue: this.$store.state.auth.user || '',
       events: '',
-      loaded: false,
       loading: false,
       show: false,
       selectedCards: [],
       selectedBtn: '',
-      searchCity:''
+      searchCity: '',
     };
   },
   computed: {
@@ -128,32 +127,29 @@ export default {
       }
     },
     enterEventInfo(id) {
-      this.selectedBtn=id
+      this.selectedBtn = id;
       EventService.getEvent(id);
-      var that=this;
-      this.loading=true;
+      var that = this;
+      this.loading = true;
       setTimeout(function () {
-      
-      that.$router.push('/eventOverview');
-       }, 500);
+        that.$router.push('/eventOverview');
+      }, 500);
     },
     getImgUrl(surface) {
-      return LoadSurfaceImg.getImgUrl(surface)
+      return LoadSurfaceImg.getImgUrl(surface);
     },
     formatDate(date) {
-     return DateFormatter.formatDate(date)
+      return DateFormatter.formatDate(date);
     },
   },
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
+    } else {
+      EventService.notAttendedEvents(this.currentUser.id).then((data) => {
+        this.events = data;
+      });
     }
-
-    EventService.notAttendedEvents(this.currentUser.id).then((data) => {
-  
-      this.events = data;
-      this.loaded = true;
-    });
   },
 };
 </script>

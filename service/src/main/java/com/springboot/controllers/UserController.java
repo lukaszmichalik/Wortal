@@ -11,6 +11,7 @@ import com.springboot.repository.TeamRepository;
 import com.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,7 @@ public class UserController {
 
 
     @PostMapping("/editUser")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> editUser(@RequestBody EditUserRequest editUser) {
 
         User user = userRepository.getOne(editUser.getId());
@@ -63,6 +65,7 @@ public class UserController {
 
 
     @PostMapping("/deleteUser")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> deleteUser(@RequestBody IdRequest idRequest) {
 
         User user = userRepository.getOne(idRequest.getId());
@@ -101,6 +104,7 @@ public class UserController {
     }
 
     @GetMapping("/allUsers")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
     List<User> allUsers() {
         return userRepository.findAll();

@@ -14,10 +14,9 @@ import com.springboot.repository.EventRepository;
 import com.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,6 +33,7 @@ public class EventController {
     UserRepository userRepository;
 
     @PostMapping("/getEvent")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getEvent(@RequestBody IdRequest idRequest){
 
         Event event = eventRepository.getOne(idRequest.getId());
@@ -51,6 +51,7 @@ public class EventController {
     }
 
     @PostMapping("/createEvent")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> createEvent(@RequestBody CreateEventRequest createEventRequest){
 
         User organizer = userRepository.getOne(createEventRequest.getOrganizer_id());
@@ -81,12 +82,14 @@ public class EventController {
     }
 
     @GetMapping("/allEvents")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
     List<Event> allEvents(){
         return eventRepository.findAll();
     }
 
     @PostMapping("/notAttendedEvents")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
     public List<Event> notAttendedEvents(@RequestBody IdRequest idRequest){
         List<Event> allEvents = eventRepository.findAll();
@@ -98,6 +101,7 @@ public class EventController {
     }
 
     @PostMapping("/deleteEvent")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
     public ResponseEntity<?> deleteEvent(@RequestBody IdRequest idRequest){
 
@@ -123,6 +127,7 @@ public class EventController {
     }
 
     @PostMapping("/getUserEvents")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getUserEvents(@RequestBody IdRequest idRequest) {
 
         User user = userRepository.getOne(idRequest.getId());
@@ -131,6 +136,7 @@ public class EventController {
     }
 
     @PostMapping("/addUserToEvent")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> addUserToEvent(@RequestBody EventUserIdsRequest eventUserIdsRequest) {
 
         Event event = eventRepository.getOne(eventUserIdsRequest.getEventId());
@@ -145,6 +151,7 @@ public class EventController {
     }
 
     @PostMapping("/deleteUserFromEvent")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> deleteUserFromEvent(@RequestBody EventUserIdsRequest eventUserIdsRequest) {
 
         Event event = eventRepository.getOne(eventUserIdsRequest.getEventId());

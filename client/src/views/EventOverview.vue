@@ -225,13 +225,13 @@ export default {
   data() {
     return {
       eventValue: JSON.parse(localStorage.getItem('event')) || {},
-      userValue: JSON.parse(localStorage.getItem('user')) || {},
+      userValue: this.$store.state.auth.user || '',
       isAdmin: false,
       participantsIds: [],
       loading: false,
       loadingDelParticipant: false,
       hasAccess: true,
-      selectedDelBtns: [],
+      selectedDelBtns: []
     };
   },
   computed: {
@@ -323,11 +323,10 @@ export default {
       this.$router.push('/yourEvents')
     },
   },
-
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
-    }
+    }else{
 
     if (this.currentUser.id == this.eventValue.organizer_id.id) {
       this.isAdmin = true;
@@ -342,6 +341,7 @@ export default {
       !this.participantsIds.includes(this.currentUser.id)
     ) {
       this.hasAccess = false;
+    }
     }
   },
 };

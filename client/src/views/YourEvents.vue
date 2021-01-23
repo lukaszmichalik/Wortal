@@ -24,22 +24,26 @@
         <p class="white--text ml-8 display-3">{{ event.time }}</p>
       </v-img>
 
-      
-        <v-card-title v-if="loaded" class="ml-1">
-          {{ event.city }}
-        </v-card-title>
+      <v-card-title v-if="loaded" class="ml-1">
+        {{ event.city }}
+      </v-card-title>
 
-        <v-card-subtitle v-if="loaded" class="ml-1">
-          {{ event.address }}
-        </v-card-subtitle>
+      <v-card-subtitle v-if="loaded" class="ml-1">
+        {{ event.address }}
+      </v-card-subtitle>
 
       <v-card-text class="ml-1">
-         limit graczy: {{ event.limitation }}
-          <v-icon color="green" small> mdi-account </v-icon>
+        limit graczy: {{ event.limitation }}
+        <v-icon color="green" small> mdi-account </v-icon>
       </v-card-text>
 
       <v-card-actions>
-        <v-btn color="primary lighten-2" :loading="loading && selectedBtn==event.id" text @click="enterEventInfo(event.id)">
+        <v-btn
+          color="primary lighten-2"
+          :loading="loading && selectedBtn == event.id"
+          text
+          @click="enterEventInfo(event.id)"
+        >
           Przeglądaj
           <v-icon color="primary" small>mdi-information-outline</v-icon>
         </v-btn>
@@ -84,7 +88,7 @@ export default {
       loading: false,
       show: false,
       selectedCards: [],
-      selectedBtn: ''
+      selectedBtn: '',
     };
   },
   computed: {
@@ -107,32 +111,30 @@ export default {
       }
     },
     enterEventInfo(id) {
-      this.selectedBtn=id
+      this.selectedBtn = id;
       EventService.getEvent(id);
-      var that=this;
-      this.loading=true;
+      var that = this;
+      this.loading = true;
       setTimeout(function () {
-      
-      that.$router.push('/eventOverview');
-       }, 500);
+        that.$router.push('/eventOverview');
+      }, 500);
     },
     getImgUrl(surface) {
-      return LoadSurfaceImg.getImgUrl(surface)
+      return LoadSurfaceImg.getImgUrl(surface);
     },
     formatDate(date) {
-     return DateFormatter.formatDate(date)
+      return DateFormatter.formatDate(date);
     },
   },
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
+    } else {
+      EventService.getUserEvents(this.currentUser.id).then((data) => {
+        this.events = data;
+        this.loaded = true;
+      });
     }
-
-    EventService.getUserEvents(this.currentUser.id).then((data) => {
-      this.events = data;
-      this.loaded = true;
-    });
-
   },
 };
 </script>

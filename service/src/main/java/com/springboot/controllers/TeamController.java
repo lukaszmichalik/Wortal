@@ -10,6 +10,7 @@ import com.springboot.repository.TeamRepository;
 import com.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -29,12 +30,14 @@ public class TeamController {
 
 
     @GetMapping("/allTeams")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
     List<Team> allTeams(){
         return teamRepository.findAll();
     }
 
     @PostMapping("/createTeam")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> createTeam(@RequestBody CreateTeamRequest createTeamRequest){
 
         User manager = userRepository.getOne(createTeamRequest.getManager_id());
@@ -72,6 +75,7 @@ public class TeamController {
     }
 
     @PostMapping("/deleteTeam")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
     public ResponseEntity<?> deleteTeam(@RequestBody IdRequest idRequest){
 
@@ -98,6 +102,7 @@ public class TeamController {
     }
 
     @PostMapping("/getTeam")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getTeam(@RequestBody IdRequest idRequest){
 
         Team team = teamRepository.getOne(idRequest.getId());
@@ -112,6 +117,7 @@ public class TeamController {
     }
 
     @PostMapping("/getUserTeams")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getUserTeams(@RequestBody IdRequest idRequest) {
 
         User user = userRepository.getOne(idRequest.getId());
@@ -120,6 +126,7 @@ public class TeamController {
     }
 
     @PostMapping("/getUserManagedTeams")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getUserManagedTeams(@RequestBody IdRequest idRequest) {
 
         User user = userRepository.getOne(idRequest.getId());
@@ -128,6 +135,7 @@ public class TeamController {
     }
 
     @GetMapping("/allUsersWithoutTeam")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
     Set<User> allUsersWithoutTeam() {
 
@@ -144,6 +152,7 @@ public class TeamController {
     }
 
     @PostMapping("/addUserToTeam")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> addUserToTeam(@RequestBody TeamUserIdsRequest teamUserIdsRequest) {
 
         Team team = teamRepository.getOne(teamUserIdsRequest.getTeamId());
@@ -158,6 +167,7 @@ public class TeamController {
     }
 
     @PostMapping("/deleteUserFromTeam")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> deleteUserFromTeam(@RequestBody TeamUserIdsRequest teamUserIdsRequest) {
 
         Team team = teamRepository.getOne(teamUserIdsRequest.getTeamId());

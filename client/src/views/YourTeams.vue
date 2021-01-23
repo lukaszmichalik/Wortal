@@ -9,16 +9,21 @@
       min-width="50%"
       padding="20px"
     >
-        <v-card-title v-if="loaded" class="ml-1 display-1">
-          {{ team.name }}
-        </v-card-title>
-  
-        <v-card-subtitle v-if="loaded" class="ml-1 display-1">
-          {{ team.location }}
-        </v-card-subtitle>
+      <v-card-title v-if="loaded" class="ml-1 display-1">
+        {{ team.name }}
+      </v-card-title>
+
+      <v-card-subtitle v-if="loaded" class="ml-1 display-1">
+        {{ team.location }}
+      </v-card-subtitle>
 
       <v-card-actions>
-        <v-btn color="primary lighten-2" :loading="loading && selectedBtn==team.id" text @click="enterTeamInfo(team.id)">
+        <v-btn
+          color="primary lighten-2"
+          :loading="loading && selectedBtn == team.id"
+          text
+          @click="enterTeamInfo(team.id)"
+        >
           Przeglądaj
           <v-icon color="primary" small>mdi-information-outline</v-icon>
         </v-btn>
@@ -61,7 +66,7 @@ export default {
       loading: false,
       show: false,
       selectedCards: [],
-      selectedBtn: ''
+      selectedBtn: '',
     };
   },
   computed: {
@@ -81,27 +86,24 @@ export default {
       }
     },
     enterTeamInfo(id) {
-      this.selectedBtn=id
+      this.selectedBtn = id;
       TeamService.getTeam(id);
-      var that=this;
-      this.loading=true;
+      var that = this;
+      this.loading = true;
       setTimeout(function () {
-      
-      that.$router.push('/teamOverview');
-       }, 500);
+        that.$router.push('/teamOverview');
+      }, 500);
     },
-    
   },
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
+    } else {
+      TeamService.getUserTeams(this.currentUser.id).then((data) => {
+        this.teams = data;
+        this.loaded = true;
+      });
     }
-
-    TeamService.getUserTeams(this.currentUser.id).then((data) => {
-      this.teams = data;
-      this.loaded = true;
-    });
-
   },
 };
 </script>

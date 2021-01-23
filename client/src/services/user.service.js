@@ -4,10 +4,7 @@ import authHeader from './auth-header';
 const API_URL = 'http://localhost:8080/api/user/';
 
 class UserService {
-  getPublicContent() {
-    return axios.get(API_URL + 'all');
-  }
-
+  
   getAdminBoard() {
     return axios.get(API_URL + 'admin', { headers: authHeader() });
   }
@@ -23,7 +20,7 @@ class UserService {
       username: user.username,
       password: user.password
 
-    }).then(response => {
+    },{ headers: authHeader() }).then(response => {
 
       const newValue = {
         ...JSON.parse(localStorage.getItem("user")),
@@ -45,14 +42,14 @@ class UserService {
   deleteUser(id) {
     return axios.post(API_URL + 'deleteUser', {
       id: id
-    })
+    },{ headers: authHeader() })
   }
 
   allUsers() {
-    return axios.get(API_URL + 'allUsers').then(
+    return axios.get(API_URL + 'allUsers',{ headers: authHeader() }).then(
       response => {
         return Promise.resolve(response.data)
-      })
+      },{ headers: authHeader() })
   }
 
 

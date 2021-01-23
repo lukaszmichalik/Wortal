@@ -53,6 +53,7 @@
               type="date"
               v-model="user.dob"
               name="dob"
+              max="2015-01-01"
             />
           </div>
 

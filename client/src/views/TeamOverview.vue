@@ -193,7 +193,7 @@ export default {
   data() {
     return {
       teamValue: JSON.parse(localStorage.getItem('team')) || {},
-      userValue: JSON.parse(localStorage.getItem('user')) || {},
+      userValue: this.$store.state.auth.user || '',
       isManager: false,
       playersIds: [],
       loading: false,

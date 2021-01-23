@@ -84,6 +84,7 @@
         </v-row>
       </v-card>
     </div>
+    <div class="ma-10"></div>
   </v-app>
 </template>
 
@@ -96,7 +97,6 @@ export default {
   name: 'Admin',
   data() {
     return {
-      content: '',
       users: '',
       names: [''],
       selectedName: '',
@@ -145,21 +145,11 @@ export default {
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
-    }
+    }else{
 
-    UserService.getAdminBoard().then(
-      (response) => {
-        this.content = response.data;
-      },
-      (error) => {
-        this.content =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-      }
-    );
+    if (!this.currentUser.roles.includes("ROLE_ADMIN")) {
+      this.$router.push('/yourEvents');
+    }
 
     UserService.allUsers().then((data) => {
       for (let i = 0; i < data.length; i++) {
@@ -167,6 +157,7 @@ export default {
       }
       this.users = data;
     });
+    }
   },
 };
 </script>

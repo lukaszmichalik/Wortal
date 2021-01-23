@@ -159,30 +159,38 @@
 
         <!-- CARDS TEAMS STARTS-->
 
-        <div v-if="userTeamsIds.length!=0">
-          <p id="event_details_caption" class="global_caption">Dodaj drużyny:</p>
-  
+        <div v-if="userTeamsIds.length != 0">
+          <p id="event_details_caption" class="global_caption">
+            Dodaj drużyny:
+          </p>
+
           <div
             id="create_event_participants_list"
             v-for="team in userTeamsWithPlayers"
             :key="team.name"
           >
             <div>
-              <v-card id="create_event_participant" padding="20px" elevation="12">
+              <v-card
+                id="create_event_participant"
+                padding="20px"
+                elevation="12"
+              >
                 <v-row>
                   <v-col class="text-no-wrap">
                     <v-card-title>nazwa drużyny</v-card-title>
                     <v-card-text v-text="team.name"></v-card-text>
                   </v-col>
-  
+
                   <v-col class="text-no-wrap">
                     <v-card-title>liczba członków</v-card-title>
                     <v-card-text v-text="team.players.length"></v-card-text>
                   </v-col>
-  
+
                   <v-col class="text-no-wrap">
                     <v-btn
-                      :color="selectedTeams.includes(team.id) ? 'error' : 'green'"
+                      :color="
+                        selectedTeams.includes(team.id) ? 'error' : 'green'
+                      "
                       @click="
                         selectedTeams.includes(team.id)
                           ? deleteTeamFromEvent(team.id, team.players)
@@ -277,14 +285,14 @@
             v-if="creatingEventFailed == 'input error'"
           >
             NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA. WYPEŁNIJ POPRAWNIE WSZYSTKIE POLA
-            FORMULARZA. 
+            FORMULARZA.
           </label>
           <label
             id="create_event_error"
             class="global_error"
             v-if="creatingEventFailed == 'creating event failed'"
           >
-            NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA. {{message}}
+            NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA. {{ message }}
           </label>
         </div>
 
@@ -343,7 +351,7 @@ export default {
       userTeamsIds: [],
       userTeamsWithPlayers: [],
       selectedTeams: [],
-      loading: false
+      loading: false,
     };
   },
   computed: {
@@ -381,18 +389,19 @@ export default {
   },
   methods: {
     handleCreateEvent() {
-
-      this.loading = true
+      this.loading = true;
       var that = this;
 
       if (this.event.participants.length > this.event.limitation) {
-        this.message='ZWIĘKSZ LIMIT UCZESTNIKÓW LUB USUŃ KILKU GRACZY.';
+        this.message = 'ZWIĘKSZ LIMIT UCZESTNIKÓW LUB USUŃ KILKU GRACZY.';
         this.creatingEventFailed = 'creating event failed';
+        this.loading = false;
         return;
       }
       this.$v.$touch();
       if (this.$v.$pendind || this.$v.$error) {
         this.creatingEventFailed = 'input error';
+        this.loading = false;
       } else {
         EventService.createEvent(this.event).then(
           (data) => {
@@ -402,8 +411,8 @@ export default {
             ) {
               this.successful = true;
               setTimeout(function () {
-              that.$router.push('/yourEvents');
-              that.loading=false
+                that.$router.push('/yourEvents');
+                that.loading = false;
               }, 500);
             }
           },
@@ -421,7 +430,7 @@ export default {
       }
     },
     calculateAge(userBirthday) {
-      return CalculateAge.calculateAge(userBirthday)
+      return CalculateAge.calculateAge(userBirthday);
     },
     addUserToEvent(userId) {
       if (this.selectedUsers.includes(userId)) {
@@ -454,61 +463,63 @@ export default {
     },
     deleteTeamFromEvent(teamId, players) {
       let index2 = this.selectedTeams.indexOf(teamId);
-      if(index2>=0){
-        this.selectedTeams.splice(index2, 1)
+      if (index2 >= 0) {
+        this.selectedTeams.splice(index2, 1);
       }
 
       for (let i = 0; i < players.length; i++) {
-        if (this.event.participants.includes(players[i].id) && this.currentUser.id!=players[i].id){
+        if (
+          this.event.participants.includes(players[i].id) &&
+          this.currentUser.id != players[i].id
+        ) {
           let ind = this.event.participants.indexOf(players[i].id);
-          if(ind>=0){
-            this.event.participants.splice(ind, 1)
+          if (ind >= 0) {
+            this.event.participants.splice(ind, 1);
           }
         }
 
-        if (this.selectedUsers.includes(players[i].id)){
+        if (this.selectedUsers.includes(players[i].id)) {
           let ind = this.selectedUsers.indexOf(players[i].id);
-          if(ind>=0){
-            this.selectedUsers.splice(ind, 1)
+          if (ind >= 0) {
+            this.selectedUsers.splice(ind, 1);
           }
         }
       }
-      
     },
   },
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
+    } else {
+      UserService.allUsers().then((data) => {
+        for (let i = 0; i < data.length; i++) {
+          this.names.push(data[i].name);
+        }
+        this.users = data;
+      });
+      this.event.organizer_id = this.currentUser.id;
+      this.event.date = new Date().toISOString().substr(0, 10);
+
+      this.selectedUsers.push(this.currentUser.id);
+      this.event.participants.push(this.currentUser.id);
+
+      TeamService.getUserTeams(this.currentUser.id).then((data) => {
+        for (let i = 0; i < data.length; i++) {
+          this.userTeamsIds.push(data[i].id);
+        }
+      });
+
+      var that = this;
+      setTimeout(function () {
+        for (let i = 0; i < that.userTeamsIds.length; i++) {
+          if (that.userTeamsIds[i]) {
+            TeamService.getTeamTest(that.userTeamsIds[i]).then((data) => {
+              that.userTeamsWithPlayers.push(data);
+            });
+          }
+        }
+      }, 500);
     }
-    UserService.allUsers().then((data) => {
-      for (let i = 0; i < data.length; i++) {
-        this.names.push(data[i].name);
-      }
-      this.users = data;
-    });
-    this.event.organizer_id = this.currentUser.id;
-    this.event.date = new Date().toISOString().substr(0, 10);
-
-    this.selectedUsers.push(this.currentUser.id);
-    this.event.participants.push(this.currentUser.id);
-
-    TeamService.getUserTeams(this.currentUser.id).then((data) => {
-      for (let i = 0; i < data.length; i++) {
-        this.userTeamsIds.push(data[i].id);
-      }
-    });
-
-    var that = this;
-    setTimeout(function () {
-      for (let i = 0; i < that.userTeamsIds.length; i++) {
-        if (that.userTeamsIds[1]) {
-          TeamService.getTeamTest(that.userTeamsIds[i]).then((data) => {
-            that.userTeamsWithPlayers.push(data);
-          });
-        } 
-      }
-    }, 500);
-
   },
 };
 </script>
