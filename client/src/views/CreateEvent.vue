@@ -159,41 +159,43 @@
 
         <!-- CARDS TEAMS STARTS-->
 
-        <p id="event_details_caption" class="global_caption">Dodaj drużyny:</p>
-
-        <div
-          id="create_event_participants_list"
-          v-for="team in userTeamsWithPlayers"
-          :key="team.name"
-        >
-          <div>
-            <v-card id="create_event_participant" padding="20px" elevation="12">
-              <v-row>
-                <v-col class="text-no-wrap">
-                  <v-card-title>nazwa drużyny</v-card-title>
-                  <v-card-text v-text="team.name"></v-card-text>
-                </v-col>
-
-                <v-col class="text-no-wrap">
-                  <v-card-title>liczba członków</v-card-title>
-                  <v-card-text v-text="team.players.length"></v-card-text>
-                </v-col>
-
-                <v-col class="text-no-wrap">
-                  <v-btn
-                    :color="selectedTeams.includes(team.id) ? 'error' : 'green'"
-                    @click="
-                      selectedTeams.includes(team.id)
-                        ? deleteTeamFromEvent(team.id, team.players)
-                        : addTeamToEvent(team.id, team.players)
-                    "
-                    id="create_event_add_participant_button"
-                  >
-                    {{ selectedTeams.includes(team.id) ? 'anuluj' : 'dodaj' }}
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-card>
+        <div v-if="userTeamsIds.length!=0">
+          <p id="event_details_caption" class="global_caption">Dodaj drużyny:</p>
+  
+          <div
+            id="create_event_participants_list"
+            v-for="team in userTeamsWithPlayers"
+            :key="team.name"
+          >
+            <div>
+              <v-card id="create_event_participant" padding="20px" elevation="12">
+                <v-row>
+                  <v-col class="text-no-wrap">
+                    <v-card-title>nazwa drużyny</v-card-title>
+                    <v-card-text v-text="team.name"></v-card-text>
+                  </v-col>
+  
+                  <v-col class="text-no-wrap">
+                    <v-card-title>liczba członków</v-card-title>
+                    <v-card-text v-text="team.players.length"></v-card-text>
+                  </v-col>
+  
+                  <v-col class="text-no-wrap">
+                    <v-btn
+                      :color="selectedTeams.includes(team.id) ? 'error' : 'green'"
+                      @click="
+                        selectedTeams.includes(team.id)
+                          ? deleteTeamFromEvent(team.id, team.players)
+                          : addTeamToEvent(team.id, team.players)
+                      "
+                      id="create_event_add_participant_button"
+                    >
+                      {{ selectedTeams.includes(team.id) ? 'anuluj' : 'dodaj' }}
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </div>
           </div>
         </div>
 
@@ -205,7 +207,7 @@
           Dodaj uczestników:
         </p>
 
-        <div class="mx-auto ml-8">
+        <div class="mx-auto ma-8 ml-8">
           <v-autocomplete
             class="global_data_input"
             v-model="selectedName"
@@ -291,6 +293,7 @@
             id="create_event_button_edit"
             class="global_v_btn"
             type="submit"
+            :loading="loading"
             >UTWÓRZ</v-btn
           >
           <br />
@@ -339,6 +342,7 @@ export default {
       userTeamsIds: [],
       userTeamsWithPlayers: [],
       selectedTeams: [],
+      loading: false
     };
   },
   computed: {
@@ -376,6 +380,10 @@ export default {
   },
   methods: {
     handleCreateEvent() {
+
+      this.loading = true
+      var that = this;
+
       if (this.event.participants.length > this.event.limitation) {
         this.message='ZWIĘKSZ LIMIT UCZESTNIKÓW LUB USUŃ KILKU GRACZY.';
         this.creatingEventFailed = 'creating event failed';
@@ -392,7 +400,10 @@ export default {
               this.message == 'Twoje wydarzenie zostało poprawnie opublikowane!'
             ) {
               this.successful = true;
-              this.$router.push('/yourEvents');
+              setTimeout(function () {
+              that.$router.push('/yourEvents');
+              that.loading=false
+              }, 500);
             }
           },
           (error) => {

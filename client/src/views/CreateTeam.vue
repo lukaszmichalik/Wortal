@@ -68,7 +68,7 @@
         <p id="event_details_caption" class="global_caption">
           Dodaj uczestników:
         </p>
-        <div class="mx-auto ml-5">
+        <div class="mx-auto ma-8 ml-8">
           <v-autocomplete
             class="global_data_input"
             v-model="selectedName"
@@ -148,6 +148,7 @@
             id="create_event_button_edit"
             class="global_v_btn"
             type="submit"
+            :loading="loading"
             >UTWÓRZ</v-btn
           >
           <br />
@@ -193,6 +194,7 @@ export default {
       creatingTeamFailed: '',
       names: [''],
       selectedName: '',
+      loading: false
     };
   },
   computed: {
@@ -216,6 +218,10 @@ export default {
   },
   methods: {
     createTeam() {
+
+      this.loading = true
+      var that = this;
+
       this.$v.$touch();
       if (this.$v.$pendind || this.$v.$error) {
         this.creatingTeamFailed = 'input error';
@@ -223,7 +229,10 @@ export default {
         this.team.creationDate = Date.now();
         TeamService.createTeam(this.team).then(
           (this.successful = true),
-          this.$router.push('/yourTeams')
+          setTimeout(function () {
+          that.$router.push('/yourTeams'),
+          that.loading=false
+          }, 500)
         );
       }
     },

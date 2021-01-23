@@ -1,6 +1,6 @@
 <template>
   <v-app id="delete_account_app">
-  <!--<div id="delete_account_div_background">
+    <!--<div id="delete_account_div_background">
     <div id="delete_account_space" />!-->
     <div id="delete_account_div" class="global_div">
       <div id="delete_account_caption">
@@ -9,7 +9,11 @@
       </div>
 
       <br />
-      <v-btn id="delete_account_button_yes" class="global_v_btn" @click.once="deleteUser"
+      <v-btn
+        :loading="loading"
+        id="delete_account_button_yes"
+        class="global_v_btn"
+        @click.once="deleteUser"
         >TAK, USUŃ MOJE KONTO</v-btn
       >
       <br />
@@ -20,7 +24,7 @@
         >NIE, ZABIERZ MNIE STĄD</v-btn
       >
     </div>
-    </v-app>
+  </v-app>
   <!--</div>!-->
 </template>
 
@@ -29,15 +33,13 @@
 import UserService from '../services/user.service';
 import TeamService from '../services/team.service';
 
-
 export default {
-  
-  
   name: 'DeleteAccount',
-  data(){
+  data() {
     return {
       userValue: JSON.parse(localStorage.getItem('user')) || '',
-      userManagedTeamsIds:[]
+      userManagedTeamsIds: [],
+      loading: false,
     };
   },
   computed: {
@@ -48,16 +50,20 @@ export default {
   methods: {
     deleteUser() {
 
+      this.loading = true;
+
       for (let i = 0; i < this.userManagedTeamsIds.length; i++) {
-      TeamService.deleteTeam(this.userManagedTeamsIds[i]);
+        TeamService.deleteTeam(this.userManagedTeamsIds[i]);
       }
 
-var that = this;
-       setTimeout(function () {
-      UserService.deleteUser(that.currentUser.id)
-      that.$store.dispatch('auth/logout');
-      that.$router.push('/home');
-      }, 1000);
+      var that = this;
+      setTimeout(function () {
+        UserService.deleteUser(that.currentUser.id);
+        that.$store.dispatch('auth/logout');
+        that.$router.push('/home');
+        that.loading = false
+      }, 500);
+
     },
   },
   mounted() {
@@ -71,8 +77,7 @@ var that = this;
       }
     });
   },
-
-}
+};
 </script>
 
 

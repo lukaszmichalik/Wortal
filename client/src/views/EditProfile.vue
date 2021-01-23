@@ -158,6 +158,7 @@
           id="edit_profile_button_edit"
           class="global_v_btn"
           @click="handleEdit"
+          :loading="loading"
           >EDYTUJ</v-btn
         >
         <br />
@@ -202,6 +203,7 @@ export default {
       message: '',
       userValue: JSON.parse(localStorage.getItem('user')) || '',
       editFailed: '',
+      loading: false
     };
   },
   computed: {
@@ -238,17 +240,21 @@ export default {
       this.$router.push('/userProfile');
     },
     handleEdit() {
+      this.loading = true
+      var that = this;
+
       this.$v.$touch();
       if (this.$v.$pendind || this.$v.$error) {
         this.editFailed = 'input error';
       } else {
         if (this.user.password == this.confirmPassword) {
-          //console.log('it went to api');
           this.user.id = this.currentUser.id;
           UserService.editUser(this.user).then(
             () => {
-              //this.$router.push('/YourEvents');
-              this.$router.push('/userProfile');
+              setTimeout(function () {
+              that.$router.push('/userProfile');
+              that.loading = true
+              }, 500);
             },
             (error) => {
               this.loading = false;
