@@ -32,8 +32,6 @@
           {{ team.location }}
         </v-card-subtitle>
   
-       
-  
         <v-card-actions>
           <v-btn
             color="primary lighten-2"

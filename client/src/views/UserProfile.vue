@@ -1,6 +1,4 @@
 <template>
-  <!--<div id="user_profile_background">
-    <div id="user_profile_space" />!-->
     <v-app id="user_profile_app">
     <div id="user_profile_div" class="global_div">
       <p id="user_profile_caption" class="global_caption">Profil użytkownika</p>
@@ -53,7 +51,6 @@
       </div>
     </div>
     </v-app>
-  <!--</div>!-->
 </template>
 
 <script>

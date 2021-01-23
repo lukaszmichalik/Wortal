@@ -57,6 +57,14 @@ class TeamService {
     })
   }
 
+  getUserManagedTeams(id) {
+    return axios.post(API_URL + 'getUserManagedTeams', {
+      id: id
+    }).then(response => {
+      return Promise.resolve(response.data.teams)
+    })
+  }
+
   allUsersWithoutTeam() {
     return axios.get(API_URL + 'allUsersWithoutTeam').then(
       response => {

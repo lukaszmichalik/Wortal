@@ -119,6 +119,14 @@ public class TeamController {
         return ResponseEntity.ok(new UserTeamsResponse(user.getTeams()));
     }
 
+    @PostMapping("/getUserManagedTeams")
+    public ResponseEntity<?> getUserManagedTeams(@RequestBody IdRequest idRequest) {
+
+        User user = userRepository.getOne(idRequest.getId());
+
+        return ResponseEntity.ok(new UserTeamsResponse(user.getManagedTeams()));
+    }
+
     @GetMapping("/allUsersWithoutTeam")
     @ResponseBody
     Set<User> allUsersWithoutTeam() {
@@ -162,6 +170,6 @@ public class TeamController {
         return ResponseEntity.ok(new MessageResponse("Poprawnie usunięto Cię z wydarzenia !"));
 
     }
-    
+
 
 }

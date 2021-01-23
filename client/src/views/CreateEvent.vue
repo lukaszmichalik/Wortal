@@ -275,14 +275,14 @@
             v-if="creatingEventFailed == 'input error'"
           >
             NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA. WYPEŁNIJ POPRAWNIE WSZYSTKIE POLA
-            FORMULARZA.
+            FORMULARZA. 
           </label>
           <label
             id="create_event_error"
             class="global_error"
             v-if="creatingEventFailed == 'creating event failed'"
           >
-            NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA.
+            NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA. {{message}}
           </label>
         </div>
 
@@ -336,7 +336,6 @@ export default {
       creatingEventFailed: '',
       names: [''],
       selectedName: '',
-      // loaded: false,
       userTeamsIds: [],
       userTeamsWithPlayers: [],
       selectedTeams: [],
@@ -378,15 +377,14 @@ export default {
   methods: {
     handleCreateEvent() {
       if (this.event.participants.length > this.event.limitation) {
-        console.log('to many participants');
+        this.message='ZWIĘKSZ LIMIT UCZESTNIKÓW LUB USUŃ KILKU GRACZY.';
+        this.creatingEventFailed = 'creating event failed';
         return;
       }
       this.$v.$touch();
       if (this.$v.$pendind || this.$v.$error) {
         this.creatingEventFailed = 'input error';
       } else {
-        console.log(this.event.participants)
-        console.log(this.event.date)
         EventService.createEvent(this.event).then(
           (data) => {
             this.message = data;
@@ -487,15 +485,9 @@ export default {
     this.event.participants.push(this.currentUser.id);
 
     TeamService.getUserTeams(this.currentUser.id).then((data) => {
-      // console.log('this is user teams data response:');
-      // console.log(data);
       for (let i = 0; i < data.length; i++) {
         this.userTeamsIds.push(data[i].id);
       }
-      // console.log('this is teams ids:');
-      // console.log(this.userTeamsIds);
-      // this.teams = data;
-      // this.loaded = true;
     });
 
     var that = this;

@@ -1,14 +1,10 @@
 package com.springboot.controllers;
 
 import com.springboot.models.Event;
-import com.springboot.models.Team;
 import com.springboot.models.User;
 import com.springboot.payload.request.EditUserRequest;
-import com.springboot.payload.request.EventUserIdsRequest;
 import com.springboot.payload.request.IdRequest;
-import com.springboot.payload.request.TeamUserIdsRequest;
 import com.springboot.payload.response.MessageResponse;
-import com.springboot.payload.response.UserEventsResponse;
 import com.springboot.payload.response.UserResponse;
 import com.springboot.repository.EventRepository;
 import com.springboot.repository.TeamRepository;
@@ -18,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -76,56 +71,6 @@ public class UserController {
 
         userRepository.save(user);
 
-//        Team team = new Team();
-
-//        if(user.getTeam()!=null) {
-//            team = user.getTeam();
-//
-//
-//            if (user != team.getManager()) {
-//                Set<User> players = team.getPlayers();
-//
-//                players.remove(user);
-//
-//                team.setPlayers(players);
-//
-//                teamRepository.save(team);
-//            } else {
-//                Set<User> players = team.getPlayers();
-//
-//                players.forEach(player -> {
-//                    if (userRepository.existsById(player.getId())) {
-//                        player.setTeam(null);
-//                        userRepository.save(player);
-//                    }
-//                });
-//
-//                teamRepository.deleteById(team.getId());
-//
-//            }
-//        }
-        Set<Team> ownedTeams = user.getManagedTeams();
-
-        ownedTeams.forEach(team -> {
-            if(teamRepository.existsById(team.getId())) {
-                Set<User> players = team.getPlayers();
-                Team team2 = teamRepository.getOne(team.getId());
-
-
-                players.forEach(player -> {
-                    if(userRepository.existsById(player.getId())) {
-                        Set<Team> userTeams = player.getTeams();
-                        userTeams.remove(team2);
-                        player.setTeams(userTeams);
-                        userRepository.save(player);
-
-                    }
-                });
-            }
-
-
-        });
-
         Set<Event> ownedEvents = user.getOwnedEvents();
 
         ownedEvents.forEach(event -> {
@@ -144,13 +89,7 @@ public class UserController {
                     }
                 });
             }
-
-
         });
-
-
-
-//        return ResponseEntity.ok(new MessageResponse("Poprawnie usunięto użytkonika !"));
 
         if (userRepository.existsById(idRequest.getId())) {
             userRepository.deleteById(idRequest.getId());

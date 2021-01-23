@@ -27,6 +27,8 @@
 
 <script>
 import UserService from '../services/user.service';
+import TeamService from '../services/team.service';
+
 
 export default {
   
@@ -35,6 +37,7 @@ export default {
   data(){
     return {
       userValue: JSON.parse(localStorage.getItem('user')) || '',
+      userManagedTeamsIds:[]
     };
   },
   computed: {
@@ -44,15 +47,29 @@ export default {
   },
   methods: {
     deleteUser() {
-      UserService.deleteUser(this.currentUser.id)
-      this.$store.dispatch('auth/logout');
-      this.$router.push('/home');
+
+      for (let i = 0; i < this.userManagedTeamsIds.length; i++) {
+      TeamService.deleteTeam(this.userManagedTeamsIds[i]);
+      }
+
+var that = this;
+       setTimeout(function () {
+      UserService.deleteUser(that.currentUser.id)
+      that.$store.dispatch('auth/logout');
+      that.$router.push('/home');
+      }, 1000);
     },
   },
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
+
+    TeamService.getUserManagedTeams(this.currentUser.id).then((data) => {
+      for (let i = 0; i < data.length; i++) {
+        this.userManagedTeamsIds.push(data[i].id);
+      }
+    });
   },
 
 }

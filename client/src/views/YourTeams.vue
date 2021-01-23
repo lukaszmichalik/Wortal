@@ -9,26 +9,13 @@
       min-width="50%"
       padding="20px"
     >
-
-    
-      
-        <v-card-title v-if="loaded" class="ml-1">
+        <v-card-title v-if="loaded" class="ml-1 display-1">
           {{ team.name }}
         </v-card-title>
-
-        <v-card-subtitle v-if="loaded" class="ml-1">
+  
+        <v-card-subtitle v-if="loaded" class="ml-1 display-1">
           {{ team.location }}
         </v-card-subtitle>
-
-        <v-card-title class="dark--text mt-3">
-          <p class="ml-3">
-            {{ formatDate(team.creationDate) }}
-          </p>
-        </v-card-title>
-
-      
-
-      
 
       <v-card-actions>
         <v-btn color="primary lighten-2" :loading="loading && selectedBtn==team.id" text @click="enterTeamInfo(team.id)">
@@ -62,7 +49,6 @@
 
 
 <script>
-import UserService from '../services/user.service';
 import TeamService from '../services/team.service';
 
 export default {
