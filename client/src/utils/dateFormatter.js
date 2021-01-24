@@ -1,7 +1,7 @@
 class DateFormatter {
   
     formatDate(date) {
-        var expectedDateFormat = new Date(date);
+        /*var expectedDateFormat = new Date(date);
         var expectedMonths = [
           'Styczeń',
           'Luty',
@@ -23,7 +23,25 @@ class DateFormatter {
           expectedMonths +
           ' ' +
           expectedDateFormat.getFullYear();
-        return expectedDateString;
+        return expectedDateString;*/
+        var formattedDate = new Date(date);
+      var months = [
+        'stycznia',
+        'lutego',
+        'marca',
+        'kwietnia',
+        'maja',
+        'czerwca',
+        'lipca',
+        'sierpnia',
+        'września',
+        'października',
+        'listopada',
+        'grudnia',
+      ][formattedDate.getMonth()];
+      var formattedDateString =
+      formattedDate.getDate() + ' ' + months + ' ' + formattedDate.getFullYear();
+      return formattedDateString;
       }
 
 

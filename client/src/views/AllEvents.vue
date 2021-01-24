@@ -1,88 +1,105 @@
 <template>
   <v-app class="global_app">
-    <div class="mx-auto ma-5">
+    <p id="all_events_caption" class="global_caption">Wszystkie wydarzenia</p>
+
+    <v-col justify="center" align="center">
       <v-autocomplete
+        class="global_search"
         v-model="searchCity"
         :items="myJson"
-        label="wyszukaj po miejscowości"
+        label="wyszukaj według miejscowości"
         filled
         hide-details
-        background-color="white"
-        no-data-text="brak danych"
+        no-data-text="brak podanej miejscowości"
       />
-    </div>
+    </v-col>
 
-    <p class="mx-auto mt-5 white--text display-2">Wszystkie Wydarzenia</p>
-    <p class="mx-auto mt-5 white--text display-1">{{ searchCity }}</p>
-    <div v-for="event in events" :key="event.id">
-      <v-card
-        v-if="event.city == searchCity || !searchCity"
-        class="mx-auto ma-5"
-        max-width="50%"
-        min-width="50%"
-        padding="20px"
-      >
-        <v-img
-          :src="getImgUrl(event.surface)"
-          v-bind:alt="event.surface"
-          height="200px"
-          aspect-ratio="2.75"
+    <!--<div class="global_div_centerize">
+      <p class="global_no_events_label">brak wydarzeń</p>
+    </div>!-->
+
+    <v-col
+      id="all_events_list"
+      name="global_events_list"
+      class="global_events_list"
+      justify="center"
+      align="center"
+    >
+      <div v-for="event in events" :key="event.id">
+        <v-card
+          class="global_event_card"
+          v-if="event.city == searchCity || !searchCity"
         >
-          <v-card-title class="white--text mt-3">
-            <p class="ml-3">
-              {{ formatDate(event.date) }}
+          <!-- v-if="event.city == searchCity || !searchCity" !-->
+          <v-img
+            :src="getImgUrl(event.surface)"
+            v-bind:alt="event.surface"
+            height="200px"
+            aspect-ratio="2.75"
+          >
+            <v-card-title class="global_event_card_date">
+              <p>
+                {{ formatDate(event.date) }}
+              </p>
+            </v-card-title>
+
+            <p class="global_event_card_day_of_week">
+              {{ getDayOfWeek(event.date) }}
             </p>
+
+            <p class="global_event_card_time">{{ event.time }}</p>
+          </v-img>
+
+          <v-card-title>
+            <v-icon color="green" medium> mdi-map-marker </v-icon>
+            {{ event.city }}
           </v-card-title>
 
-          <p class="white--text ml-8 display-3">{{ event.time }}</p>
-        </v-img>
+          <v-card-subtitle class="global_event_card_address">
+            {{ event.address }}
+          </v-card-subtitle>
 
-        <v-card-title class="ml-1">
-          {{ event.city }}
-        </v-card-title>
+          <v-card-text>
+            <v-icon color="green" medium> mdi-account </v-icon>
+            limit uczestników: {{ event.limitation }}
+          </v-card-text>
 
-        <v-card-subtitle class="ml-1">
-          {{ event.address }}
-        </v-card-subtitle>
+          <v-card-actions>
+            <v-btn
+              class="global_event_card_button"
+              :loading="loading && selectedBtn == event.id"
+              @click="enterEventInfo(event.id)"
+            >
+              PRZEGLĄDAJ
+            </v-btn>
 
-        <v-card-text class="ml-1">
-          limit graczy: {{ event.limitation }}
-          <v-icon color="green" small> mdi-account </v-icon>
-        </v-card-text>
+            <v-spacer></v-spacer>
 
-        <v-card-actions>
-          <v-btn
-            color="primary lighten-2"
-            :loading="loading && selectedBtn == event.id"
-            text
-            @click="enterEventInfo(event.id)"
-          >
-            Przeglądaj
-            <v-icon color="primary" small>mdi-information-outline</v-icon>
-          </v-btn>
+            <v-btn
+              v-if="event.description != ''"
+              icon
+              @click="selected(event.id)"
+            >
+              <v-icon>{{
+                selectedCards.includes(event.id)
+                  ? 'mdi-chevron-up'
+                  : 'mdi-chevron-down'
+              }}</v-icon>
+            </v-btn>
+          </v-card-actions>
 
-          <v-spacer></v-spacer>
+          <v-expand-transition>
+            <div v-if="selectedCards.includes(event.id)">
+              <v-divider></v-divider>
 
-          <v-btn icon @click="selected(event.id)">
-            <v-icon>{{
-              selectedCards.includes(event.id)
-                ? 'mdi-chevron-up'
-                : 'mdi-chevron-down'
-            }}</v-icon>
-          </v-btn>
-        </v-card-actions>
-
-        <v-expand-transition>
-          <div v-if="selectedCards.includes(event.id)">
-            <v-divider></v-divider>
-
-            <v-card-text>
-              {{ event.description }}
-            </v-card-text>
-          </div>
-        </v-expand-transition>
-      </v-card>
-    </div>
+              <v-card-text>
+                {{ event.description }}
+              </v-card-text>
+            </div>
+          </v-expand-transition>
+        </v-card>
+      </div>
+    </v-col>
   </v-app>
 </template>
 
@@ -138,6 +155,19 @@ export default {
     getImgUrl(surface) {
       return LoadSurfaceImg.getImgUrl(surface);
     },
+    getDayOfWeek(date) {
+      var eventDate = new Date(date);
+      var daysOfWeek = [
+        'niedziela',
+        'poniedziałek',
+        'wtorek',
+        'środa',
+        'czwartek',
+        'piątek',
+        'sobota',
+      ][eventDate.getDay()];
+      return daysOfWeek;
+    },
     formatDate(date) {
       return DateFormatter.formatDate(date);
     },
@@ -155,4 +185,6 @@ export default {
 </script>
 
 <style>
+@import '../styles/style_global.css';
+@import '../styles/style_all_events.css';
 </style>

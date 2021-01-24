@@ -71,13 +71,63 @@
   word-break: break-all;
 }
 
-.global_card {
+/*.global_card {
   background-color: #7BD300;
   padding: 30px;
   margin: 20px;
   margin-bottom: 70px;
   width: 70%;
   border-radius: 1.5%;
+}*/
+
+.global_no_events_label {
+  color: #ffffff;
+  font-size: 20px;
+  margin-top: 40px;
+}
+
+.global_events_list {
+  margin-top: 50px;
+}
+
+.global_event_card {
+  width: 80vw;
+  margin-top: 40px;
+  text-align: left;
+}
+
+.global_event_card_date {
+  color: #ffffff;
+  margin-left: 12px;
+}
+
+.global_event_card_day_of_week {
+  color: #ffffff;
+  font-weight: 500;
+  margin-top: -30px;
+  margin-left: 30px;
+}
+
+.global_event_card_time {
+  color: #ffffff;
+  font-size: 55px;
+  margin-left: 25px;
+  margin-top: 35px;
+}
+
+.global_event_card_address {
+  margin-left: 27px;
+}
+
+.global_event_card_button {
+  color: #ffffff !important;
+  background: #2196F3 !important;
+  font-weight: bold !important;
+  margin-bottom: 20px;
+  margin-left: 12px;
+  padding: 21px !important;
+  font-size: 15px !important;
+  width: 200px !important;
 }
 
 .global_input_required {
@@ -99,6 +149,11 @@
   outline-style: groove;
   padding: 6px;
   word-break: keep-all;
+}
+
+.global_search {
+  background-color: #ffffff;
+  width: 60vw;
 }
 
 @media screen and (max-width: 500px) {
@@ -146,6 +201,9 @@
     margin-bottom: 50px;
     width: 90%;
   }*/
+  .global_event_card_button {
+    width: 160px !important;
+  }
   .global_error {
     font-size: 16px;
     margin-left: 10vw;
