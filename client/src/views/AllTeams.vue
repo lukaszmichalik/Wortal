@@ -1,51 +1,46 @@
 <template>
   <v-app class="global_app">
-
+    <p id="all_teams_caption" class="global_caption">Wszystkie drużyny</p>
 
     <div class="mx-auto ma-5">
       <v-autocomplete
-              v-model="searchCity"
-              :items="myJson"
-              label="wyszukaj po miejscowości"
-              filled
-              hide-details
-              background-color="white"
-              no-data-text="brak danych"
-            />
+        v-model="searchCity"
+        :items="myJson"
+        label="wyszukaj według miejscowości"
+        filled
+        hide-details
+        background-color="white"
+        no-data-text="brak podanej miejscowości"
+      />
     </div>
-    <p class="mx-auto mt-5 white--text display-2">Wszystkie Drużyny</p>
-    <p class="mx-auto mt-2 white--text display-1">{{searchCity}}</p>
-    <div v-for="team in teams"
-        :key="team.id" >
+
+    <div v-for="team in teams" :key="team.id">
       <v-card
-        v-if="team.location==searchCity || !searchCity"
+        id="global_team_card"
+        v-if="team.location == searchCity || !searchCity"
         class="mx-auto ma-5"
-        max-width="50%"
-        min-width="50%"
-        padding="20px"
       >
-        <v-card-title v-if="loaded" class="ml-1 display-1">
+        <v-card-title v-if="loaded" class="global_team_card_name">
           {{ team.name }}
         </v-card-title>
-  
-        <v-card-subtitle v-if="loaded" class="ml-1 display-1">
+
+        <v-card-subtitle v-if="loaded" class="global_team_card_city">
+          <v-icon color="green" medium> mdi-map-marker </v-icon>
           {{ team.location }}
         </v-card-subtitle>
-  
+
         <v-card-actions>
           <v-btn
-            color="primary lighten-2"
+            class="global_event_card_button"
             :loading="loading && selectedBtn == team.id"
-            text
             @click="enterTeamInfo(team.id)"
           >
-            Przeglądaj
-            <v-icon color="primary" small>mdi-information-outline</v-icon>
+            PRZEGLĄDAJ
           </v-btn>
-  
+
           <v-spacer></v-spacer>
-  
-          <v-btn icon @click="selected(team.id)">
+
+          <v-btn v-if="team.description != ''" icon @click="selected(team.id)">
             <v-icon>{{
               selectedCards.includes(team.id)
                 ? 'mdi-chevron-up'
@@ -53,11 +48,11 @@
             }}</v-icon>
           </v-btn>
         </v-card-actions>
-  
+
         <v-expand-transition>
           <div v-if="selectedCards.includes(team.id)">
             <v-divider></v-divider>
-  
+
             <v-card-text>
               {{ team.description }}
             </v-card-text>
@@ -85,7 +80,7 @@ export default {
       selectedCards: [],
       selectedBtn: '',
       myJson: json,
-      searchCity:''
+      searchCity: '',
     };
   },
   computed: {
@@ -113,7 +108,6 @@ export default {
         that.$router.push('/teamOverview');
       }, 500);
     },
-    
   },
   mounted() {
     if (!this.currentUser) {
@@ -128,5 +122,11 @@ export default {
 };
 </script>
 
+
+
+
+
 <style>
+@import '../styles/style_global.css';
+@import '../styles/style_all_teams.css';
 </style>
