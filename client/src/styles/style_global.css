@@ -100,9 +100,18 @@
   width: 80vw;
 }
 
+#global_team_card {
+  width: 60vw;
+}
+
 .global_event_card_date {
   color: #ffffff;
   margin-left: 12px;
+}
+
+.global_team_card_name {
+  margin-left: 12px;
+  margin-bottom: 10px;
 }
 
 .global_event_card_day_of_week {
@@ -121,6 +130,10 @@
 
 .global_event_card_address {
   margin-left: 27px;
+}
+
+.global_team_card_city {
+  margin-left: 10px;
 }
 
 .global_event_card_button {
@@ -207,6 +220,9 @@
   }*/
   .global_event_card_button {
     width: 160px !important;
+  }
+  #global_team_card {
+    width: 90vw;
   }
   .global_error {
     font-size: 16px;

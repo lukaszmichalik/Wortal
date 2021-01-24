@@ -1,36 +1,38 @@
 <template>
   <v-app class="global_app">
-    <p class="mx-auto mt-5 white--text display-3">Twoje Drużyny</p>
+    <p id="your_teams_caption" class="global_caption">Twoje drużyny</p>
+
     <v-card
+      id="global_team_card"
       v-for="team in teams"
       :key="team.id"
       class="mx-auto ma-5"
-      max-width="50%"
-      min-width="50%"
-      padding="20px"
     >
-      <v-card-title v-if="loaded" class="ml-1 display-1">
+      <v-card-title
+        v-if="loaded"
+        class="global_team_card_name"
+        font-size="50px"
+      >
         {{ team.name }}
       </v-card-title>
 
-      <v-card-subtitle v-if="loaded" class="ml-1 display-1">
+      <v-card-subtitle v-if="loaded" class="global_team_card_city">
+        <v-icon color="green" medium> mdi-map-marker </v-icon>
         {{ team.location }}
       </v-card-subtitle>
 
       <v-card-actions>
         <v-btn
-          color="primary lighten-2"
+          class="global_event_card_button"
           :loading="loading && selectedBtn == team.id"
-          text
           @click="enterTeamInfo(team.id)"
         >
-          Przeglądaj
-          <v-icon color="primary" small>mdi-information-outline</v-icon>
+          PRZEGLĄDAJ
         </v-btn>
 
         <v-spacer></v-spacer>
 
-        <v-btn icon @click="selected(team.id)">
+        <v-btn v-if="team.description != ''" icon @click="selected(team.id)">
           <v-icon>{{
             selectedCards.includes(team.id)
               ? 'mdi-chevron-up'
@@ -108,5 +110,11 @@ export default {
 };
 </script>
 
+
+
+
+
 <style>
+@import '../styles/style_global.css';
+@import '../styles/style_your_teams.css';
 </style>
