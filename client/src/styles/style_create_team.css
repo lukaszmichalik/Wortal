@@ -1,4 +1,182 @@
+#create_team_app {
+  background-image: url('../assets/dark_blue_10.png');
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#create_team_div {
+  margin-top: 0px;
+}
+
 #create_team_caption {
+  margin-left: 16px;
+  margin-bottom: 40px;
+}
+
+#create_team_col {
+  margin-left: 2%;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  max-width: 300px;
+  word-break: keep-all;
+}
+
+#create_team_label {
+  color: #7BD300;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-right: 16px;
+}
+
+#create_team_label_city {
+  margin-top: 30px;
+  color: #7BD300;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-right: 16px;
+}
+
+#create_team_description {
+  width: 80vw;
+  margin-bottom: 60px;
+}
+
+#create_team_buttons_div {
+  margin-top: 100px;
+}
+
+#create_team_button_cancel {
+  text-decoration: none;
+  margin-bottom: 100px;
+}
+
+#create_team_search {
+  margin-left: 30px;
+  margin-bottom: 50px;
+  width: 80vw;
+}
+
+#create_team_participants_list {
+  width: 83vw;
+  margin-left: 2%;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+#create_team_list {
+  height: 430px;
+  margin-right: 0vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: #ffffff;
+}
+
+#create_team_participant {
+  height: 160px;
+  width: 90vw;
+}
+
+#create_team_add_participant_button {
+  background-color: #2196f3;
+  color: #ffffff;
+  padding: 17px !important;
+  font-size: 12px !important;
+  width: 90px !important;
+  margin-top: 20px;
+  margin-left: 16px;
+}
+
+#create_team_search {
+  margin-left: 0px;
+}
+
+#create_team_teams {
+  margin-left: 16px;
+}
+
+.create_team_input_required {
+  color: rgb(248, 61, 61);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  margin-left: 2%;
+  margin-bottom: 10px;
+  margin-top: 2px;
+}
+
+#create_team_error {
+  margin-top: 50px;
+  text-align: center;
+  width: 270px;
+  margin-bottom: 0px;
+}
+
+@media screen and (max-width: 616px) {
+  #create_team_participant {
+      height: 230px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #create_team_col {
+      margin-bottom: -10px;
+      max-width: 300px;
+      margin-left: 6px;
+  }
+  #create_team_label {
+      font-size: 23px;
+      font-weight: 410;
+      margin-bottom: 10px;
+      margin-top: 20px;
+  }
+  #create_team_label_city {
+      font-size: 23px;
+      font-weight: 410;
+      margin-bottom: 10px;
+      margin-top: 20px;
+  }
+  .create_team_data {
+      font-size: 26px;
+      margin-left: 0px;
+      font-weight: 300;
+  }
+  #create_team_participants_list {
+      width: 90vw;
+      margin-left: 2%;
+      margin-top: 10px;
+      margin-bottom: 30px;
+  }
+  #create_team_participant {
+      height: 270px;
+      width: 90vw;
+  }
+  .create_team_input_required {
+      margin-bottom: -40px;
+  }
+  #create_team_error {
+      width: 200px;
+  }
+  #create_team_buttons_div {
+      margin-top: 60px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  #create_team_participant {
+      height: 370px;
+  }
+}
+
+
+
+
+
+
+
+
+/*#create_team_caption {
   margin-bottom: 70px;
 }
 
@@ -23,4 +201,4 @@
   #create_team_name {
     margin-bottom: 36px;
   }
-}
+}*/

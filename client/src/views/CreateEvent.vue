@@ -235,7 +235,7 @@
             filled
             hide-details
             background-color="white"
-            no-data-text="brak danych"
+            no-data-text="brak użytkowników"
           />
         </div>
 
@@ -279,7 +279,7 @@
                         id="create_event_add_participant_button"
                       >
                         {{
-                          selectedUsers.includes(user.id) ? 'anuluj' : 'dodaj'
+                          selectedUsers.includes(user.id) ? 'ANULUJ' : 'DODAJ'
                         }}
                       </v-btn>
                     </v-col>
@@ -306,7 +306,7 @@
             class="global_error"
             v-if="creatingEventFailed == 'creating event failed'"
           >
-            NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA. {{ message }}
+            NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA.
           </label>
         </div>
 

@@ -1,21 +1,21 @@
 <template>
-  <v-app id="create_event_app">
-    <div id="create_event_div" class="global_div">
-      <p id="ecreate_event_caption" class="global_caption">Utwórz drużynę</p>
+  <v-app id="create_team_app">
+    <div id="create_team_div" class="global_div">
+      <p id="create_team_caption" class="global_caption">Utwórz drużynę</p>
 
       <form @keypress.enter.prevent @submit.prevent="createTeam">
-        <v-col id="create_event_col">
-          <p id="create_event_label">nazwa drużyny:</p>
+        <v-col id="create_team_col">
+          <p id="create_team_label">nazwa drużyny:</p>
 
-          <p class="create_event_input_required" v-if="!$v.team.name.required">
+          <p class="create_team_input_required" v-if="!$v.team.name.required">
             to pole jest wymagane
           </p>
-          <p class="create_event_input_required" v-if="!$v.team.name.maxLength">
+          <p class="create_team_input_required" v-if="!$v.team.name.maxLength">
             maksymalna ilość znaków to 50
           </p>
 
           <input
-            id="create_event_address"
+            id="create_team_address"
             class="global_data_input"
             type="text"
             v-model="team.name"
@@ -23,18 +23,18 @@
           />
         </v-col>
 
-        <v-col id="create_event_col">
-          <p id="create_event_label_city">miejscowość:</p>
+        <v-col id="create_team_col">
+          <p id="create_team_label_city">miejscowość:</p>
 
           <p
-            class="create_event_input_required"
+            class="create_team_input_required"
             v-if="!$v.team.location.required"
           >
             to pole jest wymagane
           </p>
 
           <v-autocomplete
-            id="create_event_city"
+            id="create_team_city"
             class="global_data_input"
             v-model="team.location"
             :items="myJson"
@@ -45,18 +45,18 @@
           />
         </v-col>
 
-        <v-col id="create_event_col">
-          <p id="create_event_label">Opis drużyny:</p>
+        <v-col id="create_team_col">
+          <p id="create_team_label">opis drużyny:</p>
 
           <p
-            class="create_event_input_required"
+            class="create_team_input_required"
             v-if="!$v.team.description.maxLength"
           >
             maksymalna ilość znaków to 250
           </p>
 
           <textarea
-            id="create_event_description"
+            id="create_team_description"
             class="global_data_input"
             type="text"
             v-model="team.description"
@@ -65,28 +65,32 @@
 
         <!-- CARD USERS STARTS -->
 
-        <p id="event_details_caption" class="global_caption">
+        <p id="create_team_caption" class="global_caption">
           Dodaj uczestników:
         </p>
-        <div class="mx-auto ma-8 ml-8">
+
+        <v-col id="create_team_participants_list">
+
+        <div class="global_search" id="create_team_search">
           <v-autocomplete
-            class="global_data_input"
             v-model="selectedName"
             :items="names"
             label="wyszukaj po imieniu i nazwisku"
             filled
             hide-details
             background-color="white"
-            no-data-text="brak danych"
+            no-data-text="brak użytkowników"
           />
         </div>
+
+<div id="create_team_list">
         <div
-          id="create_event_participants_list"
           v-for="user in users"
           :key="user.id"
         >
+        <div>
           <v-card
-            id="create_event_participant"
+            id="create_team_participant"
             padding="20px"
             v-if="(user.name == selectedName || !selectedName) && user.name!=currentUser.name"
             elevation="12"
@@ -114,20 +118,23 @@
                 <v-btn
                   :color="selectedUsers.includes(user.id) ? 'error' : 'green'"
                   @click="addTeammate(user.id)"
-                  id="create_event_add_participant_button"
+                  id="create_team_add_participant_button"
                 >
-                  {{ selectedUsers.includes(user.id) ? 'anuluj' : 'dodaj' }}
+                  {{ selectedUsers.includes(user.id) ? 'ANULUJ' : 'DODAJ' }}
                 </v-btn>
               </v-col>
             </v-row>
           </v-card>
         </div>
+        </div>
+</div>
+        </v-col>
 
         <!-- CARDS USERS ENDING -->
 
         <div class="global_div_centerize">
           <label
-            id="create_event_error"
+            id="create_team_error"
             class="global_error"
             v-if="creatingTeamFailed == 'input error'"
           >
@@ -135,27 +142,26 @@
             FORMULARZA.
           </label>
           <label
-            id="create_event_error"
+            id="create_team_error"
             class="global_error"
-            v-if="creatingTeamFailed == 'creating event failed'"
+            v-if="creatingTeamFailed == 'creating team failed'"
           >
             NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA.
           </label>
         </div>
 
-        <div id="create_event_buttons_div" class="global_div_centerize">
+        <div id="create_team_buttons_div" class="global_div_centerize">
           <v-btn
-            id="create_event_button_edit"
+            id="create_team_button_edit"
             class="global_v_btn"
             type="submit"
-            :loading="loading"
             >UTWÓRZ</v-btn
           >
           <br />
           <v-btn
-            id="create_event_button_cancel"
+            id="create_team_button_cancel"
             class="global_v_btn"
-            to="/yourEvents"
+            to="/yourTeams"
             >ANULUJ</v-btn
           >
         </div>
@@ -171,13 +177,9 @@ import TeamService from '../services/team.service';
 import Team from '../models/team';
 import json from '../resources/miasta.json';
 import CalculateAge from '../utils/calculateAge';
-import Vue from 'vue';
-import Vuelidate from 'vuelidate';
 import {
   required,
   maxLength,
-  minValue,
-  maxValue,
 } from 'vuelidate/lib/validators';
 
 
@@ -280,6 +282,6 @@ export default {
 
 
 <style>
-@import '../styles/style_create_event.css';
+@import '../styles/style_create_team.css';
 @import '../styles/style_global.css';
 </style>
