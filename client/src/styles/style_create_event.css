@@ -8,6 +8,11 @@
     margin-top: 0px;
 }
 
+#create_event_caption {
+    margin-left: 16px;
+    margin-bottom: 40px;
+}
+
 #create_event_col {
     margin-left: 2%;
     margin-top: 10px;
@@ -25,7 +30,7 @@
 }
 
 #create_event_label_city {
-    margin-top: 60px;
+    margin-top: 30px;
     color: #7BD300;
     font-size: 26px;
     font-weight: bold;
@@ -47,6 +52,12 @@
     margin-bottom: 100px;
 }
 
+#create_event_search {
+    margin-left: 30px;
+    margin-bottom: 50px;
+    width: 80vw;
+}
+
 #create_event_participants_list {
     width: 83vw;
     margin-left: 2%;
@@ -59,6 +70,7 @@
     margin-right: 0vw;
     overflow-y: scroll;
     overflow-x: hidden;
+    background-color: #ffffff;
 }
 
 #create_event_participant {
@@ -73,6 +85,14 @@
     font-size: 12px !important;
     width: 90px !important;
     margin-top: 20px;
+    margin-left: 16px;
+}
+
+#create_event_search {
+    margin-left: 0px;
+}
+
+#create_event_teams {
     margin-left: 16px;
 }
 

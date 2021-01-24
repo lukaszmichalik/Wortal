@@ -1,7 +1,7 @@
 <template>
   <v-app id="create_event_app">
     <div id="create_event_div" class="global_div">
-      <p id="ecreate_event_caption" class="global_caption">Utwórz wydarzenie</p>
+      <p id="create_event_caption" class="global_caption">Utwórz wydarzenie</p>
 
       <form @keypress.enter.prevent @submit.prevent="handleCreateEvent">
         <v-col id="create_event_col">
@@ -19,7 +19,7 @@
             label="miejscowość"
             filled
             hide-details
-            no-data-text="brak danych"
+            no-data-text="brak podanej miejscowości"
           />
         </v-col>
 
@@ -48,18 +48,28 @@
           />
         </v-col>
 
-        <v-col class="ml-5">
+        <v-col id="create_event_col">
           <p id="create_event_label">data:</p>
 
           <p class="create_event_input_required" v-if="!$v.event.date.required">
             to pole jest wymagane
           </p>
-          <v-date-picker
+          <!--<v-date-picker
             :first-day-of-week="1"
             v-model="event.date"
             locale="pl-PL"
             :min="new Date().toISOString().substr(0, 10)"
-          ></v-date-picker>
+          ></v-date-picker>!-->
+          <div margin-left="8px">
+            <v-date-picker
+              id="date_picker"
+              :first-day-of-week="1"
+              v-model="event.date"
+              locale="pl-PL"
+              width="270px"
+              color="#2196f3"
+            ></v-date-picker>
+          </div>
         </v-col>
 
         <v-col id="create_event_col">
@@ -160,20 +170,18 @@
         <!-- CARDS TEAMS STARTS-->
 
         <div v-if="userTeamsIds.length != 0">
-          <p id="event_details_caption" class="global_caption">
-            Dodaj drużyny:
-          </p>
-
+          <p id="create_event_caption" class="global_caption">Dodaj drużyny:</p>
           <div
             id="create_event_participants_list"
             v-for="team in userTeamsWithPlayers"
             :key="team.name"
           >
-            <div>
+            <div id="create_event_teams">
               <v-card
-                id="create_event_participant"
+                id="create_event_team"
                 padding="20px"
                 elevation="12"
+                width="80vw"
               >
                 <v-row>
                   <v-col class="text-no-wrap">
@@ -188,6 +196,7 @@
 
                   <v-col class="text-no-wrap">
                     <v-btn
+                      id="create_event_add_participant_button"
                       :color="
                         selectedTeams.includes(team.id) ? 'error' : 'green'
                       "
@@ -196,9 +205,8 @@
                           ? deleteTeamFromEvent(team.id, team.players)
                           : addTeamToEvent(team.id, team.players)
                       "
-                      id="create_event_add_participant_button"
                     >
-                      {{ selectedTeams.includes(team.id) ? 'anuluj' : 'dodaj' }}
+                      {{ selectedTeams.includes(team.id) ? 'ANULUJ' : 'DODAJ' }}
                     </v-btn>
                   </v-col>
                 </v-row>
@@ -211,13 +219,16 @@
 
         <!-- CARD USERS STARTS -->
 
-        <p id="event_details_caption" class="global_caption">
+        <p id="create_event_caption" class="global_caption">
           Dodaj uczestników:
         </p>
 
-        <div class="mx-auto ma-8 ml-8">
+
+
+        <v-col id="create_event_participants_list">
+
+        <div class="global_search" id="create_event_search">
           <v-autocomplete
-            class="global_data_input"
             v-model="selectedName"
             :items="names"
             label="wyszukaj po imieniu i nazwisku"
@@ -228,53 +239,56 @@
           />
         </div>
 
-        <div
-          id="create_event_participants_list"
-          v-for="user in users"
-          :key="user.id"
-        >
-          <div>
-            <v-card
-              id="create_event_participant"
-              padding="20px"
-              v-if="
-                (user.name == selectedName || !selectedName) &&
-                user.name != currentUser.name
-              "
-              elevation="12"
-            >
-              <v-row>
-                <v-col class="text-no-wrap">
-                  <v-card-title>imię i nazwisko</v-card-title>
-                  <v-card-text v-text="user.name"></v-card-text>
-                </v-col>
+          <div id="create_event_list">
+            <div v-for="user in users" :key="user.id">
+              <div>
+                <v-card
+                  id="create_event_participant"
+                  padding="20px"
+                  v-if="
+                    (user.name == selectedName || !selectedName) &&
+                    user.name != currentUser.name
+                  "
+                  elevation="12"
+                >
+                  <v-row>
+                    <v-col class="text-no-wrap">
+                      <v-card-title>imię i nazwisko</v-card-title>
+                      <v-card-text v-text="user.name"></v-card-text>
+                    </v-col>
 
-                <v-col class="text-no-wrap">
-                  <v-card-title>pozycja</v-card-title>
-                  <v-card-text v-text="user.position"></v-card-text>
-                </v-col>
+                    <v-col class="text-no-wrap">
+                      <v-card-title>pozycja</v-card-title>
+                      <v-card-text v-text="user.position"></v-card-text>
+                    </v-col>
 
-                <v-col class="hidden-sm-and-down">
-                  <!-- chowa wiek, gdy za mało miejsca !-->
-                  <v-card-title>wiek</v-card-title>
-                  <v-card-text
-                    v-text="calculateAge(user.dob) + ' lat'"
-                  ></v-card-text>
-                </v-col>
+                    <v-col class="hidden-sm-and-down">
+                      <!-- chowa wiek, gdy za mało miejsca !-->
+                      <v-card-title>wiek</v-card-title>
+                      <v-card-text
+                        v-text="calculateAge(user.dob) + ' lat'"
+                      ></v-card-text>
+                    </v-col>
 
-                <v-col class="text-no-wrap">
-                  <v-btn
-                    :color="selectedUsers.includes(user.id) ? 'error' : 'green'"
-                    @click="addUserToEvent(user.id)"
-                    id="create_event_add_participant_button"
-                  >
-                    {{ selectedUsers.includes(user.id) ? 'anuluj' : 'dodaj' }}
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-card>
+                    <v-col class="text-no-wrap">
+                      <v-btn
+                        :color="
+                          selectedUsers.includes(user.id) ? 'error' : 'green'
+                        "
+                        @click="addUserToEvent(user.id)"
+                        id="create_event_add_participant_button"
+                      >
+                        {{
+                          selectedUsers.includes(user.id) ? 'anuluj' : 'dodaj'
+                        }}
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </div>
+            </div>
           </div>
-        </div>
+        </v-col>
 
         <!-- CARDS USERS ENDING -->
 
@@ -301,7 +315,6 @@
             id="create_event_button_edit"
             class="global_v_btn"
             type="submit"
-            :loading="loading"
             >UTWÓRZ</v-btn
           >
           <br />
@@ -325,7 +338,6 @@ import TeamService from '../services/team.service';
 import Event from '../models/event';
 import json from '../resources/miasta.json';
 import CalculateAge from '../utils/calculateAge';
-import Vue from 'vue';
 import Vuelidate from 'vuelidate';
 import {
   required,
@@ -392,12 +404,12 @@ export default {
       this.loading = true;
       var that = this;
 
-      if (this.event.participants.length > this.event.limitation) {
+      /*if (this.event.participants.length > this.event.limitation) {
         this.message = 'ZWIĘKSZ LIMIT UCZESTNIKÓW LUB USUŃ KILKU GRACZY.';
         this.creatingEventFailed = 'creating event failed';
         this.loading = false;
         return;
-      }
+      }*/
       this.$v.$touch();
       if (this.$v.$pendind || this.$v.$error) {
         this.creatingEventFailed = 'input error';
