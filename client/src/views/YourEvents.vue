@@ -1,13 +1,12 @@
 <template>
   <v-app class="global_app">
-    <p class="mx-auto mt-5 white--text display-3">Twoje wydarzenia</p>
+    <p id="your_events_caption" class="global_caption">Twoje wydarzenia</p>
+
     <v-card
+    id="event_card"
       v-for="event in events"
       :key="event.id"
       class="mx-auto ma-5"
-      max-width="50%"
-      min-width="50%"
-      padding="20px"
     >
       <v-img
         :src="getImgUrl(event.surface)"
@@ -15,48 +14,55 @@
         height="200px"
         aspect-ratio="2.75"
       >
-        <v-card-title class="white--text mt-3">
-          <p class="ml-3">
+        <v-card-title class="global_event_card_date">
+          <p>
             {{ formatDate(event.date) }}
           </p>
         </v-card-title>
 
-        <p class="white--text ml-8 display-3">{{ event.time }}</p>
+        <p class="global_event_card_day_of_week">
+              {{ getDayOfWeek(event.date) }}
+            </p>
+
+        <p class="global_event_card_time">{{ event.time }}</p>
       </v-img>
 
-      <v-card-title v-if="loaded" class="ml-1">
-        {{ event.city }}
-      </v-card-title>
+      <v-card-title v-if="loaded">
+          <v-icon color="green" medium> mdi-map-marker </v-icon>
+          {{ event.city }}
+        </v-card-title>
 
-      <v-card-subtitle v-if="loaded" class="ml-1">
-        {{ event.address }}
-      </v-card-subtitle>
+      <v-card-subtitle v-if="loaded" class="global_event_card_address">
+          {{ event.address }}
+        </v-card-subtitle>
 
-      <v-card-text class="ml-1">
-        limit graczy: {{ event.limitation }}
-        <v-icon color="green" small> mdi-account </v-icon>
-      </v-card-text>
+      <v-card-text>
+          <v-icon color="green" medium> mdi-account </v-icon>
+          limit uczestników: {{ event.limitation }}
+        </v-card-text>
 
       <v-card-actions>
         <v-btn
-          color="primary lighten-2"
-          :loading="loading && selectedBtn == event.id"
-          text
-          @click="enterEventInfo(event.id)"
-        >
-          Przeglądaj
-          <v-icon color="primary" small>mdi-information-outline</v-icon>
-        </v-btn>
+            class="global_event_card_button"
+            :loading="loading"
+            @click="enterEventInfo(event.id)"
+          >
+            PRZEGLĄDAJ
+          </v-btn>
 
         <v-spacer></v-spacer>
 
-        <v-btn icon @click="selected(event.id)">
-          <v-icon>{{
-            selectedCards.includes(event.id)
-              ? 'mdi-chevron-up'
-              : 'mdi-chevron-down'
-          }}</v-icon>
-        </v-btn>
+        <v-btn
+            v-if="event.description != ''"
+            icon
+            @click="selected(event.id)"
+          >
+            <v-icon>{{
+              selectedCards.includes(event.id)
+                ? 'mdi-chevron-up'
+                : 'mdi-chevron-down'
+            }}</v-icon>
+          </v-btn>
       </v-card-actions>
 
       <v-expand-transition>
@@ -100,6 +106,19 @@ export default {
     },
   },
   methods: {
+    getDayOfWeek(date) {
+      var eventDate = new Date(date);
+      var daysOfWeek = [
+        'niedziela',
+        'poniedziałek',
+        'wtorek',
+        'środa',
+        'czwartek',
+        'piątek',
+        'sobota',
+      ][eventDate.getDay()];
+      return daysOfWeek;
+    },
     selected(id) {
       if (this.selectedCards.includes(id)) {
         let index = this.selectedCards.indexOf(id);
@@ -140,4 +159,6 @@ export default {
 </script>
 
 <style>
+@import '../styles/style_global.css';
+@import '../styles/style_your_events.css'
 </style>

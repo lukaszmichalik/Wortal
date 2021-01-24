@@ -2,7 +2,7 @@
   <v-app class="global_app">
     <p id="all_events_caption" class="global_caption">Wszystkie wydarzenia</p>
 
-    <v-col justify="center" align="center">
+    <v-col justify="center" align="center" margin-bottom="0px">
       <v-autocomplete
         class="global_search"
         v-model="searchCity"

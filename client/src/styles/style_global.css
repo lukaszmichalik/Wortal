@@ -96,6 +96,10 @@
   text-align: left;
 }
 
+#event_card {
+  width: 80vw;
+}
+
 .global_event_card_date {
   color: #ffffff;
   margin-left: 12px;
