@@ -168,8 +168,7 @@
           <v-card-text>
             <div class="text-h5 pa-12">
               Tej akcji nie można cofnąć. Drużyna zostanie usunięta i wszyscy
-              członkowie stracą do niej dostęp. Czy na pewno chcesz usunąć to
-              wydarznie?
+              członkowie stracą do niej dostęp. Czy na pewno chcesz usunąć tę drużynę?
             </div>
           </v-card-text>
           <v-card-actions class="justify-end">

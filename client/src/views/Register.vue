@@ -15,6 +15,13 @@
             </div>
             <div
               id="register_name_input_required"
+              v-if="!$v.user.name.minLength"
+              class="global_input_required"
+            >
+              to pole musi zawierać minimum 3 znaki
+            </div>
+            <div
+              id="register_name_input_required"
               v-if="!$v.user.name.maxLength"
               class="global_input_required"
             >
@@ -44,6 +51,9 @@
           </div>
 
           <div class="input">
+            <div id="register_dob_label" class="global_input_required">
+              data urodzenia:
+            </div>
             <div v-if="!$v.user.dob.required" class="global_input_required">
               to pole jest wymagane
             </div>
@@ -191,6 +201,7 @@ export default {
     user: {
       name: {
         required,
+        minLength: minLength(3),
         maxLength: maxLength(50)
       },
       dob: {

@@ -33,6 +33,10 @@
   margin-bottom: 20px;
 }
 
+#register_dob_label {
+  color: #ffffff;
+}
+
 #register_dob {
   margin-top: 5px;
   margin-bottom: 20px;
