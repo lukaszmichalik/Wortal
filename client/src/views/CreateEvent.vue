@@ -308,6 +308,13 @@
             NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA. WYDARZENIE MUSI ODBYWAĆ SIĘ W
             PRZYSZŁOŚCI.
           </label>
+                    <label
+            id="create_event_error"
+            class="global_error"
+            v-if="creatingEventFailed == 'limitation error'"
+          >
+            NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA. ZWIĘKSZ LIMIT UCZESTNIKÓW LUB USUŃ KILKU GRACZY.
+          </label>
           <label
             id="create_event_error"
             class="global_error"
@@ -414,13 +421,13 @@ export default {
       this.loading = true;
       var that = this;
 
-      /*if (this.event.participants.length > this.event.limitation) {
-        this.message = 'ZWIĘKSZ LIMIT UCZESTNIKÓW LUB USUŃ KILKU GRACZY.';
-        this.creatingEventFailed = 'creating event failed';
+      if (this.event.participants.length > this.event.limitation) {
+        this.creatingEventFailed = 'limitation error';
+        //this.creatingEventFailed = 'creating event failed';
         this.loading = false;
         return;
-      }*/
-      this.$v.$touch();
+      } else {
+        this.$v.$touch();
       if (this.$v.$pendind || this.$v.$error) {
         this.creatingEventFailed = 'input error';
         this.loading = false;
@@ -485,6 +492,8 @@ export default {
           );
         }
       }
+      }
+      
     },
     calculateAge(userBirthday) {
       return CalculateAge.calculateAge(userBirthday);
