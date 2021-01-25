@@ -66,6 +66,7 @@
               :first-day-of-week="1"
               v-model="event.date"
               locale="pl-PL"
+              :min="new Date().toISOString().substr(0, 10)"
               width="270px"
               color="#2196f3"
             ></v-date-picker>
@@ -83,6 +84,7 @@
             id="create_event_time"
             class="global_data_input"
             type="time"
+            locale="pl-PL"
             v-model="event.time"
             format="24hr"
           />
@@ -223,21 +225,18 @@
           Dodaj uczestników:
         </p>
 
-
-
         <v-col id="create_event_participants_list">
-
-        <div class="global_search" id="create_event_search">
-          <v-autocomplete
-            v-model="selectedName"
-            :items="names"
-            label="wyszukaj po imieniu i nazwisku"
-            filled
-            hide-details
-            background-color="white"
-            no-data-text="brak użytkowników"
-          />
-        </div>
+          <div class="global_search" id="create_event_search">
+            <v-autocomplete
+              v-model="selectedName"
+              :items="names"
+              label="wyszukaj po imieniu i nazwisku"
+              filled
+              hide-details
+              background-color="white"
+              no-data-text="brak użytkowników"
+            />
+          </div>
 
           <div id="create_event_list">
             <div v-for="user in users" :key="user.id">
@@ -304,6 +303,14 @@
           <label
             id="create_event_error"
             class="global_error"
+            v-if="creatingEventFailed == 'date error'"
+          >
+            NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA. WYDARZENIE MUSI ODBYWAĆ SIĘ W
+            PRZYSZŁOŚCI.
+          </label>
+          <label
+            id="create_event_error"
+            class="global_error"
             v-if="creatingEventFailed == 'creating event failed'"
           >
             NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA.
@@ -338,7 +345,6 @@ import TeamService from '../services/team.service';
 import Event from '../models/event';
 import json from '../resources/miasta.json';
 import CalculateAge from '../utils/calculateAge';
-import Vuelidate from 'vuelidate';
 import {
   required,
   maxLength,
@@ -364,6 +370,10 @@ export default {
       userTeamsWithPlayers: [],
       selectedTeams: [],
       loading: false,
+      currentDate: '',
+      currentTime: '',
+      currentHour: '',
+      currentMinute: '',
     };
   },
   computed: {
@@ -415,30 +425,65 @@ export default {
         this.creatingEventFailed = 'input error';
         this.loading = false;
       } else {
-        EventService.createEvent(this.event).then(
-          (data) => {
-            this.message = data;
-            if (
-              this.message == 'Twoje wydarzenie zostało poprawnie opublikowane!'
-            ) {
-              this.successful = true;
-              setTimeout(function () {
-                that.$router.push('/yourEvents');
-                that.loading = false;
-              }, 500);
+        this.currentDate = new Date().toISOString().substr(0, 10);
+        this.currentTime = new Date().toISOString().substr(11, 5);
+        this.currentHour = this.currentTime.substr(0, 2);
+        this.currentMinute = this.currentTime.substr(3, 2);
+        this.currentHour = Number(this.currentHour) + 1;
+        this.currentTime =
+          this.currentHour.toString() + ':' + this.currentMinute;
+        /*console.log(this.currentHour);
+        console.log(this.currentMinute);
+        console.log(this.currentTime)*/
+        //console.log(this.event.time);
+        if (
+          this.event.date == this.currentDate &&
+          this.event.time <= this.currentTime
+        ) {
+          /*console.log(this.event.date);
+          console.log(this.currentDate);
+          console.log(this.event.time);
+          console.log(this.currentTime);*/
+          this.creatingEventFailed = 'date error';
+        } else {
+          //console.log(new Date().toString());
+          //console.log(new Date().toISOString().substr(11, 5));
+          //console.log(this.event.time);
+          /*console.log(this.event.date);
+        console.log(new Date().toString().substr(0, 10));
+        console.log(new Date().toString());
+        console.log(this.event.time);
+        console.log(new Date().toString().substr(11, 8))
+        console.log(new Date().toString());*/
+          /*console.log(new Date().toISOString().substr(11, 5));
+        console.log((new Date().setHours(8)).toISOString());*/
+
+          EventService.createEvent(this.event).then(
+            (data) => {
+              this.message = data;
+              if (
+                this.message ==
+                'Twoje wydarzenie zostało poprawnie opublikowane!'
+              ) {
+                this.successful = true;
+                setTimeout(function () {
+                  that.$router.push('/yourEvents');
+                  that.loading = false;
+                }, 500);
+              }
+            },
+            (error) => {
+              this.loading = false;
+              this.message =
+                (error.response &&
+                  error.response.data &&
+                  error.response.data.message) ||
+                error.message ||
+                error.toString();
+              this.creatingEventFailed = 'creating event failed';
             }
-          },
-          (error) => {
-            this.loading = false;
-            this.message =
-              (error.response &&
-                error.response.data &&
-                error.response.data.message) ||
-              error.message ||
-              error.toString();
-            this.creatingEventFailed = 'creating event failed';
-          }
-        );
+          );
+        }
       }
     },
     calculateAge(userBirthday) {
@@ -535,6 +580,10 @@ export default {
   },
 };
 </script>
+
+
+
+
 
 <style>
 @import '../styles/style_create_event.css';
