@@ -156,9 +156,10 @@
 
 
     <p id="event_overview_lower_caption" class="global_caption">Organizator</p>
+    <!--       class="mx-auto ma-1" !-->
     <v-card
-    id="team_overview_participant"
-      class="mx-auto ma-1"
+    id="event_overview_participant"
+    class="mx-auto ma-1"
       width="80vw"
       elevation="12"
     >
@@ -196,7 +197,7 @@
               dark
             >Czy na pewno chcesz usunąć wydarzenie ?</v-toolbar>
             <v-card-text>
-              <div class="text-h5 pa-12">Tej akcji nie można cofnąć. Czy na pewno chcesz odwołać to wydarznie?</div>
+              <div class="text-h5 pa-4">Tej akcji nie można cofnąć. Czy na pewno chcesz odwołać to wydarznie?</div>
             </v-card-text>
             <v-card-actions class="justify-end">
               <v-btn
@@ -207,7 +208,7 @@
                 text
                 color="error"
                 @click="deleteEvent(currentEvent.id)"
-              >TAK, ODWOŁAJ WYDARZENIE</v-btn>
+              >ODWOŁAJ</v-btn>
             </v-card-actions>
           </v-card>
         </template>

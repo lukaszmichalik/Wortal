@@ -18,3 +18,63 @@
     margin-top: 10px;
     margin-bottom: 30px;
 }
+
+
+
+
+
+@media screen and (max-width: 616px) {
+    #event_overview_participant {
+        height: 230px;
+    }
+  }
+  
+  @media screen and (max-width: 500px) {
+    #event_overview_col {
+        margin-bottom: -10px;
+        max-width: 300px;
+        margin-left: 6px;
+    }
+    #event_overview_label {
+        font-size: 23px;
+        font-weight: 410;
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
+    #event_overview_label_city {
+        font-size: 23px;
+        font-weight: 410;
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
+    .event_overview_data {
+        font-size: 26px;
+        margin-left: 0px;
+        font-weight: 300;
+    }
+    #event_overview_participants_list {
+        width: 90vw;
+        margin-left: 2%;
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+    #event_overview_participant {
+        height: 270px;
+        width: 90vw;
+    }
+    .event_overview_input_required {
+        margin-bottom: -40px;
+    }
+    #event_overview_error {
+        width: 200px;
+    }
+    #event_overview_buttons_div {
+        margin-top: 60px;
+    }
+  }
+  
+  @media screen and (max-width: 360px) {
+    #event_overview_participant {
+        height: 370px;
+    }
+  }

@@ -90,7 +90,7 @@
         >
         <div>
           <v-card
-            id="create_team_participant"
+            id="create_team_participant" 
             padding="20px"
             v-if="(user.name == selectedName || !selectedName) && user.name!=currentUser.name"
             elevation="12"

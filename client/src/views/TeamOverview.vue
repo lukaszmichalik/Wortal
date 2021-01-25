@@ -154,6 +154,7 @@
         <v-btn
           v-if="isManager"
           class="mx-auto my-8"
+          padding="8px"
           color="error"
           v-bind="attrs"
           v-on="on"
@@ -166,7 +167,7 @@
             >Czy na pewno chcesz usunąć drużynę?</v-toolbar
           >
           <v-card-text>
-            <div class="text-h5 pa-12">
+            <div class="text-h5 pa-4">
               Tej akcji nie można cofnąć. Drużyna zostanie usunięta i wszyscy
               członkowie stracą do niej dostęp. Czy na pewno chcesz usunąć tę drużynę?
             </div>
@@ -174,7 +175,7 @@
           <v-card-actions class="justify-end">
             <v-btn text @click="dialog.value = false">ANULUJ</v-btn>
             <v-btn text color="error" @click="deleteTeam(currentTeam.id)"
-              >TAK, USUŃ DRUŻYNĘ</v-btn
+              >USUŃ</v-btn
             >
           </v-card-actions>
         </v-card>
