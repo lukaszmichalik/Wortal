@@ -2,17 +2,19 @@
   <v-app class="global_app">
     <p id="all_events_caption" class="global_caption">Wszystkie wydarzenia</p>
 
-    <v-col justify="center" align="center" margin-bottom="0px">
+    <!--<v-col justify="center" align="center" margin-bottom="0px">!-->
+      <div class="mx-auto ma-5">
       <v-autocomplete
-        class="global_search"
         v-model="searchCity"
         :items="myJson"
         label="wyszukaj według miejscowości"
         filled
         hide-details
+        background-color="white"
         no-data-text="brak podanej miejscowości"
       />
-    </v-col>
+      </div>
+    <!--</v-col>!-->
 
     <!--<div class="global_div_centerize">
       <p class="global_no_events_label">brak wydarzeń</p>

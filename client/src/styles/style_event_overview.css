@@ -1,0 +1,20 @@
+#event_overview_caption {
+    margin-left: 16px;
+}
+
+#event_overview_lower_caption {
+    margin-left: 16px;
+    margin-top: 40px;
+}
+
+#event_overview_participant {
+    height: 100px;
+    width: 80vw;
+}
+
+#event_overview_participants_list {
+    width: 83vw;
+    margin-left: 2%;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}

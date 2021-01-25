@@ -1,17 +1,17 @@
 <template>
   <v-app class="global_app">
-    <p id="event_details_caption" class="global_caption">
+    <p id="event_overview_caption" class="global_caption">
       Szczegóły wydarzenia
     </p>
+
     <v-card
       class="mx-auto ma-5"
-      max-width="80%"
-      min-width="80%"
+      width="80vw"
       padding="20px"
       elevation="12"
     >
-      <v-card-title class="headline"
-        ><v-icon color="primary" class="mr-3">mdi-map-marker</v-icon>
+      <v-card-title class="global_overview_label"
+        ><v-icon color="green" large class="global_overview_icon">mdi-map-marker</v-icon>
         adres:</v-card-title
       >
 
@@ -20,8 +20,8 @@
         v-text="currentEvent.city + ', ' + currentEvent.address"
       ></v-card-text>
 
-      <v-card-title class="headline"
-        ><v-icon color="primary" class="mr-3">mdi-clock-time-two</v-icon>data i
+      <v-card-title class="global_overview_label"
+        ><v-icon color="green" large class="global_overview_icon">mdi-clock-time-two</v-icon>data i
         godzina:</v-card-title
       >
 
@@ -30,15 +30,15 @@
         v-text="formatDate(currentEvent.date)+ ', ' + currentEvent.time"
       ></v-card-text>
 
-      <v-card-title class="headline"
-        ><v-icon color="primary" class="mr-3">mdi-texture-box</v-icon>rodzaj
+      <v-card-title class="global_overview_label"
+        ><v-icon color="green" large class="global_overview_icon">mdi-texture-box</v-icon>rodzaj
         nawierzchni:</v-card-title
       >
 
       <v-card-text class="title" v-text="currentEvent.surface"></v-card-text>
 
-      <v-card-title class="headline"
-        ><v-icon color="primary" class="mr-3">mdi-information</v-icon>informacje
+      <v-card-title class="global_overview_label"
+        ><v-icon color="green" large class="global_overview_icon">mdi-information</v-icon>informacje
         dla uczestników:</v-card-title
       >
 
@@ -47,8 +47,8 @@
         v-text="currentEvent.description"
       ></v-card-text>
 
-      <v-card-title class="headline"
-        ><v-icon color="primary" class="mr-3">mdi-account</v-icon>limit
+      <v-card-title class="global_overview_label"
+        ><v-icon color="green" large class="global_overview_icon">mdi-account</v-icon>limit
         uczestników:</v-card-title
       >
 
@@ -67,7 +67,7 @@
         "
         align="center"
       >
-        pełny skład</v-card-text
+        PEŁNY SKŁAD</v-card-text
       >
 
       <v-card-actions>
@@ -81,7 +81,7 @@
           @click="joinOrGiveUp()"
         >
           {{
-            participantsIds.includes(currentUser.id) ? 'zrezygnuj' : 'dołącz'
+            participantsIds.includes(currentUser.id) ? 'ZREZYGNUJ' : 'DOŁĄCZ'
           }}
           <v-icon
             :color="
@@ -98,25 +98,23 @@
       </v-card-actions>
     </v-card>
 
-    <p id="event_details_caption" class="global_caption">Uczestnicy</p>
+    <p id="event_overview_lower_caption" class="global_caption">Uczestnicy</p>
     <v-card
+    id="event_overview_participant"
       class="mx-auto ma-1"
-      min-width="80%"
-      max-width="80%"
-      padding="20px"
       v-for="participant in currentEvent.participants"
       :key="participant.id"
       elevation="12"
     >
     
       <v-row>
-        <v-col class="hidden-sm-and-down" align="center">
+        <!--<v-col class="hidden-sm-and-down" align="center">
           <v-avatar color="indigo ma-5" size="50">
             <span class="white--text headline">{{
               getInitials(participant.name)
             }}</span>
           </v-avatar>
-        </v-col>
+        </v-col>!-->
 
         <v-col class="text-no-wrap">
           <v-card-title>imię i nazwisko</v-card-title>
@@ -145,23 +143,23 @@
             :loading="
               loadingDelParticipant && selectedDelBtns.includes(participant.id)
             "
-            large
-            dark
             @click.once="deleteParticipant(participant.id)"
           >
-            Usuń
+            USUŃ
           </v-btn>
         </v-col>
       </v-row>
       
     </v-card>
 
-    <p id="event_details_caption" class="global_caption">Organizator</p>
+
+
+
+    <p id="event_overview_lower_caption" class="global_caption">Organizator</p>
     <v-card
-      class="mx-auto mb-12"
-      min-width="80%"
-      max-width="80%"
-      padding="20px"
+    id="team_overview_participant"
+      class="mx-auto ma-1"
+      width="80vw"
       elevation="12"
     >
       <v-row>
@@ -171,13 +169,16 @@
           <v-card-text v-text="currentEvent.organizer_id.name"></v-card-text>
         </v-col>
 
-        <v-col class="text-no-wrap flex-sm">
+        <v-col class="text-no-wrap">
           <v-card-title> kontakt: </v-card-title>
 
           <v-card-text v-text="currentEvent.organizer_id.email"></v-card-text>
         </v-col>
       </v-row>
     </v-card>
+
+<p></p>
+
     <v-dialog transition="dialog-bottom-transition" max-width="600">
       <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -186,7 +187,7 @@
           color="error"
             v-bind="attrs"
             v-on="on"
-          >Odwołaj wydarzenie</v-btn>
+          >ODWOŁAJ WYDARZENIE</v-btn>
         </template>
         <template v-slot:default="dialog">
           <v-card>
@@ -195,24 +196,27 @@
               dark
             >Czy na pewno chcesz usunąć wydarzenie ?</v-toolbar>
             <v-card-text>
-              <div class="text-h5 pa-12">Tej akcji nie można cofnąć, czy na pewno chcesz usunąć to wydarznie?</div>
+              <div class="text-h5 pa-12">Tej akcji nie można cofnąć. Czy na pewno chcesz odwołać to wydarznie?</div>
             </v-card-text>
             <v-card-actions class="justify-end">
               <v-btn
                 text
                 @click="dialog.value = false"
-              >Anuluj</v-btn>
+              >ANULUJ</v-btn>
                <v-btn
                 text
                 color="error"
                 @click="deleteEvent(currentEvent.id)"
-              >Tak, Usuń</v-btn>
+              >TAK, ODWOŁAJ WYDARZENIE</v-btn>
             </v-card-actions>
           </v-card>
         </template>
     </v-dialog>
   </v-app>
 </template>
+
+
+
 
 
  <script>
@@ -254,12 +258,6 @@ export default {
     },
     calculateAge(userBirthday) {
       return CalculateAge.calculateAge(userBirthday)
-    },
-    getInitials(name) {
-      return name
-        .split(' ')
-        .map((n) => n[0])
-        .join('');
     },
     joinOrGiveUp() {
       var that = this;
@@ -346,3 +344,12 @@ export default {
   },
 };
 </script>
+
+
+
+
+
+<style>
+@import '../styles/style_global.css';
+@import '../styles/style_event_overview.css';
+</style>
