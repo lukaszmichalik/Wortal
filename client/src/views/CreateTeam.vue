@@ -155,6 +155,7 @@
             id="create_team_button_edit"
             class="global_v_btn"
             type="submit"
+            :loading="loading"
             >UTWÓRZ</v-btn
           >
           <br />
@@ -228,13 +229,14 @@ export default {
       this.$v.$touch();
       if (this.$v.$pendind || this.$v.$error) {
         this.creatingTeamFailed = 'input error';
+        this.loading = false
       } else {
         this.team.creationDate = Date.now();
         TeamService.createTeam(this.team).then(
           (this.successful = true),
           setTimeout(function () {
           that.$router.push('/yourTeams'),
-          that.loading=false
+          that.loading = false
           }, 500)
         );
       }

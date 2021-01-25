@@ -329,6 +329,7 @@
             id="create_event_button_edit"
             class="global_v_btn"
             type="submit"
+            :loading="loading"
             >UTWÓRZ</v-btn
           >
           <br />
@@ -452,6 +453,7 @@ export default {
           console.log(this.event.time);
           console.log(this.currentTime);*/
           this.creatingEventFailed = 'date error';
+          this.loading = false;
         } else {
           //console.log(new Date().toString());
           //console.log(new Date().toISOString().substr(11, 5));
