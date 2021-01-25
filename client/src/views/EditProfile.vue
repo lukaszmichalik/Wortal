@@ -252,7 +252,10 @@ export default {
           UserService.editUser(this.user).then(
             () => {
               setTimeout(function () {
-              that.$router.push('/userProfile');
+                //console.log("eoeooeoeo");
+              //that.$router.push('/home');
+              that.$store.dispatch('auth/logout');
+              that.$router.push('/userProfileEdited');
               that.loading = true
               }, 500);
             },

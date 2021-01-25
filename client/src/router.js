@@ -90,6 +90,11 @@ export const router = new Router({
     {
       path: '/DeleteAccount',
       component: DeleteAccount
+    },
+    {
+      path: '/userProfileEdited',
+      name: 'userProfileEdited',
+      component: () => import('./views/UserProfileEdited.vue')
     }
   ]
 });
