@@ -173,6 +173,11 @@
   width: 60vw;
 }
 
+.global_overview_icon {
+  margin-right: 10px;
+}
+
+
 @media screen and (max-width: 500px) {
   .global_app {
     background-color: rgb(49, 110, 160) !important;

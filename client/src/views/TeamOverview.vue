@@ -1,29 +1,29 @@
 <template>
   <v-app class="global_app">
-    <p id="event_details_caption" class="global_caption">Szczegóły drużyny</p>
+    <p id="team_overview_caption" class="global_caption">{{currentTeam.name}}</p>
+    
     <v-card
       class="mx-auto ma-5"
-      max-width="80%"
-      min-width="80%"
+      width="80vw"
       padding="20px"
       elevation="12"
     >
-      <v-card-title class="headline"
-        ><v-icon color="primary" class="mr-3">mdi-shield</v-icon>
-        nazwa:</v-card-title
+      <v-card-title class="global_overview_label"
+        ><v-icon color="green" large class="global_overview_icon">mdi-shield</v-icon>
+        nazwa drużyny:</v-card-title
       >
 
       <v-card-text class="title" v-text="currentTeam.name"></v-card-text>
 
-      <v-card-title class="headline"
-        ><v-icon color="primary" class="mr-3">mdi-map-marker</v-icon
+      <v-card-title class="global_overview_label"
+        ><v-icon color="green" large class="global_overview_icon">mdi-map-marker</v-icon
         >miasto:</v-card-title
       >
 
       <v-card-text class="title" v-text="currentTeam.location"></v-card-text>
 
-      <v-card-title class="headline"
-        ><v-icon color="primary" class="mr-3">mdi-calendar-question</v-icon>data
+      <v-card-title class="global_overview_label"
+        ><v-icon color="green" large class="global_overview_icon">mdi-calendar-question</v-icon>data
         utworzenia:</v-card-title
       >
 
@@ -32,16 +32,15 @@
         v-text="formatDate(currentTeam.creationDate)"
       ></v-card-text>
 
-      <v-card-title class="headline"
-        ><v-icon color="primary" class="mr-3">mdi-account-group</v-icon>liczba
-        uczestników:</v-card-title
+      <v-card-title class="global_overview_label"
+        ><v-icon color="green" large class="global_overview_icon">mdi-account-group</v-icon>liczba
+        członków:</v-card-title
       >
 
       <v-card-text class="title" v-text="currentTeam.players.length"></v-card-text>
 
-      <v-card-title class="headline"
-        ><v-icon color="primary" class="mr-3">mdi-information</v-icon>informacje
-        dla uczestników:</v-card-title
+      <v-card-title class="global_overview_label"
+        ><v-icon color="green" large class="global_overview_icon">mdi-information</v-icon>informacje:</v-card-title
       >
 
       <v-card-text class="title" v-text="currentTeam.description"></v-card-text>
@@ -56,7 +55,7 @@
           text
           @click="joinOrGiveUp()"
         >
-          {{ playersIds.includes(currentUser.id) ? 'zrezygnuj' : 'dołącz' }}
+          {{ playersIds.includes(currentUser.id) ? 'OPUŚĆ' : 'DOŁĄCZ' }}
           <v-icon
             :color="playersIds.includes(currentUser.id) ? 'error' : 'green'"
             right
@@ -70,24 +69,23 @@
       </v-card-actions>
     </v-card>
 
-    <p id="event_details_caption" class="global_caption">Uczestnicy</p>
+    <p id="team_overview_lower_caption" class="global_caption">Członkowie</p>
+
     <v-card
+      id="team_overview_participant"
       class="mx-auto ma-1"
-      min-width="80%"
-      max-width="80%"
-      padding="20px"
       v-for="player in currentTeam.players"
       :key="player.id"
       elevation="12"
     >
       <v-row>
-        <v-col class="hidden-sm-and-down" align="center">
+        <!--<v-col class="hidden-sm-and-down" align="center">
           <v-avatar color="indigo ma-5" size="50">
             <span class="white--text headline">{{
               getInitials(player.name)
             }}</span>
           </v-avatar>
-        </v-col>
+        </v-col>!-->
 
         <v-col class="text-no-wrap">
           <v-card-title>imię i nazwisko</v-card-title>
@@ -115,22 +113,22 @@
             v-if="isManager && player.id != currentUser.id"
             color="error ma-8"
             :loading="loadingDelPlayer && selectedDelBtns.includes(player.id)"
-            large
-            dark
             @click.once="deletePlayer(player.id)"
           >
-            Usuń
+            USUŃ
           </v-btn>
         </v-col>
       </v-row>
     </v-card>
 
-    <p id="event_details_caption" class="global_caption">Manager</p>
+
+
+
+
+    <p id="team_overview_lower_caption" class="global_caption">Manager</p>
     <v-card
-      class="mx-auto mb-12"
-      min-width="80%"
-      max-width="80%"
-      padding="20px"
+      id="team_overview_participant"
+      class="mx-auto ma-1"
       elevation="12"
     >
       <v-row>
@@ -140,13 +138,17 @@
           <v-card-text v-text="currentTeam.manager.name"></v-card-text>
         </v-col>
 
-        <v-col class="text-no-wrap flex-sm">
+        <v-col class="text-no-wrap">
           <v-card-title> kontakt: </v-card-title>
 
           <v-card-text v-text="currentTeam.manager.email"></v-card-text>
         </v-col>
       </v-row>
     </v-card>
+
+    <p></p>
+
+
     <v-dialog transition="dialog-bottom-transition" max-width="600">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
@@ -155,25 +157,25 @@
           color="error"
           v-bind="attrs"
           v-on="on"
-          >Rozwiąż drużyne</v-btn
+          >ROZWIĄŻ DRUŻYNĘ</v-btn
         >
       </template>
       <template v-slot:default="dialog">
         <v-card>
           <v-toolbar color="error" dark
-            >Czy na pewno chcesz usunąć drużyne ?</v-toolbar
+            >Czy na pewno chcesz usunąć drużynę?</v-toolbar
           >
           <v-card-text>
             <div class="text-h5 pa-12">
-              Tej akcji nie można cofnąć, drużyna zostanie usunięta i wszyscy
+              Tej akcji nie można cofnąć. Drużyna zostanie usunięta i wszyscy
               członkowie stracą do niej dostęp. Czy na pewno chcesz usunąć to
               wydarznie?
             </div>
           </v-card-text>
           <v-card-actions class="justify-end">
-            <v-btn text @click="dialog.value = false">Anuluj</v-btn>
+            <v-btn text @click="dialog.value = false">ANULUJ</v-btn>
             <v-btn text color="error" @click="deleteTeam(currentTeam.id)"
-              >Tak, Usuń</v-btn
+              >TAK, USUŃ DRUŻYNĘ</v-btn
             >
           </v-card-actions>
         </v-card>
@@ -219,12 +221,6 @@ export default {
   methods: {
     calculateAge(userBirthday) {
       return CalculateAge.calculateAge(userBirthday)
-    },
-    getInitials(name) {
-      return name
-        .split(' ')
-        .map((n) => n[0])
-        .join('');
     },
     joinOrGiveUp() {
       var that = this;
@@ -307,3 +303,12 @@ export default {
   },
 };
 </script>
+
+
+
+
+
+<style>
+@import '../styles/style_global.css';
+@import '../styles/style_team_overview.css';
+</style>
