@@ -4,17 +4,6 @@
     background-attachment: fixed;
 }
 
-/*#delete_account_div_background {
-    background-image: url('../assets/dark_blue_5.png');
-    background-size: cover;
-    height: 100vh;
-    width: 100vw;
-}
-
-#delete_account_space {
-    height: 1vh;
-}*/
-
 #delete_account_div {
     text-align: center;
     margin-top: 8%;

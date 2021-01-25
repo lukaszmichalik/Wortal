@@ -10,6 +10,7 @@ Vue.use(Router);
 
 export const router = new Router({
   mode: 'history',
+  scrollBehavior (to, from, savedPosition) { return { x: 0, y: 0 }},
   routes: [
     {
       path: '/',
@@ -41,6 +42,11 @@ export const router = new Router({
       path: '/editProfile',
       name: 'editProfile',
       component: () => import('./views/EditProfile.vue')
+    },
+    {
+      path: '/userProfileEdited',
+      name: 'userProfileEdited',
+      component: () => import('./views/UserProfileEdited.vue')
     },
     {
       path: '/yourEvents',
@@ -90,11 +96,6 @@ export const router = new Router({
     {
       path: '/DeleteAccount',
       component: DeleteAccount
-    },
-    {
-      path: '/userProfileEdited',
-      name: 'userProfileEdited',
-      component: () => import('./views/UserProfileEdited.vue')
     }
   ]
 });

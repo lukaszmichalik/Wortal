@@ -19,17 +19,13 @@
     margin-bottom: 30px;
 }
 
-
-
-
-
 @media screen and (max-width: 616px) {
     #team_overview_participant {
         height: 230px;
     }
-  }
-  
-  @media screen and (max-width: 500px) {
+}
+
+@media screen and (max-width: 500px) {
     #team_overview_col {
         margin-bottom: -10px;
         max-width: 300px;
@@ -71,10 +67,10 @@
     #team_overview_buttons_div {
         margin-top: 60px;
     }
-  }
-  
-  @media screen and (max-width: 360px) {
+}
+
+@media screen and (max-width: 360px) {
     #team_overview_participant {
         height: 370px;
     }
-  }
+}

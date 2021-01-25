@@ -1,30 +1,31 @@
 <template>
   <v-app class="global_app">
-    <p id="team_overview_caption" class="global_caption">{{currentTeam.name}}</p>
-    
-    <v-card
-      class="mx-auto ma-5"
-      width="80vw"
-      padding="20px"
-      elevation="12"
-    >
+    <p id="team_overview_caption" class="global_caption">
+      {{ currentTeam.name }}
+    </p>
+
+    <v-card class="mx-auto ma-5" width="80vw" padding="20px" elevation="12">
       <v-card-title class="global_overview_label"
-        ><v-icon color="green" large class="global_overview_icon">mdi-shield</v-icon>
+        ><v-icon color="green" large class="global_overview_icon"
+          >mdi-shield</v-icon
+        >
         nazwa drużyny:</v-card-title
       >
 
       <v-card-text class="title" v-text="currentTeam.name"></v-card-text>
 
       <v-card-title class="global_overview_label"
-        ><v-icon color="green" large class="global_overview_icon">mdi-map-marker</v-icon
+        ><v-icon color="green" large class="global_overview_icon"
+          >mdi-map-marker</v-icon
         >miasto:</v-card-title
       >
 
       <v-card-text class="title" v-text="currentTeam.location"></v-card-text>
 
       <v-card-title class="global_overview_label"
-        ><v-icon color="green" large class="global_overview_icon">mdi-calendar-question</v-icon>data
-        utworzenia:</v-card-title
+        ><v-icon color="green" large class="global_overview_icon"
+          >mdi-calendar-question</v-icon
+        >data utworzenia:</v-card-title
       >
 
       <v-card-text
@@ -33,14 +34,20 @@
       ></v-card-text>
 
       <v-card-title class="global_overview_label"
-        ><v-icon color="green" large class="global_overview_icon">mdi-account-group</v-icon>liczba
-        członków:</v-card-title
+        ><v-icon color="green" large class="global_overview_icon"
+          >mdi-account-group</v-icon
+        >liczba członków:</v-card-title
       >
 
-      <v-card-text class="title" v-text="currentTeam.players.length"></v-card-text>
+      <v-card-text
+        class="title"
+        v-text="currentTeam.players.length"
+      ></v-card-text>
 
       <v-card-title class="global_overview_label"
-        ><v-icon color="green" large class="global_overview_icon">mdi-information</v-icon>informacje:</v-card-title
+        ><v-icon color="green" large class="global_overview_icon"
+          >mdi-information</v-icon
+        >informacje:</v-card-title
       >
 
       <v-card-text class="title" v-text="currentTeam.description"></v-card-text>
@@ -79,14 +86,6 @@
       elevation="12"
     >
       <v-row>
-        <!--<v-col class="hidden-sm-and-down" align="center">
-          <v-avatar color="indigo ma-5" size="50">
-            <span class="white--text headline">{{
-              getInitials(player.name)
-            }}</span>
-          </v-avatar>
-        </v-col>!-->
-
         <v-col class="text-no-wrap">
           <v-card-title>imię i nazwisko</v-card-title>
 
@@ -121,16 +120,8 @@
       </v-row>
     </v-card>
 
-
-
-
-
     <p id="team_overview_lower_caption" class="global_caption">Manager</p>
-    <v-card
-      id="team_overview_participant"
-      class="mx-auto ma-1"
-      elevation="12"
-    >
+    <v-card id="team_overview_participant" class="mx-auto ma-1" elevation="12">
       <v-row>
         <v-col class="text-no-wrap">
           <v-card-title> imię i nazwisko:</v-card-title>
@@ -147,7 +138,6 @@
     </v-card>
 
     <p></p>
-
 
     <v-dialog transition="dialog-bottom-transition" max-width="600">
       <template v-slot:activator="{ on, attrs }">
@@ -169,7 +159,8 @@
           <v-card-text>
             <div class="text-h5 pa-4">
               Tej akcji nie można cofnąć. Drużyna zostanie usunięta i wszyscy
-              członkowie stracą do niej dostęp. Czy na pewno chcesz usunąć tę drużynę?
+              członkowie stracą do niej dostęp. Czy na pewno chcesz usunąć tę
+              drużynę?
             </div>
           </v-card-text>
           <v-card-actions class="justify-end">
@@ -183,6 +174,9 @@
     </v-dialog>
   </v-app>
 </template>
+
+
+
 
 
  <script>
@@ -220,7 +214,7 @@ export default {
   },
   methods: {
     calculateAge(userBirthday) {
-      return CalculateAge.calculateAge(userBirthday)
+      return CalculateAge.calculateAge(userBirthday);
     },
     joinOrGiveUp() {
       var that = this;
@@ -284,7 +278,7 @@ export default {
       this.$router.push('/yourTeams');
     },
     formatDate(date) {
-     return DateFormatter.formatDate(date)
+      return DateFormatter.formatDate(date);
     },
   },
 

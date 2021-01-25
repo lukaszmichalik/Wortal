@@ -2,8 +2,7 @@
   <v-app class="global_app">
     <p id="all_events_caption" class="global_caption">Wszystkie wydarzenia</p>
 
-    <!--<v-col justify="center" align="center" margin-bottom="0px">!-->
-      <div class="mx-auto ma-5">
+    <div class="mx-auto ma-5">
       <v-autocomplete
         v-model="searchCity"
         :items="myJson"
@@ -13,12 +12,7 @@
         background-color="white"
         no-data-text="brak podanej miejscowości"
       />
-      </div>
-    <!--</v-col>!-->
-
-    <!--<div class="global_div_centerize">
-      <p class="global_no_events_label">brak wydarzeń</p>
-    </div>!-->
+    </div>
 
     <v-col
       id="all_events_list"
@@ -32,9 +26,8 @@
           class="global_event_card"
           v-if="event.city == searchCity || !searchCity"
         >
-          <!-- v-if="event.city == searchCity || !searchCity" !-->
           <v-img
-            :src="getImgUrl(event.surface)"
+            :src="getImg(event.surface)"
             v-bind:alt="event.surface"
             height="200px"
             aspect-ratio="2.75"
@@ -106,6 +99,9 @@
 </template>
 
 
+
+
+
 <script>
 import EventService from '../services/event.service';
 import json from '../resources/miasta.json';
@@ -154,22 +150,11 @@ export default {
         that.$router.push('/eventOverview');
       }, 500);
     },
-    getImgUrl(surface) {
-      return LoadSurfaceImg.getImgUrl(surface);
+    getImg(surface) {
+      return LoadSurfaceImg.getImg(surface);
     },
     getDayOfWeek(date) {
-      return DateFormatter.getDayOfWeek(date)
-      /*var eventDate = new Date(date);
-      var daysOfWeek = [
-        'niedziela',
-        'poniedziałek',
-        'wtorek',
-        'środa',
-        'czwartek',
-        'piątek',
-        'sobota',
-      ][eventDate.getDay()];
-      return daysOfWeek;*/
+      return DateFormatter.getDayOfWeek(date);
     },
     formatDate(date) {
       return DateFormatter.formatDate(date);
@@ -186,6 +171,10 @@ export default {
   },
 };
 </script>
+
+
+
+
 
 <style>
 @import '../styles/style_global.css';

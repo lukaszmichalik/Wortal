@@ -1,5 +1,4 @@
 <template>
-  <!--<div id="login_background">!-->
   <v-app id="login_app">
     <div id="login_div" class="global_div">
       <img

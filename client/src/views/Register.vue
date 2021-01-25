@@ -139,14 +139,27 @@
             />
           </div>
 
-          <label class="global_error" id="register_error" v-if="registerFailed == 'login in usage'">
+          <label
+            class="global_error"
+            id="register_error"
+            v-if="registerFailed == 'login in usage'"
+          >
             REJESTRACJA NIE POWIODŁA SIĘ. LOGIN JEST JUŻ ZAJĘTY.
           </label>
-          <label class="global_error" id="register_error" v-if="registerFailed == 'email in usage'">
+          <label
+            class="global_error"
+            id="register_error"
+            v-if="registerFailed == 'email in usage'"
+          >
             REJESTRACJA NIE POWIODŁA SIĘ. ADRES E-MAIL JEST JUŻ W UŻYCIU.
           </label>
-          <label class="global_error" id="register_error" v-if="registerFailed == 'input error'">
-            REJESTRACJA NIE POWIODŁA SIĘ. WYPEŁNIJ POPRAWNIE WSZYSTKIE POLA FORMULARZA.
+          <label
+            class="global_error"
+            id="register_error"
+            v-if="registerFailed == 'input error'"
+          >
+            REJESTRACJA NIE POWIODŁA SIĘ. WYPEŁNIJ POPRAWNIE WSZYSTKIE POLA
+            FORMULARZA.
           </label>
 
           <div class="submit">
@@ -172,7 +185,12 @@
 import User from '../models/user';
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
-import { required, email, minLength, maxLength } from 'vuelidate/lib/validators';
+import {
+  required,
+  email,
+  minLength,
+  maxLength,
+} from 'vuelidate/lib/validators';
 
 Vue.use(Vuelidate);
 
@@ -202,7 +220,7 @@ export default {
       name: {
         required,
         minLength: minLength(3),
-        maxLength: maxLength(50)
+        maxLength: maxLength(50),
       },
       dob: {
         required,
@@ -210,16 +228,16 @@ export default {
       email: {
         required,
         email,
-        maxLength: maxLength(50)
+        maxLength: maxLength(50),
       },
       username: {
         required,
-        maxLength: maxLength(50)
+        maxLength: maxLength(50),
       },
       password: {
         required,
         minLength: minLength(6),
-        maxLength: maxLength(120)
+        maxLength: maxLength(120),
       },
     },
   },
@@ -232,7 +250,6 @@ export default {
         this.$store.dispatch('auth/register', this.user).then(
           (data) => {
             this.message = data.message;
-            //this.successful = true;
             this.$router.push('/Welcome');
           },
           (error) => {
@@ -242,7 +259,6 @@ export default {
                 error.response.data.message) ||
               error.message ||
               error.toString();
-            //this.successful = false;
             if (this.message == 'Błąd: Taki login już istnieje!') {
               this.registerFailed = 'login in usage';
             } else if (
@@ -257,7 +273,6 @@ export default {
   },
 };
 </script>
-
 
 
 

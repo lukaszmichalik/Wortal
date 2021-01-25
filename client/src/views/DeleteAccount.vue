@@ -1,7 +1,5 @@
 <template>
   <v-app id="delete_account_app">
-    <!--<div id="delete_account_div_background">
-    <div id="delete_account_space" />!-->
     <div id="delete_account_div" class="global_div">
       <div id="delete_account_caption">
         Czy naprawdę chcesz usunąć swoje konto z serwisu? Utracisz dostęp do
@@ -25,8 +23,10 @@
       >
     </div>
   </v-app>
-  <!--</div>!-->
 </template>
+
+
+
 
 
 <script>
@@ -49,7 +49,6 @@ export default {
   },
   methods: {
     deleteUser() {
-
       this.loading = true;
 
       for (let i = 0; i < this.userManagedTeamsIds.length; i++) {
@@ -61,25 +60,26 @@ export default {
         UserService.deleteUser(that.currentUser.id);
         that.$store.dispatch('auth/logout');
         that.$router.push('/home');
-        that.loading = false
+        that.loading = false;
       }, 500);
-
     },
   },
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
-    }else{
-
-    TeamService.getUserManagedTeams(this.currentUser.id).then((data) => {
-      for (let i = 0; i < data.length; i++) {
-        this.userManagedTeamsIds.push(data[i].id);
-      }
-    });
+    } else {
+      TeamService.getUserManagedTeams(this.currentUser.id).then((data) => {
+        for (let i = 0; i < data.length; i++) {
+          this.userManagedTeamsIds.push(data[i].id);
+        }
+      });
     }
   },
 };
 </script>
+
+
+
 
 
 <style>

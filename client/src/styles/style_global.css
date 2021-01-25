@@ -71,15 +71,6 @@
   word-break: break-all;
 }
 
-/*.global_card {
-  background-color: #7BD300;
-  padding: 30px;
-  margin: 20px;
-  margin-bottom: 70px;
-  width: 70%;
-  border-radius: 1.5%;
-}*/
-
 .global_no_events_label {
   color: #ffffff;
   font-size: 20px;
@@ -184,7 +175,6 @@
   word-break: keep-all !important;
 }
 
-
 @media screen and (max-width: 500px) {
   .global_app {
     background-color: rgb(49, 110, 160) !important;
@@ -216,41 +206,21 @@
     font-size: 15px !important;
     width: 200px !important;
   }
-  /*.global_participants {
-    margin-top: 36px;
-    margin-left: 10px;
-    margin-bottom: 50px;
-    font-size: 24px;
-    color: rgb(255, 255, 255);
-  }
-  .global_card {
-    background-color: #7BD300;
-    padding: 16px;
-    margin: 20px;
-    margin-bottom: 50px;
-    width: 90%;
-  }*/
   .global_event_card_button {
     width: 160px !important;
   }
   #global_team_card {
     width: 90vw;
   }
-
-
   .global_event_card_date {
     margin-left: 0px;
   }
-  
   .global_event_card_day_of_week {
     margin-left: 17px;
   }
-  
   .global_event_card_time {
     margin-left: 15px;
   }
-
-
   .global_error {
     font-size: 16px;
     margin-left: 10vw;

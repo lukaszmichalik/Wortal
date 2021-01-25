@@ -1,5 +1,5 @@
 <template>
-    <v-app id="user_profile_app">
+  <v-app id="user_profile_app">
     <div id="user_profile_div" class="global_div">
       <p id="user_profile_caption" class="global_caption">Profil użytkownika</p>
 
@@ -40,7 +40,12 @@
 
       <br />
       <div id="user_profile_buttons_div" class="global_div_centerize">
-        <v-btn id="user_profile_button_edit" class="global_v_btn" to="/EditProfile">EDYTUJ</v-btn>
+        <v-btn
+          id="user_profile_button_edit"
+          class="global_v_btn"
+          to="/EditProfile"
+          >EDYTUJ</v-btn
+        >
         <br />
         <v-btn
           id="user_profile_button_delete_account"
@@ -50,15 +55,19 @@
         >
       </div>
     </div>
-    </v-app>
+  </v-app>
 </template>
+
+
+
+
 
 <script>
 import DateFormatter from '../utils/dateFormatter';
 
 export default {
   name: 'UserProfile',
-  data(){
+  data() {
     return {
       userValue: JSON.parse(localStorage.getItem('user')) || '',
     };
@@ -67,11 +76,10 @@ export default {
     currentUser() {
       return this.userValue;
     },
-    
   },
-  methods:{
+  methods: {
     formatDate(date) {
-     return DateFormatter.formatDate(date)
+      return DateFormatter.formatDate(date);
     },
   },
   mounted() {
@@ -81,6 +89,10 @@ export default {
   },
 };
 </script>
+
+
+
+
 
 <style>
 @import '../styles/style_user_profile.css';

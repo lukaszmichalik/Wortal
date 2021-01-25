@@ -14,7 +14,7 @@ class TeamService {
       manager_id: team.manager_id,
       players: team.players
 
-    },{ headers: authHeader() }).then(response => {
+    }, { headers: authHeader() }).then(response => {
       const newValue = {
         ...JSON.parse(localStorage.getItem("user")),
         team_id: response.data.id,
@@ -28,7 +28,7 @@ class TeamService {
   getTeam(id) {
     return axios.post(API_URL + 'getTeam', {
       id: id
-    },{ headers: authHeader() }).then(response => {
+    }, { headers: authHeader() }).then(response => {
       localStorage.setItem('team', JSON.stringify(response.data))
     })
   }
@@ -36,14 +36,14 @@ class TeamService {
   getTeamTest(id) {
     return axios.post(API_URL + 'getTeam', {
       id: id
-    },{ headers: authHeader() }).then(response => {
+    }, { headers: authHeader() }).then(response => {
       return Promise.resolve(response.data)
     })
   }
 
 
   allTeams() {
-    return axios.get(API_URL + 'allTeams',{ headers: authHeader() }).then(
+    return axios.get(API_URL + 'allTeams', { headers: authHeader() }).then(
       response => {
         return Promise.resolve(response.data)
       })
@@ -52,7 +52,7 @@ class TeamService {
   getUserTeams(id) {
     return axios.post(API_URL + 'getUserTeams', {
       id: id
-    },{ headers: authHeader() }).then(response => {
+    }, { headers: authHeader() }).then(response => {
       return Promise.resolve(response.data.teams)
     })
   }
@@ -60,13 +60,13 @@ class TeamService {
   getUserManagedTeams(id) {
     return axios.post(API_URL + 'getUserManagedTeams', {
       id: id
-    },{ headers: authHeader() }).then(response => {
+    }, { headers: authHeader() }).then(response => {
       return Promise.resolve(response.data.teams)
     })
   }
 
   allUsersWithoutTeam() {
-    return axios.get(API_URL + 'allUsersWithoutTeam',{ headers: authHeader() }).then(
+    return axios.get(API_URL + 'allUsersWithoutTeam', { headers: authHeader() }).then(
       response => {
         return Promise.resolve(response.data)
       })
@@ -76,24 +76,24 @@ class TeamService {
     return axios.post(API_URL + 'addUserToTeam', {
       userId: userId,
       teamId: teamId
-    },{ headers: authHeader() })
+    }, { headers: authHeader() })
   }
 
   deleteUserFromTeam(userId, teamId) {
     return axios.post(API_URL + 'deleteUserFromTeam', {
       userId: userId,
       teamId: teamId
-    },{ headers: authHeader() })
+    }, { headers: authHeader() })
   }
 
   deleteTeam(id) {
     return axios.post(API_URL + 'deleteTeam', {
-        id: id
-    },{ headers: authHeader() }).then(
-        response => {
-            return Promise.resolve(response.data)
-        })
-}
+      id: id
+    }, { headers: authHeader() }).then(
+      response => {
+        return Promise.resolve(response.data)
+      })
+  }
 
 
 }

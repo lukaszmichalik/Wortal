@@ -15,9 +15,7 @@
         <div v-if="currentUser" class="navbar-nav ml-auto">
           <!-- umieszcza LOGOUT po lewej stronie toolbara !-->
           <li class="nav-item">
-            <a class="nav-link" @click.prevent="logout">
-              <!--<font-awesome-icon icon="sign-out-alt" />!-->WYLOGUJ
-            </a>
+            <a class="nav-link" @click.prevent="logout">WYLOGUJ </a>
           </li>
           <v-navigation-drawer
             app
@@ -47,7 +45,10 @@
               <v-btn id="navigation_drawer_v_btn_red" to="/UserProfile"
                 >Profil użytkownika</v-btn
               >
-              <v-btn v-if="showAdminBoard" id="navigation_drawer_v_btn_red" to="/admin"
+              <v-btn
+                v-if="showAdminBoard"
+                id="navigation_drawer_v_btn_red"
+                to="/admin"
                 >Panel administratora</v-btn
               >
             </v-col>
@@ -56,25 +57,27 @@
       </nav>
 
       <v-main>
-      <v-container  fluid class="custom-container container-fluid">
-        <transition name="fade" mode="out-in" >
-          <router-view></router-view>
-        </transition>
-      </v-container>
-    </v-main>
+        <v-container fluid class="custom-container container-fluid">
+          <transition name="fade" mode="out-in">
+            <router-view></router-view>
+          </transition>
+        </v-container>
+      </v-main>
     </div>
   </v-app>
 </template>
 
 
-<script>
 
+
+
+<script>
 export default {
   name: 'Sidebar',
   data() {
     return {
       drawer: false,
-      loading:false
+      loading: false,
     };
   },
   computed: {
@@ -85,7 +88,7 @@ export default {
       if (this.currentUser && this.currentUser.roles) {
         return this.currentUser.roles.includes('ROLE_ADMIN');
       }
-    }
+    },
   },
   methods: {
     logout() {
@@ -97,15 +100,17 @@ export default {
 </script>
 
 
+
+
+
 <style>
 @import './styles/style_sidebar.css';
 
 .container-fluid.custom-container {
   padding: 0px;
   min-width: 100%;
-};
-v-btn:hover{
+}
+v-btn:hover {
   opacity: 0.5;
-};
-
+}
 </style>

@@ -3,13 +3,13 @@
     <p id="your_events_caption" class="global_caption">Twoje wydarzenia</p>
 
     <v-card
-    id="event_card"
+      id="event_card"
       v-for="event in events"
       :key="event.id"
       class="mx-auto ma-5"
     >
       <v-img
-        :src="getImgUrl(event.surface)"
+        :src="getImg(event.surface)"
         v-bind:alt="event.surface"
         height="200px"
         aspect-ratio="2.75"
@@ -21,48 +21,44 @@
         </v-card-title>
 
         <p class="global_event_card_day_of_week">
-              {{ getDayOfWeek(event.date) }}
-            </p>
+          {{ getDayOfWeek(event.date) }}
+        </p>
 
         <p class="global_event_card_time">{{ event.time }}</p>
       </v-img>
 
       <v-card-title v-if="loaded">
-          <v-icon color="green" medium> mdi-map-marker </v-icon>
-          {{ event.city }}
-        </v-card-title>
+        <v-icon color="green" medium> mdi-map-marker </v-icon>
+        {{ event.city }}
+      </v-card-title>
 
       <v-card-subtitle v-if="loaded" class="global_event_card_address">
-          {{ event.address }}
-        </v-card-subtitle>
+        {{ event.address }}
+      </v-card-subtitle>
 
       <v-card-text>
-          <v-icon color="green" medium> mdi-account </v-icon>
-          limit uczestników: {{ event.limitation }}
-        </v-card-text>
+        <v-icon color="green" medium> mdi-account </v-icon>
+        limit uczestników: {{ event.limitation }}
+      </v-card-text>
 
       <v-card-actions>
         <v-btn
-            class="global_event_card_button"
-            :loading="loading"
-            @click="enterEventInfo(event.id)"
-          >
-            PRZEGLĄDAJ
-          </v-btn>
+          class="global_event_card_button"
+          :loading="loading"
+          @click="enterEventInfo(event.id)"
+        >
+          PRZEGLĄDAJ
+        </v-btn>
 
         <v-spacer></v-spacer>
 
-        <v-btn
-            v-if="event.description != ''"
-            icon
-            @click="selected(event.id)"
-          >
-            <v-icon>{{
-              selectedCards.includes(event.id)
-                ? 'mdi-chevron-up'
-                : 'mdi-chevron-down'
-            }}</v-icon>
-          </v-btn>
+        <v-btn v-if="event.description != ''" icon @click="selected(event.id)">
+          <v-icon>{{
+            selectedCards.includes(event.id)
+              ? 'mdi-chevron-up'
+              : 'mdi-chevron-down'
+          }}</v-icon>
+        </v-btn>
       </v-card-actions>
 
       <v-expand-transition>
@@ -79,9 +75,11 @@
 </template>
 
 
+
+
+
 <script>
 import EventService from '../services/event.service';
-import dateFormatter from '../utils/dateFormatter';
 import DateFormatter from '../utils/dateFormatter';
 import LoadSurfaceImg from '../utils/loadSurfaceImg';
 
@@ -108,18 +106,7 @@ export default {
   },
   methods: {
     getDayOfWeek(date) {
-      return DateFormatter.getDayOfWeek(date)
-      /*var eventDate = new Date(date);
-      var daysOfWeek = [
-        'niedziela',
-        'poniedziałek',
-        'wtorek',
-        'środa',
-        'czwartek',
-        'piątek',
-        'sobota',
-      ][eventDate.getDay()];
-      return daysOfWeek;*/
+      return DateFormatter.getDayOfWeek(date);
     },
     selected(id) {
       if (this.selectedCards.includes(id)) {
@@ -140,8 +127,8 @@ export default {
         that.$router.push('/eventOverview');
       }, 500);
     },
-    getImgUrl(surface) {
-      return LoadSurfaceImg.getImgUrl(surface);
+    getImg(surface) {
+      return LoadSurfaceImg.getImg(surface);
     },
     formatDate(date) {
       return DateFormatter.formatDate(date);
@@ -160,7 +147,11 @@ export default {
 };
 </script>
 
+
+
+
+
 <style>
 @import '../styles/style_global.css';
-@import '../styles/style_your_events.css'
+@import '../styles/style_your_events.css';
 </style>

@@ -128,30 +128,30 @@
         />
       </v-col>
 
-<div class="global_div_centerize">
-      <label
-        id="edit_profile_error"
-        class="global_error"
-        v-if="editFailed == 'input error'"
-      >
-        EDYCJA DANYCH NIE POWIODŁA SIĘ. WYPEŁNIJ POPRAWNIE WSZYSTKIE POLA
-        FORMULARZA.
-      </label>
-      <label
-        id="edit_profile_error"
-        class="global_error"
-        v-if="editFailed == 'different passwords'"
-      >
-        EDYCJA DANYCH NIE POWIODŁA SIĘ. PODANE HASŁA SIĘ RÓŻNIĄ.
-      </label>
-      <label
-        id="edit_profile_error"
-        class="global_error"
-        v-if="editFailed == 'edit failed'"
-      >
-        EDYCJA DANYCH NIE POWIODŁA SIĘ.
-      </label>
-</div>
+      <div class="global_div_centerize">
+        <label
+          id="edit_profile_error"
+          class="global_error"
+          v-if="editFailed == 'input error'"
+        >
+          EDYCJA DANYCH NIE POWIODŁA SIĘ. WYPEŁNIJ POPRAWNIE WSZYSTKIE POLA
+          FORMULARZA.
+        </label>
+        <label
+          id="edit_profile_error"
+          class="global_error"
+          v-if="editFailed == 'different passwords'"
+        >
+          EDYCJA DANYCH NIE POWIODŁA SIĘ. PODANE HASŁA SIĘ RÓŻNIĄ.
+        </label>
+        <label
+          id="edit_profile_error"
+          class="global_error"
+          v-if="editFailed == 'edit failed'"
+        >
+          EDYCJA DANYCH NIE POWIODŁA SIĘ.
+        </label>
+      </div>
 
       <div id="edit_profile_buttons_div" class="global_div_centerize">
         <v-btn
@@ -179,7 +179,6 @@
 
 <script>
 import UserService from '../services/user.service';
-import AuthService from '../services/auth.service';
 import User from '../models/user';
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
@@ -203,7 +202,7 @@ export default {
       message: '',
       userValue: JSON.parse(localStorage.getItem('user')) || '',
       editFailed: '',
-      loading: false
+      loading: false,
     };
   },
   computed: {
@@ -240,23 +239,22 @@ export default {
       this.$router.push('/userProfile');
     },
     handleEdit() {
-      this.loading = true
+      this.loading = true;
       var that = this;
 
       this.$v.$touch();
       if (this.$v.$pendind || this.$v.$error) {
         this.editFailed = 'input error';
+        this.loading = false;
       } else {
         if (this.user.password == this.confirmPassword) {
           this.user.id = this.currentUser.id;
           UserService.editUser(this.user).then(
             () => {
               setTimeout(function () {
-                //console.log("eoeooeoeo");
-              //that.$router.push('/home');
-              that.$store.dispatch('auth/logout');
-              that.$router.push('/userProfileEdited');
-              that.loading = true
+                that.$store.dispatch('auth/logout');
+                that.$router.push('/userProfileEdited');
+                that.loading = true;
               }, 500);
             },
             (error) => {
@@ -267,13 +265,12 @@ export default {
                   error.response.data.message) ||
                 error.message ||
                 error.toString();
-                this.editFailed = "edit failed";
+              this.editFailed = 'edit failed';
             }
           );
-          
-          
         } else {
           this.editFailed = 'different passwords';
+          this.loading = false;
         }
       }
     },

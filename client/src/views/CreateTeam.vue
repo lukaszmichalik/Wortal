@@ -70,64 +70,67 @@
         </p>
 
         <v-col id="create_team_participants_list">
+          <div class="global_search" id="create_team_search">
+            <v-autocomplete
+              v-model="selectedName"
+              :items="names"
+              label="wyszukaj po imieniu i nazwisku"
+              filled
+              hide-details
+              background-color="white"
+              no-data-text="brak użytkowników"
+            />
+          </div>
 
-        <div class="global_search" id="create_team_search">
-          <v-autocomplete
-            v-model="selectedName"
-            :items="names"
-            label="wyszukaj po imieniu i nazwisku"
-            filled
-            hide-details
-            background-color="white"
-            no-data-text="brak użytkowników"
-          />
-        </div>
-
-<div id="create_team_list">
-        <div
-          v-for="user in users"
-          :key="user.id"
-        >
-        <div>
-          <v-card
-            id="create_team_participant" 
-            padding="20px"
-            v-if="(user.name == selectedName || !selectedName) && user.name!=currentUser.name"
-            elevation="12"
-          >
-            <v-row>
-              <v-col class="text-no-wrap">
-                <v-card-title>imię i nazwisko</v-card-title>
-                <v-card-text v-text="user.name"></v-card-text>
-              </v-col>
-
-              <v-col class="text-no-wrap">
-                <v-card-title>pozycja</v-card-title>
-                <v-card-text v-text="user.position"></v-card-text>
-              </v-col>
-
-              <v-col class="hidden-sm-and-down">
-                <!-- chowa wiek, gdy za mało miejsca !-->
-                <v-card-title>wiek</v-card-title>
-                <v-card-text
-                  v-text="calculateAge(user.dob) + ' lat'"
-                ></v-card-text>
-              </v-col>
-
-              <v-col class="text-no-wrap">
-                <v-btn
-                  :color="selectedUsers.includes(user.id) ? 'error' : 'green'"
-                  @click="addTeammate(user.id)"
-                  id="create_team_add_participant_button"
+          <div id="create_team_list">
+            <div v-for="user in users" :key="user.id">
+              <div>
+                <v-card
+                  id="create_team_participant"
+                  padding="20px"
+                  v-if="
+                    (user.name == selectedName || !selectedName) &&
+                    user.name != currentUser.name
+                  "
+                  elevation="12"
                 >
-                  {{ selectedUsers.includes(user.id) ? 'ANULUJ' : 'DODAJ' }}
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card>
-        </div>
-        </div>
-</div>
+                  <v-row>
+                    <v-col class="text-no-wrap">
+                      <v-card-title>imię i nazwisko</v-card-title>
+                      <v-card-text v-text="user.name"></v-card-text>
+                    </v-col>
+
+                    <v-col class="text-no-wrap">
+                      <v-card-title>pozycja</v-card-title>
+                      <v-card-text v-text="user.position"></v-card-text>
+                    </v-col>
+
+                    <v-col class="hidden-sm-and-down">
+                      <!-- chowa wiek, gdy za mało miejsca !-->
+                      <v-card-title>wiek</v-card-title>
+                      <v-card-text
+                        v-text="calculateAge(user.dob) + ' lat'"
+                      ></v-card-text>
+                    </v-col>
+
+                    <v-col class="text-no-wrap">
+                      <v-btn
+                        :color="
+                          selectedUsers.includes(user.id) ? 'error' : 'green'
+                        "
+                        @click="addTeammate(user.id)"
+                        id="create_team_add_participant_button"
+                      >
+                        {{
+                          selectedUsers.includes(user.id) ? 'ANULUJ' : 'DODAJ'
+                        }}
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </div>
+            </div>
+          </div>
         </v-col>
 
         <!-- CARDS USERS ENDING -->
@@ -172,17 +175,16 @@
 </template>
 
 
+
+
+
 <script>
 import UserService from '../services/user.service';
 import TeamService from '../services/team.service';
 import Team from '../models/team';
 import json from '../resources/miasta.json';
 import CalculateAge from '../utils/calculateAge';
-import {
-  required,
-  maxLength,
-} from 'vuelidate/lib/validators';
-
+import { required, maxLength } from 'vuelidate/lib/validators';
 
 export default {
   name: 'CreateTeam',
@@ -198,7 +200,7 @@ export default {
       creatingTeamFailed: '',
       names: [''],
       selectedName: '',
-      loading: false
+      loading: false,
     };
   },
   computed: {
@@ -222,27 +224,25 @@ export default {
   },
   methods: {
     createTeam() {
-
-      this.loading = true
+      this.loading = true;
       var that = this;
 
       this.$v.$touch();
       if (this.$v.$pendind || this.$v.$error) {
         this.creatingTeamFailed = 'input error';
-        this.loading = false
+        this.loading = false;
       } else {
         this.team.creationDate = Date.now();
         TeamService.createTeam(this.team).then(
           (this.successful = true),
           setTimeout(function () {
-          that.$router.push('/yourTeams'),
-          that.loading = false
+            that.$router.push('/yourTeams'), (that.loading = false);
           }, 500)
         );
       }
     },
     calculateAge(userBirthday) {
-      return CalculateAge.calculateAge(userBirthday)
+      return CalculateAge.calculateAge(userBirthday);
     },
     addTeammate(userId) {
       if (this.selectedUsers.includes(userId)) {

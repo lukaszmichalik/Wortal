@@ -1,5 +1,4 @@
 <template>
-  <!--<div id="welcome_div_background">!-->
   <v-app id="welcome_app">
     <div id="welcome_space" />
     <div id="welcome_div" class="global_div">

@@ -115,90 +115,56 @@
 
 @media screen and (max-width: 616px) {
   #create_team_participant {
-      height: 230px;
+    height: 230px;
   }
 }
 
 @media screen and (max-width: 500px) {
   #create_team_col {
-      margin-bottom: -10px;
-      max-width: 300px;
-      margin-left: 6px;
+    margin-bottom: -10px;
+    max-width: 300px;
+    margin-left: 6px;
   }
   #create_team_label {
-      font-size: 23px;
-      font-weight: 410;
-      margin-bottom: 10px;
-      margin-top: 20px;
+    font-size: 23px;
+    font-weight: 410;
+    margin-bottom: 10px;
+    margin-top: 20px;
   }
   #create_team_label_city {
-      font-size: 23px;
-      font-weight: 410;
-      margin-bottom: 10px;
-      margin-top: 20px;
+    font-size: 23px;
+    font-weight: 410;
+    margin-bottom: 10px;
+    margin-top: 20px;
   }
   .create_team_data {
-      font-size: 26px;
-      margin-left: 0px;
-      font-weight: 300;
+    font-size: 26px;
+    margin-left: 0px;
+    font-weight: 300;
   }
   #create_team_participants_list {
-      width: 90vw;
-      margin-left: 2%;
-      margin-top: 10px;
-      margin-bottom: 30px;
+    width: 90vw;
+    margin-left: 2%;
+    margin-top: 10px;
+    margin-bottom: 30px;
   }
   #create_team_participant {
-      height: 270px;
-      width: 90vw;
+    height: 270px;
+    width: 90vw;
   }
   .create_team_input_required {
-      margin-bottom: -40px;
+    margin-bottom: -40px;
   }
   #create_team_error {
-      width: 200px;
+    width: 200px;
   }
   #create_team_buttons_div {
-      margin-top: 60px;
+    margin-top: 60px;
   }
 }
 
 @media screen and (max-width: 360px) {
   #create_team_participant {
-      height: 370px;
+    height: 370px;
   }
 }
-
-
-
-
-
-
-
-
-/*#create_team_caption {
-  margin-bottom: 70px;
-}
-
-#create_team_p {
-  margin-top: 20px;
-}
-
-#create_team_name {
-  margin-bottom: 90px;
-}
-
-#create_team_button_create {
-  margin-top: 90px;
-  margin-left: -0.5%;
-  margin-bottom: 30px;
-}
-
-@media screen and (max-width: 500px) {
-  #create_team_caption {
-    margin-bottom: 40px;
-  }
-  #create_team_name {
-    margin-bottom: 36px;
-  }
-}*/

@@ -88,6 +88,10 @@
   </v-app>
 </template>
 
+
+
+
+
 <script>
 import UserService from '../services/user.service';
 import TeamService from '../services/team.service';
@@ -145,18 +149,17 @@ export default {
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
-    }else{
-
-    if (!this.currentUser.roles.includes("ROLE_ADMIN")) {
-      this.$router.push('/yourEvents');
-    }
-
-    UserService.allUsers().then((data) => {
-      for (let i = 0; i < data.length; i++) {
-        this.names.push(data[i].name);
+    } else {
+      if (!this.currentUser.roles.includes('ROLE_ADMIN')) {
+        this.$router.push('/yourEvents');
       }
-      this.users = data;
-    });
+
+      UserService.allUsers().then((data) => {
+        for (let i = 0; i < data.length; i++) {
+          this.names.push(data[i].name);
+        }
+        this.users = data;
+      });
     }
   },
 };

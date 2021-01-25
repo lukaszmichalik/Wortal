@@ -54,12 +54,6 @@
           <p class="create_event_input_required" v-if="!$v.event.date.required">
             to pole jest wymagane
           </p>
-          <!--<v-date-picker
-            :first-day-of-week="1"
-            v-model="event.date"
-            locale="pl-PL"
-            :min="new Date().toISOString().substr(0, 10)"
-          ></v-date-picker>!-->
           <div margin-left="8px">
             <v-date-picker
               id="date_picker"
@@ -308,12 +302,13 @@
             NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA. WYDARZENIE MUSI ODBYWAĆ SIĘ W
             PRZYSZŁOŚCI.
           </label>
-                    <label
+          <label
             id="create_event_error"
             class="global_error"
             v-if="creatingEventFailed == 'limitation error'"
           >
-            NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA. ZWIĘKSZ LIMIT UCZESTNIKÓW LUB USUŃ KILKU GRACZY.
+            NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA. ZWIĘKSZ LIMIT UCZESTNIKÓW LUB
+            USUŃ KILKU GRACZY.
           </label>
           <label
             id="create_event_error"
@@ -344,6 +339,9 @@
     </div>
   </v-app>
 </template>
+
+
+
 
 
 <script>
@@ -424,78 +422,56 @@ export default {
 
       if (this.event.participants.length > this.event.limitation) {
         this.creatingEventFailed = 'limitation error';
-        //this.creatingEventFailed = 'creating event failed';
         this.loading = false;
         return;
       } else {
         this.$v.$touch();
-      if (this.$v.$pendind || this.$v.$error) {
-        this.creatingEventFailed = 'input error';
-        this.loading = false;
-      } else {
-        this.currentDate = new Date().toISOString().substr(0, 10);
-        this.currentTime = new Date().toISOString().substr(11, 5);
-        this.currentHour = this.currentTime.substr(0, 2);
-        this.currentMinute = this.currentTime.substr(3, 2);
-        this.currentHour = Number(this.currentHour) + 1;
-        this.currentTime =
-          this.currentHour.toString() + ':' + this.currentMinute;
-        /*console.log(this.currentHour);
-        console.log(this.currentMinute);
-        console.log(this.currentTime)*/
-        //console.log(this.event.time);
-        if (
-          this.event.date == this.currentDate &&
-          this.event.time <= this.currentTime
-        ) {
-          /*console.log(this.event.date);
-          console.log(this.currentDate);
-          console.log(this.event.time);
-          console.log(this.currentTime);*/
-          this.creatingEventFailed = 'date error';
+        if (this.$v.$pendind || this.$v.$error) {
+          this.creatingEventFailed = 'input error';
           this.loading = false;
         } else {
-          //console.log(new Date().toString());
-          //console.log(new Date().toISOString().substr(11, 5));
-          //console.log(this.event.time);
-          /*console.log(this.event.date);
-        console.log(new Date().toString().substr(0, 10));
-        console.log(new Date().toString());
-        console.log(this.event.time);
-        console.log(new Date().toString().substr(11, 8))
-        console.log(new Date().toString());*/
-          /*console.log(new Date().toISOString().substr(11, 5));
-        console.log((new Date().setHours(8)).toISOString());*/
-
-          EventService.createEvent(this.event).then(
-            (data) => {
-              this.message = data;
-              if (
-                this.message ==
-                'Twoje wydarzenie zostało poprawnie opublikowane!'
-              ) {
-                this.successful = true;
-                setTimeout(function () {
-                  that.$router.push('/yourEvents');
-                  that.loading = false;
-                }, 500);
+          this.currentDate = new Date().toISOString().substr(0, 10);
+          this.currentTime = new Date().toISOString().substr(11, 5);
+          this.currentHour = this.currentTime.substr(0, 2);
+          this.currentMinute = this.currentTime.substr(3, 2);
+          this.currentHour = Number(this.currentHour) + 1;
+          this.currentTime =
+            this.currentHour.toString() + ':' + this.currentMinute;
+          if (
+            this.event.date == this.currentDate &&
+            this.event.time <= this.currentTime
+          ) {
+            this.creatingEventFailed = 'date error';
+            this.loading = false;
+          } else {
+            EventService.createEvent(this.event).then(
+              (data) => {
+                this.message = data;
+                if (
+                  this.message ==
+                  'Twoje wydarzenie zostało poprawnie opublikowane!'
+                ) {
+                  this.successful = true;
+                  setTimeout(function () {
+                    that.$router.push('/yourEvents');
+                    that.loading = false;
+                  }, 500);
+                }
+              },
+              (error) => {
+                this.loading = false;
+                this.message =
+                  (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                  error.message ||
+                  error.toString();
+                this.creatingEventFailed = 'creating event failed';
               }
-            },
-            (error) => {
-              this.loading = false;
-              this.message =
-                (error.response &&
-                  error.response.data &&
-                  error.response.data.message) ||
-                error.message ||
-                error.toString();
-              this.creatingEventFailed = 'creating event failed';
-            }
-          );
+            );
+          }
         }
       }
-      }
-      
     },
     calculateAge(userBirthday) {
       return CalculateAge.calculateAge(userBirthday);

@@ -4,14 +4,11 @@
       Szczegóły wydarzenia
     </p>
 
-    <v-card
-      class="mx-auto ma-5"
-      width="80vw"
-      padding="20px"
-      elevation="12"
-    >
+    <v-card class="mx-auto ma-5" width="80vw" padding="20px" elevation="12">
       <v-card-title class="global_overview_label"
-        ><v-icon color="green" large class="global_overview_icon">mdi-map-marker</v-icon>
+        ><v-icon color="green" large class="global_overview_icon"
+          >mdi-map-marker</v-icon
+        >
         adres:</v-card-title
       >
 
@@ -21,25 +18,28 @@
       ></v-card-text>
 
       <v-card-title class="global_overview_label"
-        ><v-icon color="green" large class="global_overview_icon">mdi-clock-time-two</v-icon>data i
-        godzina:</v-card-title
+        ><v-icon color="green" large class="global_overview_icon"
+          >mdi-clock-time-two</v-icon
+        >data i godzina:</v-card-title
       >
 
       <v-card-text
         class="title"
-        v-text="formatDate(currentEvent.date)+ ', ' + currentEvent.time"
+        v-text="formatDate(currentEvent.date) + ', ' + currentEvent.time"
       ></v-card-text>
 
       <v-card-title class="global_overview_label"
-        ><v-icon color="green" large class="global_overview_icon">mdi-texture-box</v-icon>rodzaj
-        nawierzchni:</v-card-title
+        ><v-icon color="green" large class="global_overview_icon"
+          >mdi-texture-box</v-icon
+        >rodzaj nawierzchni:</v-card-title
       >
 
       <v-card-text class="title" v-text="currentEvent.surface"></v-card-text>
 
       <v-card-title class="global_overview_label"
-        ><v-icon color="green" large class="global_overview_icon">mdi-information</v-icon>informacje
-        dla uczestników:</v-card-title
+        ><v-icon color="green" large class="global_overview_icon"
+          >mdi-information</v-icon
+        >informacje dla uczestników:</v-card-title
       >
 
       <v-card-text
@@ -48,8 +48,9 @@
       ></v-card-text>
 
       <v-card-title class="global_overview_label"
-        ><v-icon color="green" large class="global_overview_icon">mdi-account</v-icon>limit
-        uczestników:</v-card-title
+        ><v-icon color="green" large class="global_overview_icon"
+          >mdi-account</v-icon
+        >limit uczestników:</v-card-title
       >
 
       <v-card-text
@@ -100,22 +101,13 @@
 
     <p id="event_overview_lower_caption" class="global_caption">Uczestnicy</p>
     <v-card
-    id="event_overview_participant"
+      id="event_overview_participant"
       class="mx-auto ma-1"
       v-for="participant in currentEvent.participants"
       :key="participant.id"
       elevation="12"
     >
-    
       <v-row>
-        <!--<v-col class="hidden-sm-and-down" align="center">
-          <v-avatar color="indigo ma-5" size="50">
-            <span class="white--text headline">{{
-              getInitials(participant.name)
-            }}</span>
-          </v-avatar>
-        </v-col>!-->
-
         <v-col class="text-no-wrap">
           <v-card-title>imię i nazwisko</v-card-title>
 
@@ -128,17 +120,18 @@
           <v-card-text v-text="participant.position"></v-card-text>
         </v-col>
 
-        <v-col class="hidden-sm-and-down" >
+        <v-col class="hidden-sm-and-down">
           <v-card-title>wiek</v-card-title>
 
-          <v-card-text align="left"
+          <v-card-text
+            align="left"
             v-text="calculateAge(participant.dob) + ' lat'"
           ></v-card-text>
         </v-col>
 
-        <v-col class="text-no-wrap" >
+        <v-col class="text-no-wrap">
           <v-btn
-            v-if="isAdmin && participant.id!=currentUser.id"
+            v-if="isAdmin && participant.id != currentUser.id"
             color="error ma-8"
             :loading="
               loadingDelParticipant && selectedDelBtns.includes(participant.id)
@@ -149,17 +142,12 @@
           </v-btn>
         </v-col>
       </v-row>
-      
     </v-card>
 
-
-
-
     <p id="event_overview_lower_caption" class="global_caption">Organizator</p>
-    <!--       class="mx-auto ma-1" !-->
     <v-card
-    id="event_overview_participant"
-    class="mx-auto ma-1"
+      id="event_overview_participant"
+      class="mx-auto ma-1"
       width="80vw"
       elevation="12"
     >
@@ -178,40 +166,38 @@
       </v-row>
     </v-card>
 
-<p></p>
+    <p></p>
 
     <v-dialog transition="dialog-bottom-transition" max-width="600">
       <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            v-if="isAdmin"
+        <v-btn
+          v-if="isAdmin"
           class="mx-auto my-8"
           color="error"
-            v-bind="attrs"
-            v-on="on"
-          >ODWOŁAJ WYDARZENIE</v-btn>
-        </template>
-        <template v-slot:default="dialog">
-          <v-card>
-            <v-toolbar
-              color="error"
-              dark
-            >Czy na pewno chcesz usunąć wydarzenie ?</v-toolbar>
-            <v-card-text>
-              <div class="text-h5 pa-4">Tej akcji nie można cofnąć. Czy na pewno chcesz odwołać to wydarznie?</div>
-            </v-card-text>
-            <v-card-actions class="justify-end">
-              <v-btn
-                text
-                @click="dialog.value = false"
-              >ANULUJ</v-btn>
-               <v-btn
-                text
-                color="error"
-                @click="deleteEvent(currentEvent.id)"
-              >ODWOŁAJ</v-btn>
-            </v-card-actions>
-          </v-card>
-        </template>
+          v-bind="attrs"
+          v-on="on"
+          >ODWOŁAJ WYDARZENIE</v-btn
+        >
+      </template>
+      <template v-slot:default="dialog">
+        <v-card>
+          <v-toolbar color="error" dark
+            >Czy na pewno chcesz usunąć wydarzenie ?</v-toolbar
+          >
+          <v-card-text>
+            <div class="text-h5 pa-4">
+              Tej akcji nie można cofnąć. Czy na pewno chcesz odwołać to
+              wydarznie?
+            </div>
+          </v-card-text>
+          <v-card-actions class="justify-end">
+            <v-btn text @click="dialog.value = false">ANULUJ</v-btn>
+            <v-btn text color="error" @click="deleteEvent(currentEvent.id)"
+              >ODWOŁAJ</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </template>
     </v-dialog>
   </v-app>
 </template>
@@ -236,7 +222,7 @@ export default {
       loading: false,
       loadingDelParticipant: false,
       hasAccess: true,
-      selectedDelBtns: []
+      selectedDelBtns: [],
     };
   },
   computed: {
@@ -255,10 +241,10 @@ export default {
   },
   methods: {
     formatDate(date) {
-     return DateFormatter.formatDate(date)
+      return DateFormatter.formatDate(date);
     },
     calculateAge(userBirthday) {
-      return CalculateAge.calculateAge(userBirthday)
+      return CalculateAge.calculateAge(userBirthday);
     },
     joinOrGiveUp() {
       var that = this;
@@ -319,28 +305,27 @@ export default {
 
     deleteEvent(id) {
       EventService.deleteEvent(id);
-      this.$router.push('/yourEvents')
+      this.$router.push('/yourEvents');
     },
   },
   mounted() {
     if (!this.currentUser) {
       this.$router.push('/login');
-    }else{
+    } else {
+      if (this.currentUser.id == this.eventValue.organizer_id.id) {
+        this.isAdmin = true;
+      }
 
-    if (this.currentUser.id == this.eventValue.organizer_id.id) {
-      this.isAdmin = true;
-    }
+      for (let i = 0; i < this.currentEvent.participants.length; i++) {
+        this.participantsIds.push(this.eventValue.participants[i].id);
+      }
 
-    for (let i = 0; i < this.currentEvent.participants.length; i++) {
-      this.participantsIds.push(this.eventValue.participants[i].id);
-    }
-
-    if (
-      this.participantsIds.length == this.currentEvent.limitation &&
-      !this.participantsIds.includes(this.currentUser.id)
-    ) {
-      this.hasAccess = false;
-    }
+      if (
+        this.participantsIds.length == this.currentEvent.limitation &&
+        !this.participantsIds.includes(this.currentUser.id)
+      ) {
+        this.hasAccess = false;
+      }
     }
   },
 };
