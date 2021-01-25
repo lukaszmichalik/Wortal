@@ -158,7 +158,8 @@ export default {
       return LoadSurfaceImg.getImgUrl(surface);
     },
     getDayOfWeek(date) {
-      var eventDate = new Date(date);
+      return DateFormatter.getDayOfWeek(date)
+      /*var eventDate = new Date(date);
       var daysOfWeek = [
         'niedziela',
         'poniedziałek',
@@ -168,7 +169,7 @@ export default {
         'piątek',
         'sobota',
       ][eventDate.getDay()];
-      return daysOfWeek;
+      return daysOfWeek;*/
     },
     formatDate(date) {
       return DateFormatter.formatDate(date);

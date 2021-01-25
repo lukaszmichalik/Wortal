@@ -81,6 +81,7 @@
 
 <script>
 import EventService from '../services/event.service';
+import dateFormatter from '../utils/dateFormatter';
 import DateFormatter from '../utils/dateFormatter';
 import LoadSurfaceImg from '../utils/loadSurfaceImg';
 
@@ -107,7 +108,8 @@ export default {
   },
   methods: {
     getDayOfWeek(date) {
-      var eventDate = new Date(date);
+      return DateFormatter.getDayOfWeek(date)
+      /*var eventDate = new Date(date);
       var daysOfWeek = [
         'niedziela',
         'poniedziałek',
@@ -117,7 +119,7 @@ export default {
         'piątek',
         'sobota',
       ][eventDate.getDay()];
-      return daysOfWeek;
+      return daysOfWeek;*/
     },
     selected(id) {
       if (this.selectedCards.includes(id)) {

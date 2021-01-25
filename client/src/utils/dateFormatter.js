@@ -45,6 +45,21 @@ class DateFormatter {
       }
 
 
+      getDayOfWeek(date) {
+        var eventDate = new Date(date);
+      var daysOfWeek = [
+        'niedziela',
+        'poniedziałek',
+        'wtorek',
+        'środa',
+        'czwartek',
+        'piątek',
+        'sobota',
+      ][eventDate.getDay()];
+      return daysOfWeek;
+      }
+
+
 }
 
 export default new DateFormatter();
