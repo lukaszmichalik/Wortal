@@ -9,6 +9,9 @@
         <p class="edit_profile_input_required" v-if="!$v.user.name.required">
           to pole jest wymagane
         </p>
+        <p class="edit_profile_input_required" v-if="!$v.user.name.minLength">
+          to pole musi zawierać minimum 3 znaki
+        </p>
         <p class="edit_profile_input_required" v-if="!$v.user.name.maxLength">
           to pole może zawierać maksymalnie 50 znaków
         </p>
@@ -79,6 +82,9 @@
           v-if="!$v.user.username.required"
         >
           to pole jest wymagane
+        </p>
+        <p class="edit_profile_input_required" v-if="!$v.user.username.minLength">
+          to pole musi zawierać minimum 3 znaki
         </p>
         <p
           class="edit_profile_input_required"
@@ -214,6 +220,7 @@ export default {
     user: {
       name: {
         required,
+        minLength: minLength(3),
         maxLength: maxLength(50),
       },
       dob: {
@@ -226,6 +233,7 @@ export default {
       },
       username: {
         required,
+        minLength: minLength(3),
         maxLength: maxLength(50),
       },
       password: {

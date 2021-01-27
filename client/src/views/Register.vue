@@ -95,6 +95,12 @@
               to pole jest wymagane
             </div>
             <div
+              v-if="!$v.user.username.minLength"
+              class="global_input_required"
+            >
+              to pole musi zawierać minimum 3 znaki
+            </div>
+            <div
               v-if="!$v.user.username.maxLength"
               class="global_input_required"
             >
@@ -232,6 +238,7 @@ export default {
       },
       username: {
         required,
+        minLength: minLength(3),
         maxLength: maxLength(50),
       },
       password: {

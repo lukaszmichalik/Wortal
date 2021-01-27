@@ -141,15 +141,22 @@
             class="global_error"
             v-if="creatingTeamFailed == 'input error'"
           >
-            NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA. WYPEŁNIJ POPRAWNIE WSZYSTKIE POLA
+            NIE UDAŁO SIĘ UTWORZYĆ DRUŻYNY. WYPEŁNIJ POPRAWNIE WSZYSTKIE POLA
             FORMULARZA.
+          </label>
+          <label
+            id="create_team_error"
+            class="global_error"
+            v-if="creatingTeamFailed == 'team already exists'"
+          >
+            NIE UDAŁO SIĘ UTWORZYĆ DRUŻYNY. DRUŻYNA O WYBRANEJ NAZWIE JUŻ ISTNIEJE.
           </label>
           <label
             id="create_team_error"
             class="global_error"
             v-if="creatingTeamFailed == 'creating team failed'"
           >
-            NIE UDAŁO SIĘ UTWORZYĆ WYDARZENIA.
+            NIE UDAŁO SIĘ UTWORZYĆ DRUŻYNY.
           </label>
         </div>
 
@@ -200,7 +207,7 @@ export default {
       creatingTeamFailed: '',
       names: [''],
       selectedName: '',
-      loading: false,
+      loading: false
     };
   },
   computed: {
@@ -234,10 +241,28 @@ export default {
       } else {
         this.team.creationDate = Date.now();
         TeamService.createTeam(this.team).then(
+
+        () => {
           (this.successful = true),
           setTimeout(function () {
             that.$router.push('/yourTeams'), (that.loading = false);
           }, 500)
+          },
+          (error) => {
+            this.loading = false;
+                this.message =
+                  (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                  error.message ||
+                  error.toString();
+                  if(this.message == "Błąd: Taka nazwa drużyny już istnieje!") {
+                    this.creatingTeamFailed = 'team already exists';
+                  } else {
+                    this.creatingTeamFailed = 'creating team failed';
+                  }
+          }
+
         );
       }
     },
