@@ -121,7 +121,7 @@
     </v-card>
 
     <p id="team_overview_lower_caption" class="global_caption">Manager</p>
-    <v-card id="team_overview_participant" class="mx-auto ma-1" elevation="12">
+    <v-card id="team_overview_participant" class="mx-auto ma-1" elevation="12" width="80vw">
       <v-row>
         <v-col class="text-no-wrap">
           <v-card-title> imię i nazwisko:</v-card-title>

@@ -249,25 +249,46 @@ export default {
       } else {
         if (this.user.password == this.confirmPassword) {
           this.user.id = this.currentUser.id;
-          UserService.editUser(this.user).then(
-            () => {
-              setTimeout(function () {
-                that.$store.dispatch('auth/logout');
-                that.$router.push('/userProfileEdited');
-                that.loading = true;
-              }, 500);
-            },
-            (error) => {
-              this.loading = false;
-              this.message =
-                (error.response &&
-                  error.response.data &&
-                  error.response.data.message) ||
-                error.message ||
-                error.toString();
-              this.editFailed = 'edit failed';
-            }
-          );
+          if (this.user.username != this.currentUser.username) {
+            UserService.editUser(this.user).then(
+              () => {
+                setTimeout(function () {
+                  that.$store.dispatch('auth/logout');
+                  that.$router.push('/userProfileEdited');
+                  that.loading = true;
+                }, 500);
+              },
+              (error) => {
+                this.loading = false;
+                this.message =
+                  (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                  error.message ||
+                  error.toString();
+                this.editFailed = 'edit failed';
+              }
+            );
+          } else {
+            UserService.editUser(this.user).then(
+              () => {
+                setTimeout(function () {
+                  that.$router.push('/userProfile');
+                  that.loading = true;
+                }, 500);
+              },
+              (error) => {
+                this.loading = false;
+                this.message =
+                  (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                  error.message ||
+                  error.toString();
+                this.editFailed = 'edit failed';
+              }
+            );
+          }
         } else {
           this.editFailed = 'different passwords';
           this.loading = false;

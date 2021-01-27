@@ -65,13 +65,6 @@ class TeamService {
     })
   }
 
-  allUsersWithoutTeam() {
-    return axios.get(API_URL + 'allUsersWithoutTeam', { headers: authHeader() }).then(
-      response => {
-        return Promise.resolve(response.data)
-      })
-  }
-
   addUserToTeam(userId, teamId) {
     return axios.post(API_URL + 'addUserToTeam', {
       userId: userId,

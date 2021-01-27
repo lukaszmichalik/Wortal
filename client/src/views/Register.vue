@@ -247,7 +247,7 @@ export default {
       if (this.$v.$pendind || this.$v.$error) {
         this.registerFailed = 'input error';
       } else {
-        this.$store.dispatch('auth/register', this.user).then(
+        this.$store.dispatch('auth/register', this.user).then(      // wypakowujemy funkcję z tego store żeby jej tu użyć, a jak używamy mutacji to robimy 
           (data) => {
             this.message = data.message;
             this.$router.push('/Welcome');
