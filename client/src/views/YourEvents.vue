@@ -46,7 +46,7 @@
       <v-card-actions>
         <v-btn
           class="global_event_card_button"
-          :loading="loading"
+          :loading="loading && selectedBtn == event.id"
           @click="enterEventInfo(event.id)"
         >
           PRZEGLĄDAJ
