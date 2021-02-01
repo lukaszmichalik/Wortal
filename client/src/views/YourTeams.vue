@@ -2,6 +2,8 @@
   <v-app class="global_app">
     <p id="your_teams_caption" class="global_caption">Twoje drużyny</p>
 
+    <p v-if="teams == ''" class="global_no_items">brak drużyn</p>
+
     <v-card
       id="global_team_card"
       v-for="team in teams"

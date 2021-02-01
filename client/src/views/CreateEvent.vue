@@ -256,7 +256,6 @@
                     </v-col>
 
                     <v-col class="hidden-sm-and-down">
-                      <!-- chowa wiek, gdy za mało miejsca !-->
                       <v-card-title>wiek</v-card-title>
                       <v-card-text
                         v-text="calculateAge(user.dob) + ' lat'"

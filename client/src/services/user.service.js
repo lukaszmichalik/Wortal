@@ -5,10 +5,6 @@ const API_URL = 'http://localhost:8080/api/user/';
 
 class UserService {
 
-  getAdminBoard() {
-    return axios.get(API_URL + 'admin', { headers: authHeader() });
-  }
-
   editUser(user) {
     return axios.post(API_URL + 'editUser', {
 

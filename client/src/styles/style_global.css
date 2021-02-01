@@ -162,6 +162,12 @@
   word-break: keep-all;
 }
 
+.global_no_items {
+  color: #ffffff;
+  font-size: 20px;
+  text-align: center;
+}
+
 .global_search {
   background-color: #ffffff;
   width: 60vw;

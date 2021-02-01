@@ -2,6 +2,8 @@
   <v-app class="global_app">
     <p id="your_events_caption" class="global_caption">Twoje wydarzenia</p>
 
+    <p  v-if="events==''" class="global_no_items">brak wydarzeń</p>
+
     <v-card
       id="event_card"
       v-for="event in events"

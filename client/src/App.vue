@@ -13,7 +13,6 @@
         <v-toolbar-title id="toolbar_title">Wortal piłkarski</v-toolbar-title>
 
         <div v-if="currentUser" class="navbar-nav ml-auto">
-          <!-- umieszcza LOGOUT po lewej stronie toolbara !-->
           <li class="nav-item">
             <a class="nav-link" @click.prevent="logout">WYLOGUJ </a>
           </li>
