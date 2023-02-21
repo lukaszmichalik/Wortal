@@ -1,9 +1,0 @@
-INSERT INTO events VALUES(101, 'ul. Kwiatowa', 'Wrocław','1970-10-12','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!',  '12', 'hala', '21:30',  3);
-INSERT INTO events VALUES(102, 'ul. Grzybowa', 'Kraków', '1970-10-12','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!', '10', 'tartan', '11:30', 2);
-INSERT INTO events VALUES(103, 'ul. Fiołkowa', 'Bytom', '1970-10-12','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!', '14', 'hala', '21:00', 2);
-INSERT INTO events VALUES(104, 'ul. Makowa', 'Zabrze', '1970-10-12','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!','16','naturalna', '05:30', 1);
-INSERT INTO events VALUES(105, 'ul. Masłowa', 'Gliwice', '1970-10-12','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!','24', 'naturalna','07:30', 1);
-INSERT INTO events VALUES(106, 'ul. Sienkiewicza', 'Katowice', '1970-10-12','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!','12','tartan','21:30', 1);
-INSERT INTO events VALUES(107, 'ul. Krakowska', 'Poznań', '1970-10-12','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!', '12', 'tartan','08:30', 1 );
-INSERT INTO events VALUES(108, 'ul. Piłsudzkiego', 'Lublin', '1970-10-12','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!','10', 'sztuczna', '15:30', 2 );
-INSERT INTO events VALUES(109, 'ul. Krzakowska', 'Toruń', '1970-10-12','Cześć, tu Michał organizator. Sptykamy się 15 min przed czasem aby ustalić składy i się rozgrzać. Do zobaczenia!','8', 'sztuczna', '16:30',3 );

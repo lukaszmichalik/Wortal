@@ -33,7 +33,6 @@ public class Team implements Serializable {
     @Column
     private Date creationDate;
 
-
     @Size(max = 250)
     private String description;
 
