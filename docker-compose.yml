@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  wortal-service-app:
+    build: ./service
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:postgresql://database/wortal_db
+  database:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgre
+      POSTGRES_DB: wortal_db
+    ports:
+      - "5432:5432"
