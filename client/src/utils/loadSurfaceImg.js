@@ -12,7 +12,7 @@ class LoadSurfaceImg {
       case 'tartan':
         return images('./' + surface + '.jpg');
       default:
-        console.log('image error');
+        break;
     }
   }
 

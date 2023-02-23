@@ -86,6 +86,8 @@ export default {
     showAdminBoard() {
       if (this.currentUser && this.currentUser.roles) {
         return this.currentUser.roles.includes('ROLE_ADMIN');
+      }else{
+        return false;
       }
     },
   },
