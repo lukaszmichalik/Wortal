@@ -5,7 +5,7 @@ const API_URL = 'http://localhost:8080/api/event/';
 
 class EventService {
     getEvent(id) {
-        return axios.post(API_URL + 'getEvent', {
+        return axios.post(API_URL + 'get-event', {
             id: id
         }, { headers: authHeader() }).then(response => {
             localStorage.setItem('event', JSON.stringify(response.data))
@@ -13,7 +13,7 @@ class EventService {
     }
 
     createEvent(event) {
-        return axios.post(API_URL + 'createEvent', {
+        return axios.post(API_URL + 'create-event', {
             city: event.city,
             address: event.address,
             date: event.date,
@@ -30,14 +30,14 @@ class EventService {
     }
 
     allEvents() {
-        return axios.get(API_URL + 'allEvents', { headers: authHeader() }).then(
+        return axios.get(API_URL + 'get-all-events', { headers: authHeader() }).then(
             response => {
                 return Promise.resolve(response.data)
             })
     }
 
-    notAttendedEvents(id) {
-        return axios.post(API_URL + 'notAttendedEvents', {
+    getEventsNotAttendedByUser(id) {
+        return axios.post(API_URL + 'get-events-not-attended-by-user', {
             id: id
         }, { headers: authHeader() }).then(
             response => {
@@ -46,7 +46,7 @@ class EventService {
     }
 
     deleteEvent(id) {
-        return axios.post(API_URL + 'deleteEvent', {
+        return axios.post(API_URL + 'delete-event', {
             id: id
         }, { headers: authHeader() }).then(
             response => {
@@ -55,7 +55,7 @@ class EventService {
     }
 
     getUserEvents(id) {
-        return axios.post(API_URL + 'getUserEvents', {
+        return axios.post(API_URL + 'get-user-events', {
             id: id
         }, { headers: authHeader() }).then(response => {
             return Promise.resolve(response.data.events)
@@ -63,14 +63,14 @@ class EventService {
     }
 
     addUserToEvent(userId, eventId) {
-        return axios.post(API_URL + 'addUserToEvent', {
+        return axios.post(API_URL + 'add-user-to-event', {
             userId: userId,
             eventId: eventId
         }, { headers: authHeader() })
     }
 
     deleteUserFromEvent(userId, eventId) {
-        return axios.post(API_URL + 'deleteUserFromEvent', {
+        return axios.post(API_URL + 'delete-user-from-event', {
             userId: userId,
             eventId: eventId
         }, { headers: authHeader() })

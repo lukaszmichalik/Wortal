@@ -12,7 +12,7 @@ public interface EventService {
 
     ResponseEntity<?> getEvent(IdRequest idRequest);
     ResponseEntity<?> createEvent(CreateEventRequest createEventRequest);
-    List<Event> allEvents();
+    List<Event> getAllEvents();
     List<Event> getEventsNotAttendedByUser(IdRequest idRequest);
     ResponseEntity<?> deleteEvent(IdRequest idRequest);
     ResponseEntity<?> getUserEvents(IdRequest idRequest);

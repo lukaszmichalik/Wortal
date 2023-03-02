@@ -20,14 +20,14 @@ public class EventController {
     @Autowired
     EventService eventService;
 
-    @PostMapping("/getEvent")
+    @PostMapping("/get-event")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getEvent(@RequestBody IdRequest idRequest) {
 
         return eventService.getEvent(idRequest);
     }
 
-    @PostMapping("/createEvent")
+    @PostMapping("/create-event")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> createEvent(@RequestBody CreateEventRequest createEventRequest) {
 
@@ -35,15 +35,15 @@ public class EventController {
 
     }
 
-    @GetMapping("/allEvents")
+    @GetMapping("/get-all-events")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
-    List<Event> allEvents() {
+    List<Event> getAllEvents() {
 
-        return eventService.allEvents();
+        return eventService.getAllEvents();
     }
 
-    @PostMapping("/notAttendedEvents")
+    @PostMapping("/get-events-not-attended-by-user")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
     public List<Event> getEventsNotAttendedByUser(@RequestBody IdRequest idRequest) {
@@ -51,7 +51,7 @@ public class EventController {
         return eventService.getEventsNotAttendedByUser(idRequest);
     }
 
-    @PostMapping("/deleteEvent")
+    @PostMapping("/delete-event")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
     public ResponseEntity<?> deleteEvent(@RequestBody IdRequest idRequest) {
@@ -59,21 +59,21 @@ public class EventController {
         return eventService.deleteEvent(idRequest);
     }
 
-    @PostMapping("/getUserEvents")
+    @PostMapping("/get-user-events")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getUserEvents(@RequestBody IdRequest idRequest) {
 
         return eventService.getUserEvents(idRequest);
     }
 
-    @PostMapping("/addUserToEvent")
+    @PostMapping("/add-user-to-event")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> addUserToEvent(@RequestBody EventUserIdsRequest eventUserIdsRequest) {
 
         return eventService.addUserToEvent(eventUserIdsRequest);
     }
 
-    @PostMapping("/deleteUserFromEvent")
+    @PostMapping("/delete-user-from-event")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> deleteUserFromEvent(@RequestBody EventUserIdsRequest eventUserIdsRequest) {
 

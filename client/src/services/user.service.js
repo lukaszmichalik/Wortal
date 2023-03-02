@@ -6,7 +6,7 @@ const API_URL = 'http://localhost:8080/api/user/';
 class UserService {
 
   editUser(user) {
-    return axios.post(API_URL + 'editUser', {
+    return axios.post(API_URL + 'edit-user', {
 
       id: user.id,
       name: user.name,
@@ -33,25 +33,18 @@ class UserService {
     });
   }
 
-
-
   deleteUser(id) {
-    return axios.post(API_URL + 'deleteUser', {
+    return axios.post(API_URL + 'delete-user', {
       id: id
     }, { headers: authHeader() })
   }
 
-  allUsers() {
-    return axios.get(API_URL + 'allUsers', { headers: authHeader() }).then(
+  getAllUsers() {
+    return axios.get(API_URL + 'get-all-users', { headers: authHeader() }).then(
       response => {
         return Promise.resolve(response.data)
       }, { headers: authHeader() })
   }
-
-
-
-
-
 }
 
 export default new UserService();

@@ -6,7 +6,7 @@ const API_URL = 'http://localhost:8080/api/team/';
 class TeamService {
 
   createTeam(team) {
-    return axios.post(API_URL + 'createTeam', {
+    return axios.post(API_URL + 'create-team', {
       name: team.name,
       location: team.location,
       creationDate: team.creationDate,
@@ -26,7 +26,7 @@ class TeamService {
   }
 
   getTeam(id) {
-    return axios.post(API_URL + 'getTeam', {
+    return axios.post(API_URL + 'get-team', {
       id: id
     }, { headers: authHeader() }).then(response => {
       localStorage.setItem('team', JSON.stringify(response.data))
@@ -34,7 +34,7 @@ class TeamService {
   }
 
   getTeamTest(id) {
-    return axios.post(API_URL + 'getTeam', {
+    return axios.post(API_URL + 'get-team', {
       id: id
     }, { headers: authHeader() }).then(response => {
       return Promise.resolve(response.data)
@@ -43,22 +43,22 @@ class TeamService {
 
 
   allTeams() {
-    return axios.get(API_URL + 'allTeams', { headers: authHeader() }).then(
+    return axios.get(API_URL + 'get-all-teams', { headers: authHeader() }).then(
       response => {
         return Promise.resolve(response.data)
       })
   }
 
   getUserTeams(id) {
-    return axios.post(API_URL + 'getUserTeams', {
+    return axios.post(API_URL + 'get-user-teams', {
       id: id
     }, { headers: authHeader() }).then(response => {
       return Promise.resolve(response.data.teams)
     })
   }
 
-  getUserManagedTeams(id) {
-    return axios.post(API_URL + 'getUserManagedTeams', {
+  getTeamsManagedByUser(id) {
+    return axios.post(API_URL + 'get-teams-managed-by-user', {
       id: id
     }, { headers: authHeader() }).then(response => {
       return Promise.resolve(response.data.teams)
@@ -66,21 +66,21 @@ class TeamService {
   }
 
   addUserToTeam(userId, teamId) {
-    return axios.post(API_URL + 'addUserToTeam', {
+    return axios.post(API_URL + 'add-user-to-team', {
       userId: userId,
       teamId: teamId
     }, { headers: authHeader() })
   }
 
   deleteUserFromTeam(userId, teamId) {
-    return axios.post(API_URL + 'deleteUserFromTeam', {
+    return axios.post(API_URL + 'delete-user-from-team', {
       userId: userId,
       teamId: teamId
     }, { headers: authHeader() })
   }
 
   deleteTeam(id) {
-    return axios.post(API_URL + 'deleteTeam', {
+    return axios.post(API_URL + 'delete-team', {
       id: id
     }, { headers: authHeader() }).then(
       response => {

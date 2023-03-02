@@ -19,21 +19,21 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/editUser")
+    @PostMapping("/edit-user")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> editUser(@RequestBody EditUserRequest editUser) {
 
         return userService.editUser(editUser);
     }
 
-    @PostMapping("/deleteUser")
+    @PostMapping("/delete-user")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> deleteUser(@RequestBody IdRequest idRequest) {
 
         return userService.deleteUser(idRequest);
     }
 
-    @GetMapping("/allUsers")
+    @GetMapping("/get-all-users")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
     List<User> allUsers() {

@@ -68,7 +68,7 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     } else {
-      TeamService.getUserManagedTeams(this.currentUser.id).then((data) => {
+      TeamService.getTeamsManagedByUser(this.currentUser.id).then((data) => {
         for (let i = 0; i < data.length; i++) {
           this.userManagedTeamsIds.push(data[i].id);
         }

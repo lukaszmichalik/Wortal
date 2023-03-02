@@ -126,7 +126,7 @@ export default {
       var userManagedTeamsIds = [];
 
       setTimeout(function () {
-        TeamService.getUserManagedTeams(userId).then((data) => {
+        TeamService.getTeamsManagedByUser(userId).then((data) => {
           for (let i = 0; i < data.length; i++) {
             userManagedTeamsIds.push(data[i].id);
           }
@@ -154,7 +154,7 @@ export default {
         this.$router.push('/yourEvents');
       }
 
-      UserService.allUsers().then((data) => {
+      UserService.getAllUsers().then((data) => {
         for (let i = 0; i < data.length; i++) {
           this.names.push(data[i].name);
         }

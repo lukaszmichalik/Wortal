@@ -70,7 +70,7 @@ public class EventServiceImpl implements EventService {
         return ResponseEntity.ok(new MessageResponse("Twoje wydarzenie zostało poprawnie opublikowane!"));
     }
 
-    public List<Event> allEvents() {
+    public List<Event> getAllEvents() {
 
         return eventRepository.findAll();
     }

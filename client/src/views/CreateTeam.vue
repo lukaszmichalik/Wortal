@@ -287,7 +287,7 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
-    UserService.allUsers().then((data) => {
+    UserService.getAllUsers().then((data) => {
       for (let i = 0; i < data.length; i++) {
         this.names.push(data[i].name);
       }

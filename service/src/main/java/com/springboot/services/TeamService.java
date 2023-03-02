@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.Set;
 
 public interface TeamService {
-    List<Team> selectAllTeams();
-    ResponseEntity<?> createNewTeam(CreateTeamRequest createTeamRequest);
-    ResponseEntity<?> removeTeam(IdRequest idRequest);
-    ResponseEntity<?> selectTeam(IdRequest idRequest);
-    ResponseEntity<?> selectUserTeams(IdRequest idRequest);
-    ResponseEntity<?> selectUserManagedTeams(IdRequest idRequest);
-    Set<User> selectAllUsersWithoutTeam();
-    ResponseEntity<?> attachUserToTeam(TeamUserIdsRequest teamUserIdsRequest);
-    ResponseEntity<?> removeUserFromTeam(TeamUserIdsRequest teamUserIdsRequest);
+    List<Team> getAllTeams();
+    ResponseEntity<?> createTeam(CreateTeamRequest createTeamRequest);
+    ResponseEntity<?> deleteTeam(IdRequest idRequest);
+    ResponseEntity<?> getTeam(IdRequest idRequest);
+    ResponseEntity<?> getUserTeams(IdRequest idRequest);
+    ResponseEntity<?> getTeamsManagedByUser(IdRequest idRequest);
+    Set<User> getAllUsersWithoutTeam();
+    ResponseEntity<?> addUserToTeam(TeamUserIdsRequest teamUserIdsRequest);
+    ResponseEntity<?> deleteUserFromTeam(TeamUserIdsRequest teamUserIdsRequest);
 }

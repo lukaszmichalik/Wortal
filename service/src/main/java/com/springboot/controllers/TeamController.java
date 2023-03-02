@@ -23,69 +23,69 @@ public class TeamController {
     TeamService teamService;
 
 
-    @GetMapping("/allTeams")
+    @GetMapping("/get-all-teams")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
-    List<Team> allTeams(){
+    List<Team> getAllTeams(){
 
-        return teamService.selectAllTeams();
+        return teamService.getAllTeams();
     }
 
-    @PostMapping("/createTeam")
+    @PostMapping("/create-team")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> createTeam(@RequestBody CreateTeamRequest createTeamRequest){
 
-        return teamService.createNewTeam(createTeamRequest);
+        return teamService.createTeam(createTeamRequest);
     }
 
-    @PostMapping("/deleteTeam")
+    @PostMapping("/delete-team")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
     public ResponseEntity<?> deleteTeam(@RequestBody IdRequest idRequest){
 
-        return teamService.removeTeam(idRequest);
+        return teamService.deleteTeam(idRequest);
     }
 
-    @PostMapping("/getTeam")
+    @PostMapping("/get-team")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getTeam(@RequestBody IdRequest idRequest){
 
-        return teamService.selectTeam(idRequest);
+        return teamService.getTeam(idRequest);
     }
 
-    @PostMapping("/getUserTeams")
+    @PostMapping("/get-user-teams")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getUserTeams(@RequestBody IdRequest idRequest) {
 
-        return teamService.selectUserTeams(idRequest);
+        return teamService.getUserTeams(idRequest);
     }
 
-    @PostMapping("/getUserManagedTeams")
+    @PostMapping("/get-teams-managed-by-user")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<?> getUserManagedTeams(@RequestBody IdRequest idRequest) {
+    public ResponseEntity<?> getTeamsManagedByUser(@RequestBody IdRequest idRequest) {
 
-        return teamService.selectUserManagedTeams(idRequest);
+        return teamService.getTeamsManagedByUser(idRequest);
     }
 
-    @GetMapping("/allUsersWithoutTeam")
+    @GetMapping("/get-all-users-without-team")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseBody
-    Set<User> allUsersWithoutTeam() {
+    Set<User> getAllUsersWithoutTeam() {
 
-        return teamService.selectAllUsersWithoutTeam();
+        return teamService.getAllUsersWithoutTeam();
     }
 
-    @PostMapping("/addUserToTeam")
+    @PostMapping("/add-user-to-team")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> addUserToTeam(@RequestBody TeamUserIdsRequest teamUserIdsRequest) {
 
-        return teamService.attachUserToTeam(teamUserIdsRequest);
+        return teamService.addUserToTeam(teamUserIdsRequest);
     }
 
-    @PostMapping("/deleteUserFromTeam")
+    @PostMapping("/delete-user-from-team")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> deleteUserFromTeam(@RequestBody TeamUserIdsRequest teamUserIdsRequest) {
 
-        return teamService.removeUserFromTeam(teamUserIdsRequest);
+        return teamService.deleteUserFromTeam(teamUserIdsRequest);
     }
 }

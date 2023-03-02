@@ -29,12 +29,13 @@ public class TeamServiceImpl implements TeamService {
     UserRepository userRepository;
 
     @Override
-    public List<Team> selectAllTeams() {
+    public List<Team> getAllTeams() {
+
         return teamRepository.findAll();
     }
 
     @Override
-    public ResponseEntity<?> createNewTeam(CreateTeamRequest createTeamRequest) {
+    public ResponseEntity<?> createTeam(CreateTeamRequest createTeamRequest) {
 
         User manager = userRepository.getOne(createTeamRequest.getManager_id());
 
@@ -69,7 +70,7 @@ public class TeamServiceImpl implements TeamService {
         return ResponseEntity.ok(new IdResponse(teamupdate.getId()));
     }
 
-    public ResponseEntity<?> removeTeam(IdRequest idRequest) {
+    public ResponseEntity<?> deleteTeam(IdRequest idRequest) {
 
         Team team = teamRepository.getOne(idRequest.getId());
 
@@ -94,7 +95,7 @@ public class TeamServiceImpl implements TeamService {
 
     }
 
-    public ResponseEntity<?> selectTeam(IdRequest idRequest) {
+    public ResponseEntity<?> getTeam(IdRequest idRequest) {
         Team team = teamRepository.getOne(idRequest.getId());
         return ResponseEntity.ok(new TeamResponse(team.getId(),
                 team.getName(),
@@ -106,19 +107,22 @@ public class TeamServiceImpl implements TeamService {
         );
     }
 
-    public ResponseEntity<?> selectUserTeams(IdRequest idRequest) {
+    public ResponseEntity<?> getUserTeams(IdRequest idRequest) {
+
         User user = userRepository.getOne(idRequest.getId());
 
         return ResponseEntity.ok(new UserTeamsResponse(user.getTeams()));
     }
 
-    public ResponseEntity<?> selectUserManagedTeams(IdRequest idRequest) {
+    public ResponseEntity<?> getTeamsManagedByUser(IdRequest idRequest) {
+
         User user = userRepository.getOne(idRequest.getId());
 
         return ResponseEntity.ok(new UserTeamsResponse(user.getManagedTeams()));
     }
 
-    public Set<User> selectAllUsersWithoutTeam() {
+    public Set<User> getAllUsersWithoutTeam() {
+
         List<User> allUsers = userRepository.findAll();
         Set<User> usersWithoutTeam = new HashSet<>();
 
@@ -131,7 +135,7 @@ public class TeamServiceImpl implements TeamService {
         return usersWithoutTeam;
     }
 
-    public ResponseEntity<?> attachUserToTeam(TeamUserIdsRequest teamUserIdsRequest) {
+    public ResponseEntity<?> addUserToTeam(TeamUserIdsRequest teamUserIdsRequest) {
         Team team = teamRepository.getOne(teamUserIdsRequest.getTeamId());
         User user = userRepository.getOne(teamUserIdsRequest.getUserId());
         Set<Team> userTeams = user.getTeams();
@@ -142,7 +146,7 @@ public class TeamServiceImpl implements TeamService {
         return ResponseEntity.ok(new MessageResponse("Poprawnie dodano Cię do drużyny !"));
     }
 
-    public ResponseEntity<?> removeUserFromTeam(TeamUserIdsRequest teamUserIdsRequest) {
+    public ResponseEntity<?> deleteUserFromTeam(TeamUserIdsRequest teamUserIdsRequest) {
         Team team = teamRepository.getOne(teamUserIdsRequest.getTeamId());
         User user = userRepository.getOne(teamUserIdsRequest.getUserId());
         Set<Team> userTeams = user.getTeams();

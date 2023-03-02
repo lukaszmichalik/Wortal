@@ -164,7 +164,7 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     } else {
-      EventService.notAttendedEvents(this.currentUser.id).then((data) => {
+      EventService.getEventsNotAttendedByUser(this.currentUser.id).then((data) => {
         this.events = data;
       });
     }
