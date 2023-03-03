@@ -9,7 +9,6 @@ public class TeamUserIdsRequest {
     @NotBlank
     private Long teamId;
 
-
     public Long getUserId() {
         return userId;
     }

@@ -1,10 +1,7 @@
 package com.springboot.payload.response;
 
-
 public class IdResponse {
     private Long id;
-
-
 
     public IdResponse(Long id) {
         this.id = id;

@@ -101,5 +101,4 @@ public class JwtResponse {
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
-
 }

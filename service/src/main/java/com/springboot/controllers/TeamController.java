@@ -33,7 +33,7 @@ public class TeamController {
 
     @PostMapping("/create-team")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<?> createTeam(@RequestBody CreateTeamRequest createTeamRequest){
+    public ResponseEntity<?> createTeam(@RequestBody CreateTeamRequest createTeamRequest) {
 
         return teamService.createTeam(createTeamRequest);
     }

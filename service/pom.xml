@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.springboot</groupId>
-	<artifactId>spring-boot-security-postgresql</artifactId>
+	<artifactId>wortal-service-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-security-postgresql</name>
+	<name>wortal-service-app</name>
 
 	<properties>
 		<java.version>15</java.version>

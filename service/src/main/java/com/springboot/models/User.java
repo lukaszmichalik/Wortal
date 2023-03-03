@@ -1,15 +1,10 @@
 package com.springboot.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.lang.Nullable;
-
-
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

@@ -1,10 +1,6 @@
 package com.springboot.models;
 
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -63,9 +59,7 @@ public class Event implements Serializable{
                  ESurface surface,
                  String limitation,
                  String description,
-                 User organizer
-
-    ) {
+                 User organizer) {
         this.city = city;
         this.address = address;
         this.date = date;
@@ -157,5 +151,3 @@ public class Event implements Serializable{
         this.time = time;
     }
 }
-
-

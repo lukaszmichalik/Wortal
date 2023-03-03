@@ -1,21 +1,18 @@
 package com.springboot.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(	name = "teams",
+@Table(name = "teams",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "name")
+            @UniqueConstraint(columnNames = "name")
         })
 public class Team implements Serializable {
     @Id

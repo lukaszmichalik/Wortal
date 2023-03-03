@@ -20,8 +20,7 @@ public class TeamResponse {
                          Date creationDate,
                          String description,
                          Set<User> players,
-                         User manager)
-    {
+                         User manager) {
         this.id = id;
         this.name = name;
         this.location = location;

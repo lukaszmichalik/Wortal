@@ -10,7 +10,6 @@ public class EventUserIdsRequest {
     @NotBlank
     private Long eventId;
 
-
     public Long getUserId() {
         return userId;
     }

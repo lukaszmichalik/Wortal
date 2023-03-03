@@ -7,10 +7,6 @@ import java.util.Set;
 public class UserEventsResponse {
     private Set<Event> events;
 
-    // soon to be deleted
-//    private Long playersNumber;
-
-
     public UserEventsResponse(Set<Event> events) {
         this.events = events;
     }

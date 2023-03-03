@@ -28,8 +28,7 @@ public class EventResponse {
                          String limitation,
                          String description,
                          Set<User> participants,
-                         User organizer)
-    {
+                         User organizer) {
 
         this.id = id;
         this.city = city;

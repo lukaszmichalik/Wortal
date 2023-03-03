@@ -6,15 +6,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springboot.models.EPosition;
-import com.springboot.models.Team;
 import com.springboot.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
@@ -129,6 +125,4 @@ public class UserDetailsImpl implements UserDetails {
 		UserDetailsImpl user = (UserDetailsImpl) o;
 		return Objects.equals(id, user.id);
 	}
-
-
 }

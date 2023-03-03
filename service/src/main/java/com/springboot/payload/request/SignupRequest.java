@@ -1,6 +1,5 @@
 package com.springboot.payload.request;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springboot.models.EPosition;
 
 import java.sql.Date;
@@ -85,5 +84,4 @@ public class SignupRequest {
     public void setRole(Set<String> role) {
       this.role = role;
     }
-
 }
