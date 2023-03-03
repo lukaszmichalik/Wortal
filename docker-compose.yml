@@ -9,6 +9,8 @@ services:
       POSTGRES_DB: wortal_db
     ports:
       - "5432:5432"
+    volumes:
+      - database_data:/var/lib/postgresql/data
 
   service-app:
     build: ./service
@@ -24,3 +26,6 @@ services:
     build: ./client
     ports:
       - "8081:8081"
+
+volumes:
+  database_data:
