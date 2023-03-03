@@ -15,6 +15,7 @@ services:
     ports:
       - "8080:8080"
     environment:
+      database.host: database
       DB_URL: jdbc:postgresql://database/wortal_db
     depends_on:
       - database

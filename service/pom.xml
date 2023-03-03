@@ -17,6 +17,7 @@
 		<java.version>15</java.version>
 		<flyway.user>postgres</flyway.user>
 		<flyway.password>postgre</flyway.password>
+		<database.host>localhost</database.host>
 	</properties>
 
 	<dependencies>
@@ -82,7 +83,7 @@
 					<schemas>
 						<schema>public</schema>
 					</schemas>
-					<url>jdbc:postgresql://localhost:5432/wortal_db</url>
+					<url>jdbc:postgresql://${database.host}:5432/wortal_db</url>
 					<locations>
 						<location>filesystem:src/main/resources/db/migration</location>
 					</locations>
