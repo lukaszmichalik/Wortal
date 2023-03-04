@@ -50,7 +50,7 @@ public class User implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JsonIgnore
-	@JoinTable(	name = "user_roles", 
+	@JoinTable(	name = "users_roles",
 				joinColumns = @JoinColumn(name = "user_id"),
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
@@ -58,7 +58,7 @@ public class User implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JsonIgnore
-	@JoinTable(	name = "user_events",
+	@JoinTable(	name = "users_events",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "event_id"))
 	private Set<Event> events = new HashSet<>();
@@ -69,7 +69,7 @@ public class User implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JsonIgnore
-	@JoinTable(	name = "user_teams",
+	@JoinTable(	name = "users_teams",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "team_id"))
 	private Set<Team> teams = new HashSet<>();

@@ -1,4 +1,4 @@
-CREATE TABLE user_teams (
+CREATE TABLE users_teams (
     user_id integer not null,
     team_id integer not null,
     primary key (user_id, team_id),
