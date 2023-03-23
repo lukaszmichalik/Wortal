@@ -6,7 +6,7 @@
 Welcome screen:
 ---
 
-![welcome](screens/welcome_screen.png)
+![welcome](docs/screens/welcome_screen.png)
 <br><br>
 
 # Running the App
@@ -31,18 +31,18 @@ Note: `maven`, `docker` and `docker compose` must be installed and the `docker d
 
 `docker-compose` and `docker containers` workflow chart:
 
-![flowchart](wortal_containers_flowchart.png)
+![flowchart](docs/wortal_containers_flowchart.png)
 <br><br>
 
 # ER Diagrams
 
 ## Conceptual ER diagram:
 
-![ERD conceptual](wortal_conceptual_ERD.png)
+![ERD conceptual](docs/wortal_conceptual_ERD.png)
 
 ## Physical ER diagram:
 
-![ERD physical](wortal_physical_ERD.png)
+![ERD physical](docs/wortal_physical_ERD.png)
 <br><br>
 
 # Interface & Features
@@ -53,55 +53,55 @@ Authentication & Authorization was implemented with a use of `Spring Security` a
 
 `JWT` authentication and authorization flow chart:
 
-![jwt](jwt_authentication_flow.png)
+![jwt](docs/jwt_authentication_flow.png)
 
 sign in screen:
 ---
-![signin](screens/signin_screen.png)
+![signin](docs/screens/signin_screen.png)
 
 sign up screen:
 ---
-![singup](screens/signup_screen.png)
+![singup](docs/screens/signup_screen.png)
 <br><br>
 
 # Events - main views & features
 
 Events Overview screen:
 ---
-![events_overview](screens/events_overview.png)
+![events_overview](docs/screens/events_overview.png)
 
 Event Details screen:
 ---
-![event_details](screens/event_details.png)
+![event_details](docs/screens/event_details.png)
 
 Create Event screen:
 ---
-![create_event](screens/create_event.png)
+![create_event](docs/screens/create_event.png)
 
 Create Event screen - adding participants:
 ---
-![add_participants](screens/create_event_add_participants.png)
+![add_participants](docs/screens/create_event_add_participants.png)
 <br><br>
 # Teams - main views & features
 
 Create Team screen:
 ---
-![create_team](screens/create_team.png)
+![create_team](docs/screens/create_team.png)
 
 Teams Overview screen:
 ---
-![teams_overview](screens/teams_overview.png)
+![teams_overview](docs/screens/teams_overview.png)
 
 Team Details screen:
 ---
-![team_details](screens/team_details.png)
+![team_details](docs/screens/team_details.png)
 <br><br>
 
 ## User Profile
 
-![user_profile](screens/user_profile_screen.png)
+![user_profile](docs/screens/user_profile_screen.png)
 <br><br>
 
 ## Administrator panel
 
-![administrator_panel](screens/administrator_panel.png)
+![administrator_panel](docs/screens/administrator_panel.png)
